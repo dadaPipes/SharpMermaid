@@ -1,8 +1,14 @@
 ﻿namespace SharpMermaid;
-public class MermaidGenerator
+public static class MermaidGenerator
 {
     public static string ProjectNode(string projectName)
     {
-        throw new NotImplementedException();
+        return
+        $"""
+        ```mermaid
+        graph TD
+          {projectName}
+        ```
+        """;
     }
 }
