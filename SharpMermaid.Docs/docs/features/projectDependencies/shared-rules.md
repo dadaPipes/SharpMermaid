@@ -7,5 +7,5 @@ uid: project-dependencies-shared-rules
 - The diagram **must** include a node for each project in the solution.
 - Each project **may** include one or multiple dependencies.
 - The diagram **may** represent dependencies between projects in the solution.
-- Each project node **may** include a 
+- Each project node **may** include a clickable url
 - Nodes **must** be interactive, supporting tooltips and click actions.
