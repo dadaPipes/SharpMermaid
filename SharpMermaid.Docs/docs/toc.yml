@@ -1,0 +1,10 @@
+### YamlMime:ManagedReference
+
+- name: Welcome to SharpMermaid
+  href: ../index.md
+- name: Getting Started
+  href: getting-started.md
+- name: Features
+  items:
+  - name: Project Dependencies
+    href: features/projectDependencies/toc.yml

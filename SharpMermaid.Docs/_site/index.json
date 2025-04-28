@@ -1,0 +1,37 @@
+{
+  "docs/features/projectDependencies/clickableNode.html": {
+    "href": "docs/features/projectDependencies/clickableNode.html",
+    "title": "Clickable Project Node | SharpMermaid",
+    "summary": "Clickable Project Node Description As a Developer, I want to click on a project node and navigate to the class diagram of that project, So that I can get a deeper understanding of the project. Rules A project node may contain a url link Scenarios Add url Link to Project Node Given a project node exist in the project dependency diagram Then the diagram should include a url to the class diagram of that project"
+  },
+  "docs/features/projectDependencies/interactivity.html": {
+    "href": "docs/features/projectDependencies/interactivity.html",
+    "title": "Tooltip Showing description | SharpMermaid",
+    "summary": "Tooltip Showing description Description As a developer, I want to see the project description of when I hover over the node, So that I can get a light understanding of the project, without navigating away from the diagram. Rules A project node may contain a description Scenarios Add Tooltip to Project Node Given a project contains metadata of its description When the project dependency diagram is generated Then the diagram should include a tooltip containing the description Project does not have a description Given a project does not contains metadata of its description When the project dependency diagram is generated Then the diagram should include a tooltip containing the \"no description available\" And have an icon of a red dot, to indicate that no description is available"
+  },
+  "docs/features/projectDependencies/logical-dependencies.html": {
+    "href": "docs/features/projectDependencies/logical-dependencies.html",
+    "title": "Logical Dependencies | SharpMermaid",
+    "summary": "Logical Dependencies Description As a developer, I want to generate a diagram that accurately captures the logical arrangement of projects in the solution So that I can understand how projects are grouped and interconnected. Rules bin and obj must not appear in the generated diagram. Only .csproj files are included in the diagram The diagram must include a node for each project in the solution. Each project may include one or multiple dependencies. The diagram may represent dependencies between projects in the solution. Each project node may include a Nodes must be interactive, supporting tooltips and click actions. Scenarios Generate Diagram Representing Logical Structure Given the solution folder contains multiple projects with dependencies When the diagram is generated Then the diagram should: Include nodes representing projects. Represent the logical hierarchy of projects and folders. Include arrows representing dependencies between projects."
+  },
+  "docs/features/projectDependencies/physical-dependencies.html": {
+    "href": "docs/features/projectDependencies/physical-dependencies.html",
+    "title": "Physical Dependencies | SharpMermaid",
+    "summary": "Physical Dependencies Description As a developer, I want to generate a diagram that accurately reflects the physical arrangement of projects and files on disk, So that I can analyze the hierarchy and structure of the solution. Rules bin and obj must not appear in the generated diagram. Only .csproj files are included in the diagram The diagram must include a node for each project in the solution. Each project may include one or multiple dependencies. The diagram may represent dependencies between projects in the solution. Each project node may include a Nodes must be interactive, supporting tooltips and click actions. Scenarios Generate Diagram Representing Physical Structure Given the solution folder contains multiple projects with dependencies When the diagram is generated Then the diagram should: Include nodes representing projects. Represent the physical hierarchy of files on disk. Include arrows representing dependencies between projects."
+  },
+  "docs/features/projectDependencies/shared-rules.html": {
+    "href": "docs/features/projectDependencies/shared-rules.html",
+    "title": "| SharpMermaid",
+    "summary": "bin and obj must not appear in the generated diagram. Only .csproj files are included in the diagram The diagram must include a node for each project in the solution. Each project may include one or multiple dependencies. The diagram may represent dependencies between projects in the solution. Each project node may include a Nodes must be interactive, supporting tooltips and click actions."
+  },
+  "docs/getting-started.html": {
+    "href": "docs/getting-started.html",
+    "title": "Getting Started | SharpMermaid",
+    "summary": "Getting Started Bacon ipsum dolor amet bacon hamburger doner beef tail, boudin ribeye biltong. Pastrami meatball ball tip bacon pig turkey. Meatball short loin pig turkey shoulder pork belly. T-bone drumstick pastrami cupim shoulder ribeye sausage, strip steak turducken shankle jowl kevin beef ribs bacon short loin. Sirloin pig shank tri-tip t-bone jerky bacon tail, hamburger landjaeger swine. Hamburger pancetta chislic fatback, tongue tri-tip bacon capicola pastrami ground round beef ribs venison."
+  },
+  "index.html": {
+    "href": "index.html",
+    "title": "Welcome to SharpMermaid | SharpMermaid",
+    "summary": "Welcome to SharpMermaid Important Under construction Document C# code in Markdown using Mermaid diagrams. This project is a C# library that generates Markdown documentation from C# code, with support for Mermaid diagrams. It is designed to be easy to use and integrate into your existing documentation workflow."
+  }
+}
