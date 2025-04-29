@@ -4,7 +4,7 @@
 
 As a developer,  
 I want to see the project description of when I hover over the node,  
-So that I can get a light understanding of the project, without navigating away from the diagram.
+So that I can get a deeper understanding of each project, without navigating away from the diagram.
 
 ## Rules
 

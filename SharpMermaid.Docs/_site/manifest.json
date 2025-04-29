@@ -12,63 +12,63 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/projectDependencies/clickableNode.md",
+      "source_relative_path": "docs/features/project-diagram/clickableNode.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/projectDependencies/clickableNode.html"
+          "relative_path": "docs/features/project-diagram/clickableNode.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/projectDependencies/interactivity.md",
+      "source_relative_path": "docs/features/project-diagram/interactivity.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/projectDependencies/interactivity.html"
+          "relative_path": "docs/features/project-diagram/interactivity.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/projectDependencies/logical-dependencies.md",
+      "source_relative_path": "docs/features/project-diagram/logical-dependencies.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/projectDependencies/logical-dependencies.html"
+          "relative_path": "docs/features/project-diagram/logical-dependencies.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/projectDependencies/physical-dependencies.md",
+      "source_relative_path": "docs/features/project-diagram/physical-dependencies.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/projectDependencies/physical-dependencies.html"
+          "relative_path": "docs/features/project-diagram/physical-dependencies.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/projectDependencies/shared-rules.md",
+      "source_relative_path": "docs/features/project-diagram/shared-rules.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/projectDependencies/shared-rules.html"
+          "relative_path": "docs/features/project-diagram/shared-rules.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/features/projectDependencies/toc.yml",
+      "source_relative_path": "docs/features/project-diagram/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/features/projectDependencies/toc.html"
+          "relative_path": "docs/features/project-diagram/toc.html"
         },
         ".json": {
-          "relative_path": "docs/features/projectDependencies/toc.json"
+          "relative_path": "docs/features/project-diagram/toc.json"
         }
       },
       "version": ""

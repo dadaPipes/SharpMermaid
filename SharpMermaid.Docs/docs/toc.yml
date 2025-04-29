@@ -6,5 +6,5 @@
   href: getting-started.md
 - name: Features
   items:
-  - name: Project Dependencies
-    href: features/projectDependencies/toc.yml
+  - name: Project Diagram
+    href: features/project-diagram/toc.yml

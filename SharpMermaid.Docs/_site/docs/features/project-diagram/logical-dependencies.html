@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title> | SharpMermaid </title>
+      <title>Logical Dependencies | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" | SharpMermaid ">
+      <meta name="title" content="Logical Dependencies | SharpMermaid ">
       
       
       <link rel="icon" href="../../../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/projectDependencies/shared-rules.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/project-diagram/logical-dependencies.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,7 +85,13 @@
         </div>
 
         <article data-uid="">
+<h1 id="logical-dependencies">Logical Dependencies</h1>
 
+<h2 id="description">Description</h2>
+<p>As a developer,<br>
+I want to generate a diagram that accurately captures the logical arrangement of projects in the solution<br>
+So that I can understand how projects are grouped and interconnected.</p>
+<h2 id="rules">Rules</h2>
 <ul>
 <li><code>bin</code> and <code>obj</code> <strong>must</strong> not appear in the generated diagram.</li>
 <li>Only <code>.csproj</code> files are included in the diagram</li>
@@ -95,11 +101,21 @@
 <li>Each project node <strong>may</strong> include a clickable url</li>
 <li>Nodes <strong>must</strong> be interactive, supporting tooltips and click actions.</li>
 </ul>
+<h2 id="scenarios">Scenarios</h2>
+<h3 id="generate-diagram-representing-logical-structure">Generate Diagram Representing Logical Structure</h3>
+<p><strong>Given</strong> the solution folder contains multiple projects with dependencies<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should:</p>
+<ul>
+<li>Include nodes representing projects.</li>
+<li>Represent the logical hierarchy of projects and folders.</li>
+<li>Include arrows representing dependencies between projects.</li>
+</ul>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/projectDependencies/shared-rules.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/project-diagram/logical-dependencies.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title> | SharpMermaid </title>
+      <title>Clickable Project Node | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" | SharpMermaid ">
+      <meta name="title" content="Clickable Project Node | SharpMermaid ">
       
       
       <link rel="icon" href="../../../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/projectDependencies/shared-rules.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/project-diagram/clickableNode.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,21 +85,25 @@
         </div>
 
         <article data-uid="">
+<h1 id="clickable-project-node">Clickable Project Node</h1>
 
+<h2 id="description">Description</h2>
+<p>As a Developer,<br>
+I want to click on a project node and navigate to the class diagram of that project,<br>
+So that I can get a deeper understanding of the project.</p>
+<h2 id="rules">Rules</h2>
 <ul>
-<li><code>bin</code> and <code>obj</code> <strong>must</strong> not appear in the generated diagram.</li>
-<li>Only <code>.csproj</code> files are included in the diagram</li>
-<li>The diagram <strong>must</strong> include a node for each project in the solution.</li>
-<li>Each project <strong>may</strong> include one or multiple dependencies.</li>
-<li>The diagram <strong>may</strong> represent dependencies between projects in the solution.</li>
-<li>Each project node <strong>may</strong> include a clickable url</li>
-<li>Nodes <strong>must</strong> be interactive, supporting tooltips and click actions.</li>
+<li>A project node <strong>may</strong> contain a url link</li>
 </ul>
+<h2 id="scenarios">Scenarios</h2>
+<h3 id="add-url-link-to-project-node">Add url Link to Project Node</h3>
+<p><strong>Given</strong> a project node exist in the project dependency diagram<br>
+<strong>Then</strong> the diagram should include a url to the class diagram of that project</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/projectDependencies/shared-rules.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/project-diagram/clickableNode.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

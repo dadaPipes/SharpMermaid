@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title> | SharpMermaid </title>
+      <title>Tooltip Showing description | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" | SharpMermaid ">
+      <meta name="title" content="Tooltip Showing description | SharpMermaid ">
       
       
       <link rel="icon" href="../../../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/projectDependencies/shared-rules.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/project-diagram/interactivity.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,21 +85,31 @@
         </div>
 
         <article data-uid="">
+<h1 id="tooltip-showing-description">Tooltip Showing description</h1>
 
+<h2 id="description">Description</h2>
+<p>As a developer,<br>
+I want to see the project description of when I hover over the node,<br>
+So that I can get a deeper understanding of each project, without navigating away from the diagram.</p>
+<h2 id="rules">Rules</h2>
 <ul>
-<li><code>bin</code> and <code>obj</code> <strong>must</strong> not appear in the generated diagram.</li>
-<li>Only <code>.csproj</code> files are included in the diagram</li>
-<li>The diagram <strong>must</strong> include a node for each project in the solution.</li>
-<li>Each project <strong>may</strong> include one or multiple dependencies.</li>
-<li>The diagram <strong>may</strong> represent dependencies between projects in the solution.</li>
-<li>Each project node <strong>may</strong> include a clickable url</li>
-<li>Nodes <strong>must</strong> be interactive, supporting tooltips and click actions.</li>
+<li>A project node <strong>may</strong> contain a description</li>
 </ul>
+<h2 id="scenarios">Scenarios</h2>
+<h3 id="add-tooltip-to-project-node">Add Tooltip to Project Node</h3>
+<p><strong>Given</strong> a project contains metadata of its description<br>
+<strong>When</strong> the project dependency diagram is generated<br>
+<strong>Then</strong> the diagram should include a tooltip containing the description</p>
+<h3 id="project-does-not-have-a-description">Project does not have a description</h3>
+<p><strong>Given</strong> a project does not contains metadata of its description<br>
+<strong>When</strong> the project dependency diagram is generated<br>
+<strong>Then</strong> the diagram should include a tooltip containing the &quot;no description available&quot;<br>
+<strong>And</strong> have an icon of a red dot, to indicate that no description is available</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/projectDependencies/shared-rules.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/project-diagram/interactivity.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

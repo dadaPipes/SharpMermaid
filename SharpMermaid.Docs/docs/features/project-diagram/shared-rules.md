@@ -1,7 +1,3 @@
----
-uid: project-dependencies-shared-rules
----
-
 - `bin` and `obj` **must** not appear in the generated diagram.
 - Only `.csproj` files are included in the diagram
 - The diagram **must** include a node for each project in the solution.
