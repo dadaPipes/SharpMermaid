@@ -1,0 +1,3 @@
+[submodule "SharpMermaid.TestSetup.Common"]
+	path = SharpMermaid.TestSetup.Common
+	url = https://github.com/dadaPipes/SharpMermaid.TestSetup.Common.git
