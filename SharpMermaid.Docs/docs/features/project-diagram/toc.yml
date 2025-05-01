@@ -1,9 +1,9 @@
 ### YamlMime:ManagedReference
 
-- name: Physical Dependencies
-  href: physical-dependencies.md
-- name: Logical Dependencies
-  href: logical-dependencies.md
+- name: Physical Project Diagram
+  href: physical-project -diagram.md
+- name: Logical Project Diagram
+  href: logical-project-diagram.md
 - name: Clickable Node
   href: clickableNode.md
 - name: Interactivity

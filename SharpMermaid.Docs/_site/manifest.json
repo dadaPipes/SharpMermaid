@@ -32,20 +32,20 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/project-diagram/logical-dependencies.md",
+      "source_relative_path": "docs/features/project-diagram/logical-project-diagram.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/project-diagram/logical-dependencies.html"
+          "relative_path": "docs/features/project-diagram/logical-project-diagram.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/project-diagram/physical-dependencies.md",
+      "source_relative_path": "docs/features/project-diagram/physical-project -diagram.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/project-diagram/physical-dependencies.html"
+          "relative_path": "docs/features/project-diagram/physical-project -diagram.html"
         }
       },
       "version": ""
