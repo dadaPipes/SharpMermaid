@@ -4,4 +4,5 @@
 - Each project **may** include one or multiple dependencies.
 - The diagram **may** represent dependencies between projects in the solution.
 - Each project node **may** include a clickable url
-- Nodes **must** be interactive, supporting tooltips and click actions.
+- Nodes **may** support tooltips.
+- Nodes **may** support click actions.

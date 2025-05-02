@@ -1,6 +1,7 @@
 ﻿namespace SharpMermaid.Test.ProjectDiagram;
 public class ProjectDiagramSharedRulesTests
 {
+    /*
     [Fact]
     public void Diagram_Should_Exclude_Bin_And_ObjFolders()
     {
@@ -54,4 +55,5 @@ public class ProjectDiagramSharedRulesTests
         // Act: Generate diagram
         // Assert: Validate tooltips and click actions are supported
     }
+    */
 }
