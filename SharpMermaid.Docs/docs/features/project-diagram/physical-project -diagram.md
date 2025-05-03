@@ -57,10 +57,26 @@ So that I can analyze the hierarchy and structure of the solution.
 - Include a node representing each project.
 - Include a clickable URL for each project node, leading to its details.
 
-### Generate Diagram With Multiple Projects and Project Dependencies and Clickable URLs
+### Generate Diagram With Multiple Projects and Clickable URLs and Project Dependencies 
+
+**Given** the solution folder contains multiple projects, each with one or more classes,
+**And** the projects have dependencies,
+**When** the diagram is generated,
+**Then** the diagram should:
+- Include a node representing each project.
+- Include a clickable URL for each project node, leading to its details.
+- Include arrows representing dependencies between projects.
 
 ### Generate Diagram With Multiple Projects and Clickable URLs and Tooltips
 
-Tooltips does not even work in the Mermaid Live Editor, so this one is for another time
+Tooltips does not even work in the Mermaid Live Editor, so this one is for another time.
+
+https://github.com/mermaid-js/mermaid/issues/3111
+https://github.com/squidfunk/mkdocs-material/issues/4686
 
 ### Generate Diagram With Multiple Projects and Project Dependencies and Clickable URLs and Tooltips
+
+Tooltips does not even work in the Mermaid Live Editor, so this one is for another time
+
+https://github.com/mermaid-js/mermaid/issues/3111
+https://github.com/squidfunk/mkdocs-material/issues/4686

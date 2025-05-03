@@ -18,7 +18,7 @@ static class MermaidGeneratorHelpers
     {
         foreach (var project in projectFiles.ConvertAll(p => Path.GetFileNameWithoutExtension(p)))
         {
-            diagramBuilder.AppendLine($"  {project}");
+            diagramBuilder.AppendLine($"    {project}");
         }
     }
 
@@ -31,7 +31,7 @@ static class MermaidGeneratorHelpers
     {
         foreach (var project in projectNames)
         {
-            diagramBuilder.AppendLine($"  {project}");
+            diagramBuilder.AppendLine($"    {project}");
         }
     }
     public static void AddProjectDependencies(Dictionary<string, List<string>> dependencies, StringBuilder diagramBuilder)
@@ -40,7 +40,7 @@ static class MermaidGeneratorHelpers
         {
             foreach (var dependency in dependencies[project])
             {
-                diagramBuilder.AppendLine($"  {project} --> {dependency}");
+                diagramBuilder.AppendLine($"    {project} --> {dependency}");
             }
         }
     }
@@ -101,7 +101,7 @@ static class MermaidGeneratorHelpers
         {
             var name = Path.GetFileNameWithoutExtension(file);
 
-            diagramBuilder.AppendLine($"  click {name} \"{relativePath}\"");
+            diagramBuilder.AppendLine($"    click {name} \"{relativePath}\"");
         }
     }
 }

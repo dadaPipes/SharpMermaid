@@ -28,17 +28,15 @@ public class TemporarySolutionBuilder : IDisposable
 
         RunDotnet($"sln add {projectFilePath}", RootPath);
 
-        // Remove the default Class1.cs file
+        // Remove the default Class1.cs if it exists
         var defaultClassFile = Path.Combine(projectPath, "Class1.cs");
         if (File.Exists(defaultClassFile))
-        {
             File.Delete(defaultClassFile);
-        }
 
         return projectFilePath;
     }
 
-    public string AddProject(string projectName, Dictionary<string, string> csFiles)
+    public string AddProjectWithFiles(string projectName, Dictionary<string, string> csFiles)
     {
         string projectPath = Path.Combine(RootPath, projectName);
         Directory.CreateDirectory(projectPath);
@@ -51,9 +49,9 @@ public class TemporarySolutionBuilder : IDisposable
         RunDotnet($"sln add {projectFilePath}", RootPath);
 
         // Remove the default Class1.cs if it exists
-        var defaultClass = Path.Combine(projectPath, "Class1.cs");
-        if (File.Exists(defaultClass))
-            File.Delete(defaultClass);
+        var defaultClassFile = Path.Combine(projectPath, "Class1.cs");
+        if (File.Exists(defaultClassFile))
+            File.Delete(defaultClassFile);
 
         // Add custom class files
         foreach (var (fileName, sourceCode) in csFiles)

@@ -18,7 +18,8 @@ public static class MermaidGenerator
 
         MermaidGeneratorHelpers.AddProjectNames(projectFiles, diagramBuilder);
 
-        string relativePath = "dummy";
+        // TODO: Make this a configurable option
+        const string relativePath = "dummy";
         if (projectFiles.Any(MermaidGeneratorHelpers.ProjectHasSourceFiles))
         {
             MermaidGeneratorHelpers.AddClickableLinks(projectFiles, diagramBuilder, relativePath);
