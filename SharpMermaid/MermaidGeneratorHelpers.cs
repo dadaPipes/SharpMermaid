@@ -1,107 +1,175 @@
 ﻿using System.Text;
-using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace SharpMermaid;
+
+/// <summary>
+/// Helper methods for generating Mermaid diagrams from .NET project and solution files.
+/// </summary>
 static class MermaidGeneratorHelpers
 {
-    public static void AddProjectDiagramHeader(StringBuilder diagramBuilder)
+    /// <summary>
+    /// Appends the opening Mermaid code block.
+    /// </summary>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the Mermaid block start is appended.</param>
+    public static void AddMermaidBlockStart(StringBuilder diagramBuilder)
     {
         diagramBuilder.AppendLine("```mermaid");
-        diagramBuilder.AppendLine("graph TD");
+    }
+    public static void AddSolutionNameAsTitle(string solutionName, StringBuilder diagramBuilder)
+    {
+        string formattedTitle =
+
+           $"""
+            ---
+            {solutionName}
+            ---
+            """;
+
+        diagramBuilder.AppendLine(formattedTitle);
     }
 
+    /// <summary>
+    /// Appends the graph declaration for a Mermaid diagram.
+    /// </summary>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the graph declaration is appended.</param>
+    public static void AddGraphDeclaration(StringBuilder diagramBuilder)
+    {
+        diagramBuilder.AppendLine("graph");
+    }
+
+    /// <summary>
+    /// Appends the closing fence for a Mermaid diagram.
+    /// </summary>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the footer is appended.</param>
     public static void AddDiagramFooter(StringBuilder diagramBuilder)
     {
         diagramBuilder.Append("```");
     }
-    public static void AddProjectNames(List<string> projectFiles, StringBuilder diagramBuilder)
-    {
-        foreach (var project in projectFiles.ConvertAll(p => Path.GetFileNameWithoutExtension(p)))
-        {
-            diagramBuilder.AppendLine($"    {project}");
-        }
-    }
 
-    public static List<string> GetProjectFiles(string solutionPath)
+    /// <summary>
+    /// Appends project names as Mermaid nodes to the diagram.
+    /// </summary>
+    public static void AddProjectNames(List<CsprojModel> projectFiles, StringBuilder diagramBuilder)
     {
-        return Directory.GetFiles(solutionPath, "*.csproj", SearchOption.AllDirectories).ToList();
-    }
-    
-    public static void GenerateProjectNodes(List<string> projectNames, StringBuilder diagramBuilder)
-    {
-        foreach (var project in projectNames)
-        {
-            diagramBuilder.AppendLine($"    {project}");
-        }
-    }
-    public static void AddProjectDependencies(Dictionary<string, List<string>> dependencies, StringBuilder diagramBuilder)
-    {
-        foreach (var project in dependencies.Keys)
-        {
-            foreach (var dependency in dependencies[project])
-            {
-                diagramBuilder.AppendLine($"    {project} --> {dependency}");
-            }
-        }
-    }
-    public static string GenerateDiagramFooter()
-    {
-        return "```";
-    }
-
-    public static Dictionary<string, List<string>> ExtractProjectDependencies(List<string> projectFiles)
-    {
-        var dependencies = new Dictionary<string, List<string>>();
-
         foreach (var projectFile in projectFiles)
         {
-            var projectName = Path.GetFileNameWithoutExtension(projectFile);
-            var referencedProjects = new List<string>();
-
-            try
-            {
-                var xdoc = XDocument.Load(projectFile);
-
-                var projectReferences = xdoc
-                    .Descendants("ProjectReference")
-                    .Select(elem => elem.Attribute("Include")?.Value)
-                    .Where(path => !string.IsNullOrWhiteSpace(path))
-                    .Select(path => Path.GetFileNameWithoutExtension(path!))
-                    .ToList();
-
-                referencedProjects.AddRange(projectReferences);
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"Failed to parse {projectFile}: {ex.Message}");
-            }
-
-            dependencies[projectName] = referencedProjects;
+            diagramBuilder.AppendLine($"    {projectFile.Name}");
         }
-
-        return dependencies;
     }
 
-    public static bool ProjectHasSourceFiles(string projectFilePath)
+    /// <summary>
+    /// Appends edges to the Mermaid diagram representing project dependencies.
+    /// </summary>
+    /// <param name="projectFiles"></param>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to construct the diagram.</param>
+    public static void AddProjectDependencies(List<CsprojModel> projectFiles, StringBuilder diagramBuilder)
     {
-        string projectDir = Path.GetDirectoryName(projectFilePath)!;
-        return Directory.EnumerateFiles(projectDir, "*.cs", SearchOption.AllDirectories)
-                        .Any();
-    }
-
-    public static string GetRelativePath(string projectFilePath)
-    {
-        string projectDir = Path.GetDirectoryName(projectFilePath);
-        string solutionDir = Path.GetDirectoryName(projectDir);
-        return Path.GetRelativePath(solutionDir, projectFilePath);
-    }
-    public static void AddClickableLinks(List<string> projectFiles, StringBuilder diagramBuilder, string relativePath)
-    {
-        foreach (var file in projectFiles)
+        foreach (var projectFile in projectFiles)
         {
-            var name = Path.GetFileNameWithoutExtension(file);
-
-            diagramBuilder.AppendLine($"    click {name} \"{relativePath}\"");
+            foreach (var dependency in projectFile.CsprojDependencies)
+                diagramBuilder.AppendLine($"    {projectFile.Name} --> {dependency}");
         }
+    }
+
+    /// <summary>
+    /// Adds clickable Mermaid diagram links for each project that contains source files.
+    /// Projects without source files are ignored.
+    /// </summary>
+    /// <param name="projectFiles">The list of <see cref="CsprojModel"/> to process.</param>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to build the diagram.</param>
+    public static void AddClickableLinks(List<CsprojModel> projectFiles, StringBuilder diagramBuilder)
+    {
+        foreach (var project in projectFiles.Where(p => p.HasSourceFiles))
+        {
+            var baseUrl = Settings.BaseUrl.TrimEnd('/');
+            var relativePath = project.RelativePathFromSln.Replace('\\', '/');
+            var fullUrl = $"{baseUrl}/{relativePath}";
+
+            diagramBuilder.AppendLine($"    click {project.Name} \"{fullUrl}\"");
+        }
+    }
+    // A helper class to build the folder tree.
+    public class FolderNode
+    {
+        public string FolderName { get; set; }
+        public List<FolderNode> SubFolders { get; set; } = new List<FolderNode>();
+        public List<string> Projects { get; set; } = new List<string>();
+    }
+
+    public static void AddProjectHierarchy(SlnModel sln, IEnumerable<CsprojModel> csprojModels, StringBuilder diagramBuilder)
+    {
+        // Build a tree where the root represents projects with no folder,
+        // and each FolderNode represents a folder with possible subfolders.
+        var root = new FolderNode { FolderName = "" };
+
+        foreach (var proj in csprojModels)
+        {
+            // Split the relative path by both kinds of directory separators
+            // (so it handles both '\' and '/').
+            var tokens = proj.RelativePathFromSln
+                          .Split([Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar], StringSplitOptions.RemoveEmptyEntries);
+
+            // two tokens(folder and csproj file)
+            if (tokens.Length == 2)
+            {
+                // No folder info – top-level project
+                root.Projects.Add(proj.Name);
+            }
+            else
+            {
+                // The last token is the actual project name,
+                // while the earlier tokens define the folder structure.
+                var currentNode = root;
+                for (int i = 0; i < tokens.Length - 1; i++)
+                {
+                    string folder = tokens[i];
+                    var child = currentNode.SubFolders.FirstOrDefault(f => f.FolderName == folder);
+                    if (child == null)
+                    {
+                        child = new FolderNode { FolderName = folder };
+                        currentNode.SubFolders.Add(child);
+                    }
+                    currentNode = child;
+                }
+                // Now add the project name to the final folder.
+                currentNode.Projects.Add(proj.Name);
+            }
+        }
+
+        // Output top-level projects
+        foreach (var proj in root.Projects)
+        {
+            diagramBuilder.AppendLine($"    {proj}");
+        }
+
+        // Recursively output subgraph information from the tree.
+        foreach (var folder in root.SubFolders.OrderBy(f => f.FolderName))
+        {
+            AppendFolderNode(folder, diagramBuilder, indentLevel: 1);
+        }
+    }
+
+    // Recursive helper that appends a folder and its subfolders/projects
+    private static void AppendFolderNode(FolderNode node, StringBuilder diagramBuilder, int indentLevel)
+    {
+        string indent = new string(' ', indentLevel * 4);
+        diagramBuilder.AppendLine($"{indent}subgraph {node.FolderName}");
+
+        // Output projects in this folder
+        foreach (var project in node.Projects)
+        {
+            diagramBuilder.AppendLine($"{indent}    {project}");
+        }
+
+        // Recursively output subfolders if any
+        foreach (var subfolder in node.SubFolders.OrderBy(f => f.FolderName))
+        {
+            AppendFolderNode(subfolder, diagramBuilder, indentLevel + 1);
+        }
+
+        diagramBuilder.AppendLine($"{indent}end");
     }
 }
+
+// Path.DirectorySeparatorChar

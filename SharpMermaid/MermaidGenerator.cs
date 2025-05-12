@@ -1,32 +1,58 @@
 ﻿using System.Text;
 
 namespace SharpMermaid;
-public static class MermaidGenerator
+public class MermaidGenerator(string solutionFullPath)
 {
-    public static string PhysicalProjectDiagram(string solutionPath)
+    public readonly SlnModel _solution = new(solutionFullPath);
+
+    public string PhysicalProjectDiagram()
     {
         var diagramBuilder = new StringBuilder();
-        
-        MermaidGeneratorHelpers.AddProjectDiagramHeader(diagramBuilder);
-        
-        var projectFiles = MermaidGeneratorHelpers.GetProjectFiles(solutionPath);
-        if (projectFiles.Count is 0)
+
+        MermaidGeneratorHelpers.AddMermaidBlockStart(diagramBuilder);
+
+        MermaidGeneratorHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
+
+        MermaidGeneratorHelpers.AddGraphDeclaration(diagramBuilder);
+
+        if (!_solution.HasProjects)
         {
             MermaidGeneratorHelpers.AddDiagramFooter(diagramBuilder);
             return diagramBuilder.ToString();
         }
 
-        MermaidGeneratorHelpers.AddProjectNames(projectFiles, diagramBuilder);
+        MermaidGeneratorHelpers.AddProjectNames(_solution.Csprojs, diagramBuilder);
 
-        // TODO: Make this a configurable option
-        const string relativePath = "dummy";
-        if (projectFiles.Any(MermaidGeneratorHelpers.ProjectHasSourceFiles))
+        MermaidGeneratorHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
+
+        MermaidGeneratorHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
+
+        MermaidGeneratorHelpers.AddDiagramFooter(diagramBuilder);
+
+        return diagramBuilder.ToString();
+    }
+
+    public string LogicalProjectDiagram()
+    {
+        var diagramBuilder = new StringBuilder();
+
+        MermaidGeneratorHelpers.AddMermaidBlockStart(diagramBuilder);
+
+        MermaidGeneratorHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
+
+        MermaidGeneratorHelpers.AddGraphDeclaration(diagramBuilder);
+
+        if (!_solution.HasProjects) // should write to the console
         {
-            MermaidGeneratorHelpers.AddClickableLinks(projectFiles, diagramBuilder, relativePath);
+            MermaidGeneratorHelpers.AddDiagramFooter(diagramBuilder);
+            return diagramBuilder.ToString();
         }
 
-        var dependencies = MermaidGeneratorHelpers.ExtractProjectDependencies(projectFiles);
-        MermaidGeneratorHelpers.AddProjectDependencies(dependencies, diagramBuilder);
+        MermaidGeneratorHelpers.AddProjectHierarchy(_solution, _solution.Csprojs, diagramBuilder);
+
+        MermaidGeneratorHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
+
+        MermaidGeneratorHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
 
         MermaidGeneratorHelpers.AddDiagramFooter(diagramBuilder);
 
