@@ -89,13 +89,6 @@ static class MermaidGeneratorHelpers
             diagramBuilder.AppendLine($"    click {project.Name} \"{fullUrl}\"");
         }
     }
-    // A helper class to build the folder tree.
-    public class FolderNode
-    {
-        public string FolderName { get; set; }
-        public List<FolderNode> SubFolders { get; set; } = new List<FolderNode>();
-        public List<string> Projects { get; set; } = new List<string>();
-    }
 
     public static void AddProjectHierarchy(SlnModel sln, IEnumerable<CsprojModel> csprojModels, StringBuilder diagramBuilder)
     {
@@ -121,7 +114,7 @@ static class MermaidGeneratorHelpers
                 // The last token is the actual project name,
                 // while the earlier tokens define the folder structure.
                 var currentNode = root;
-                for (int i = 0; i < tokens.Length - 1; i++)
+                for (int i = 0; i < tokens.Length - 2; i++) // Note: tokens.Length - 2
                 {
                     string folder = tokens[i];
                     var child = currentNode.SubFolders.FirstOrDefault(f => f.FolderName == folder);
@@ -132,8 +125,27 @@ static class MermaidGeneratorHelpers
                     }
                     currentNode = child;
                 }
-                // Now add the project name to the final folder.
-                currentNode.Projects.Add(proj.Name);
+
+                string folderName = tokens[^2];
+                string projectName = Path.GetFileNameWithoutExtension(tokens[^1]);
+
+                if (folderName == projectName)
+                {
+                    // project is in a folder named like the project – treat as "no folder"
+                    currentNode.Projects.Add(projectName);
+                }
+                else
+                {
+                    // add it to a folder node (create if needed)
+                    var child = currentNode.SubFolders.FirstOrDefault(f => f.FolderName == folderName);
+                    if (child == null)
+                    {
+                        child = new FolderNode { FolderName = folderName };
+                        currentNode.SubFolders.Add(child);
+                    }
+                    child.Projects.Add(projectName);
+                }
+
             }
         }
 
@@ -169,6 +181,14 @@ static class MermaidGeneratorHelpers
         }
 
         diagramBuilder.AppendLine($"{indent}end");
+    }
+
+    // A helper class to build the folder tree.
+    private sealed class FolderNode
+    {
+        public string FolderName { get; set; }
+        public List<FolderNode> SubFolders { get; set; } = new List<FolderNode>();
+        public List<string> Projects { get; set; } = new List<string>();
     }
 }
 
