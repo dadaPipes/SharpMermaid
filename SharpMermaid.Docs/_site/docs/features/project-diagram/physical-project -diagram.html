@@ -89,8 +89,8 @@
 
 <h2 id="description">Description</h2>
 <p>As a developer,<br>
-I want to generate a diagram that accurately reflects the physical arrangement of projects and files on disk,<br>
-So that I can analyze the hierarchy and structure of the solution.</p>
+I want to generate a diagram that reflects the solution structure on disk,
+So that I can analyze and visualize project organization and dependencies.</p>
 <h2 id="rules">Rules</h2>
 <ul>
 <li><code>bin</code> and <code>obj</code> <strong>must</strong> not appear in the generated diagram.</li>
@@ -101,68 +101,37 @@ So that I can analyze the hierarchy and structure of the solution.</p>
 <li>Each project node <strong>may</strong> include a clickable url</li>
 <li>Nodes <strong>may</strong> support tooltips.</li>
 <li>Nodes <strong>may</strong> support click actions.</li>
+<li>All diagrams <strong>must</strong> have a title same as the solution name.</li>
 </ul>
+<p>// TODO: Add some kind of message: &quot;No projects found&quot;</p>
 <h2 id="scenarios">Scenarios</h2>
-<h3 id="generate-diagram-with-no-projects">Generate Diagram With No Projects</h3>
-<p><strong>Given</strong> the solution folder does not contain any projects,
-<strong>When</strong> the diagram is generated,
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Not include any nodes or arrows.</li>
-</ul>
-<h3 id="generate-diagram-with-multiple-projects-and-zero-project-dependencies">Generate Diagram With Multiple Projects and Zero Project Dependencies</h3>
-<p><strong>Given</strong> the solution folder contains multiple projects with dependencies,<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Include nodes representing projects.</li>
-<li>Represent the physical hierarchy of files on disk.</li>
-<li>Not include any arrows representing dependencies between projects.</li>
-</ul>
-<h3 id="generate-diagram-with-multiple-projects-and-project-dependencies">Generate Diagram With Multiple Projects and Project Dependencies</h3>
-<p><strong>Given</strong> the solution folder contains multiple projects with dependencies,<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Include nodes representing projects.</li>
-<li>Represent the physical hierarchy of files on disk.</li>
-<li>Include arrows representing dependencies between projects.</li>
-</ul>
-<h3 id="generate-diagram-with-1-project-and-a-clickable-url">Generate Diagram With 1 Project and A Clickable URL</h3>
-<p><strong>Given</strong> the solution folder contains a single project
-<strong>And</strong> the project include .cs files.
-<strong>When</strong> the diagram is generated,
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Include a node representing the project.</li>
-<li>Include a clickable URL for the project node, leading to its details.</li>
-</ul>
-<h3 id="generate-diagram-with-multiple-projects-and-clickable-urls">Generate Diagram With Multiple Projects and Clickable URLs</h3>
-<p><strong>Given</strong> the solution folder contains multiple projects, each with one or more classes,<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Include a node representing each project.</li>
-<li>Include a clickable URL for each project node, leading to its details.</li>
-</ul>
-<h3 id="generate-diagram-with-multiple-projects-and-clickable-urls-and-project-dependencies">Generate Diagram With Multiple Projects and Clickable URLs and Project Dependencies</h3>
-<p><strong>Given</strong> the solution folder contains multiple projects, each with one or more classes,
-<strong>And</strong> the projects have dependencies,
-<strong>When</strong> the diagram is generated,
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Include a node representing each project.</li>
-<li>Include a clickable URL for each project node, leading to its details.</li>
-<li>Include arrows representing dependencies between projects.</li>
-</ul>
-<h3 id="generate-diagram-with-multiple-projects-and-clickable-urls-and-tooltips">Generate Diagram With Multiple Projects and Clickable URLs and Tooltips</h3>
-<p>Tooltips does not even work in the Mermaid Live Editor, so this one is for another time.</p>
-<p><a href="https://github.com/mermaid-js/mermaid/issues/3111">https://github.com/mermaid-js/mermaid/issues/3111</a>
-<a href="https://github.com/squidfunk/mkdocs-material/issues/4686">https://github.com/squidfunk/mkdocs-material/issues/4686</a></p>
-<h3 id="generate-diagram-with-multiple-projects-and-project-dependencies-and-clickable-urls-and-tooltips">Generate Diagram With Multiple Projects and Project Dependencies and Clickable URLs and Tooltips</h3>
-<p>Tooltips does not even work in the Mermaid Live Editor, so this one is for another time</p>
-<p><a href="https://github.com/mermaid-js/mermaid/issues/3111">https://github.com/mermaid-js/mermaid/issues/3111</a>
-<a href="https://github.com/squidfunk/mkdocs-material/issues/4686">https://github.com/squidfunk/mkdocs-material/issues/4686</a></p>
+<hr>
+<h3 id="empty-solution">Empty Solution</h3>
+<p><strong>Given</strong> the solution has no projects<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should have no nodes or dependencies<br>
+<strong>And</strong> the title should be the solution name</p>
+<hr>
+<h3 id="single-project-with-clickable-url">Single Project With Clickable URL</h3>
+<p><strong>Given</strong> the solution has a single project<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should include one node<br>
+<strong>And</strong> the node should have a clickable URL</p>
+<hr>
+<h3 id="multiple-projects-with-no-dependencies">Multiple Projects With No Dependencies</h3>
+<p><strong>Given</strong> the solution has multiple projects with no dependencies<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should include one node per project<br>
+<strong>And</strong> no arrows should exist between them<br>
+<strong>And</strong> all nodes should have clickable URLs</p>
+<hr>
+<h3 id="multiple-projects-with-dependencies">Multiple Projects With Dependencies</h3>
+<p><strong>Given</strong> the solution has multiple projects with dependencies<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should include one node per project<br>
+<strong>And</strong> arrows should represent the dependencies<br>
+<strong>And</strong> all nodes should have clickable URLs</p>
+<hr>
 
 </article>
 

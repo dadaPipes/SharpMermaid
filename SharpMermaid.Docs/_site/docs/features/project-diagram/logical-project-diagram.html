@@ -101,7 +101,9 @@ So that I can understand how the solution is logically organized and interconnec
 <li>Each project node <strong>may</strong> include a clickable url</li>
 <li>Nodes <strong>may</strong> support tooltips.</li>
 <li>Nodes <strong>may</strong> support click actions.</li>
+<li>All diagrams <strong>must</strong> have a title same as the solution name.</li>
 </ul>
+<p>// TODO: Add some kind of message: &quot;No projects found&quot;</p>
 
 <ul>
 <li>Nodes <strong>must</strong> be grouped visually according to their folder structure.</li>
@@ -110,25 +112,44 @@ So that I can understand how the solution is logically organized and interconnec
 </ul>
 <h2 id="scenarios">Scenarios</h2>
 <hr>
-<h3 id="generate-diagram-with-projects-in-root-folder">Generate Diagram With Projects in Root Folder</h3>
-<p><strong>Given</strong> all projects are in the solution root folder,<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Include a node for each project.</li>
-<li>Show all project nodes in a single group (the root).</li>
-<li>Include no nested folder boxes.</li>
-</ul>
-<hr>
-<h3 id="generate-diagram-representing-logical-structure">Generate Diagram Representing Logical Structure</h3>
-<p><strong>Given</strong> the solution folder contains multiple projects with dependencies<br>
+<h3 id="empty-solution">Empty Solution</h3>
+<p><strong>Given</strong> the solution contains no projects<br>
 <strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should:</p>
-<ul>
-<li>Include nodes representing projects.</li>
-<li>Represent the logical hierarchy of projects and folders.</li>
-<li>Include arrows representing dependencies between projects.</li>
-</ul>
+<strong>Then</strong> the diagram should show a root grouping box with the solution folder name<br>
+<strong>And</strong> no nodes or dependencies</p>
+<hr>
+<h3 id="root-projects-only">Root Projects Only</h3>
+<p><strong>Given</strong> all projects are in the solution root folder<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should show one node per project<br>
+<strong>And</strong> the root folder should be a grouping box</p>
+<hr>
+<h3 id="root-projects-with-dependencies">Root Projects With Dependencies</h3>
+<p><strong>Given</strong> all projects are in the solution root folder<br>
+<strong>And</strong> some projects depend on each other<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should show one node per project<br>
+<strong>And</strong> arrows should represent the dependencies<br>
+<strong>And</strong> the root folder should be a grouping box</p>
+<hr>
+<h3 id="mixed-folder-structure-with-1-root-project">Mixed Folder Structure With 1 Root Project</h3>
+<p><strong>Given</strong> one project is in the root folder<br>
+<strong>And</strong> other projects are in subfolders<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should show nodes grouped by folder<br>
+<strong>And</strong> each folder should be a grouping box<br>
+<strong>And</strong> arrows should represent dependencies</p>
+<hr>
+<h3 id="mixed-folder-structure-with-multiple-root-projects">Mixed Folder Structure With Multiple Root Projects</h3>
+<p><strong>Given</strong> multiple projects are in the root folder<br>
+<strong>And</strong> other projects are in subfolders<br>
+<strong>And</strong> some projects depend on each other<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should show all nodes<br>
+<strong>And</strong> group nodes by folder<br>
+<strong>And</strong> draw arrows for dependencies<br>
+<strong>And</strong> skip non-project folders</p>
+<hr>
 
 </article>
 

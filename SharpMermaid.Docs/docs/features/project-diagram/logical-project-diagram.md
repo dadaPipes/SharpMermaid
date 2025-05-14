@@ -17,69 +17,55 @@ So that I can understand how the solution is logically organized and interconnec
 
 ---
 
-### Generate Diagram With No Projects
+### Empty Solution
 
-**Given** the solution folder does not contain any projects,
-**When** the diagram is generated,
-**Then** the diagram should:
-
-- The root folder should be represented as a grouping box, with the same name as the folder.
-
----
-
-### Generate Diagram with Multiple Projects in the Root Folder
-
-**Given** all projects are in the solution root folder,  
-**When** the diagram is generated,  
-**Then** the diagram should:
-
-- The root folder should be represented as a grouping box, with the same name as the folder.
-- Represent each project as an individual node.
-
----
-
-### Generate Diagram With Multiple Projects in the Root Folder with Project Dependencies
-
-**Given** all projects are in the solution root folder,
-**And** the projects have dependencies,
-**When** the diagram is generated,
-**Then** the diagram should:
-
-- The root folder should be represented as a grouping box, with the same name as the folder.
-- Represent each project as an individual node.
-- Include arrows representing dependencies between projects.
-
----
-
-### Generate Diagram With 1 Project in the Root Folder and Multiple Projects in Subfolders Including Dependencies
-
-**Given** the solution folder contains multiple projects with dependencies  
-**And** 1 project is in the root directory
-**And** some of those projects are in grouped folders,
+**Given** the solution contains no projects  
 **When** the diagram is generated  
-**Then** the diagram should:
-
-- The root folder should be represented as a grouping box, with the same name as the folder.
-- Represent each project as an individual node.
-- Group projects visually according to their folder structure.
-- Include arrows representing dependencies between projects.
-- Each folder should be represented as a grouping box, with the same name as the folder.
+**Then** the diagram should show a root grouping box with the solution folder name  
+**And** no nodes or dependencies
 
 ---
 
-### Generate Diagram With multiple Projects in the Root Folder and Multiple Projects in Subfolders Including Dependencies
+### Root Projects Only
 
-**Given** the solution folder contains multiple projects with dependencies
-**And** multiple projects are in the root directory
-**And** some of those projects are in grouped folders,
-**When** the diagram is generated
-**Then** the diagram should:
+**Given** all projects are in the solution root folder  
+**When** the diagram is generated  
+**Then** the diagram should show one node per project  
+**And** the root folder should be a grouping box  
 
+---
 
-- The root folder should be represented as a grouping box, with the same name as the folder.
-- Represent each project as an individual node.
-- Group projects visually according to their folder structure.
-- Include arrows representing dependencies between projects.
-- Each folder should be represented as a grouping box, with the same name as the folder.
+### Root Projects With Dependencies
+
+**Given** all projects are in the solution root folder  
+**And** some projects depend on each other  
+**When** the diagram is generated  
+**Then** the diagram should show one node per project  
+**And** arrows should represent the dependencies  
+**And** the root folder should be a grouping box  
+
+---
+
+### Mixed Folder Structure With 1 Root Project
+
+**Given** one project is in the root folder  
+**And** other projects are in subfolders  
+**When** the diagram is generated  
+**Then** the diagram should show nodes grouped by folder  
+**And** each folder should be a grouping box  
+**And** arrows should represent dependencies  
+
+---
+
+### Mixed Folder Structure With Multiple Root Projects
+
+**Given** multiple projects are in the root folder  
+**And** other projects are in subfolders  
+**And** some projects depend on each other  
+**When** the diagram is generated  
+**Then** the diagram should show all nodes  
+**And** group nodes by folder  
+**And** draw arrows for dependencies  
+**And** skip non-project folders  
 
 ---

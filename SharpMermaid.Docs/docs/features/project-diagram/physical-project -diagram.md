@@ -3,8 +3,8 @@
 ## Description
 
 As a developer,  
-I want to generate a diagram that accurately reflects the physical arrangement of projects and files on disk,  
-So that I can analyze the hierarchy and structure of the solution.
+I want to generate a diagram that reflects the solution structure on disk,
+So that I can analyze and visualize project organization and dependencies.
 
 ## Rules
 
@@ -12,71 +12,42 @@ So that I can analyze the hierarchy and structure of the solution.
 
 ## Scenarios
 
-### Generate Diagram With No Projects
+---
 
-**Given** the solution folder does not contain any projects,
-**When** the diagram is generated,
-**Then** the diagram should:
+### Empty Solution
 
-- Not include any nodes or arrows.
+**Given** the solution has no projects  
+**When** the diagram is generated  
+**Then** the diagram should have no nodes or dependencies  
+**And** the title should be the solution name  
 
-### Generate Diagram With Multiple Projects and Zero Project Dependencies
+---
 
-**Given** the solution folder contains multiple projects with dependencies,  
-**When** the diagram is generated,  
-**Then** the diagram should:
+### Single Project With Clickable URL
 
-- Include nodes representing projects.
-- Represent the physical hierarchy of files on disk.
-- Not include any arrows representing dependencies between projects.
+**Given** the solution has a single project  
+**When** the diagram is generated  
+**Then** the diagram should include one node  
+**And** the node should have a clickable URL  
 
-### Generate Diagram With Multiple Projects and Project Dependencies
+---
 
-**Given** the solution folder contains multiple projects with dependencies,  
-**When** the diagram is generated,  
-**Then** the diagram should:
+### Multiple Projects With No Dependencies
 
-- Include nodes representing projects.
-- Represent the physical hierarchy of files on disk.
-- Include arrows representing dependencies between projects.
+**Given** the solution has multiple projects with no dependencies  
+**When** the diagram is generated  
+**Then** the diagram should include one node per project  
+**And** no arrows should exist between them  
+**And** all nodes should have clickable URLs  
 
-### Generate Diagram With 1 Project and A Clickable URL
+---
 
-**Given** the solution folder contains a single project
-**And** the project include .cs files.
-**When** the diagram is generated,
-**Then** the diagram should:
-- Include a node representing the project.
-- Include a clickable URL for the project node, leading to its details.
+### Multiple Projects With Dependencies
 
-### Generate Diagram With Multiple Projects and Clickable URLs
+**Given** the solution has multiple projects with dependencies  
+**When** the diagram is generated  
+**Then** the diagram should include one node per project  
+**And** arrows should represent the dependencies  
+**And** all nodes should have clickable URLs  
 
-**Given** the solution folder contains multiple projects, each with one or more classes,  
-**When** the diagram is generated,  
-**Then** the diagram should:
-- Include a node representing each project.
-- Include a clickable URL for each project node, leading to its details.
-
-### Generate Diagram With Multiple Projects and Clickable URLs and Project Dependencies 
-
-**Given** the solution folder contains multiple projects, each with one or more classes,
-**And** the projects have dependencies,
-**When** the diagram is generated,
-**Then** the diagram should:
-- Include a node representing each project.
-- Include a clickable URL for each project node, leading to its details.
-- Include arrows representing dependencies between projects.
-
-### Generate Diagram With Multiple Projects and Clickable URLs and Tooltips
-
-Tooltips does not even work in the Mermaid Live Editor, so this one is for another time.
-
-https://github.com/mermaid-js/mermaid/issues/3111
-https://github.com/squidfunk/mkdocs-material/issues/4686
-
-### Generate Diagram With Multiple Projects and Project Dependencies and Clickable URLs and Tooltips
-
-Tooltips does not even work in the Mermaid Live Editor, so this one is for another time
-
-https://github.com/mermaid-js/mermaid/issues/3111
-https://github.com/squidfunk/mkdocs-material/issues/4686
+---
