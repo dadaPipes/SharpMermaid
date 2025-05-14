@@ -6,3 +6,6 @@
 - Each project node **may** include a clickable url
 - Nodes **may** support tooltips.
 - Nodes **may** support click actions.
+- All diagrams **must** have a title same as the solution name.
+
+// TODO: Add some kind of message: "No projects found"

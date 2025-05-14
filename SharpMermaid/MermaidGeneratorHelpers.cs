@@ -50,7 +50,7 @@ static class MermaidGeneratorHelpers
     /// <summary>
     /// Appends project names as Mermaid nodes to the diagram.
     /// </summary>
-    public static void AddProjectNames(List<CsprojModel> projectFiles, StringBuilder diagramBuilder)
+    public static void AddProjectNames(IEnumerable<CsprojModel> projectFiles, StringBuilder diagramBuilder)
     {
         foreach (var projectFile in projectFiles)
         {
@@ -63,7 +63,7 @@ static class MermaidGeneratorHelpers
     /// </summary>
     /// <param name="projectFiles"></param>
     /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to construct the diagram.</param>
-    public static void AddProjectDependencies(List<CsprojModel> projectFiles, StringBuilder diagramBuilder)
+    public static void AddProjectDependencies(IEnumerable<CsprojModel> projectFiles, StringBuilder diagramBuilder)
     {
         foreach (var projectFile in projectFiles)
         {
@@ -78,7 +78,7 @@ static class MermaidGeneratorHelpers
     /// </summary>
     /// <param name="projectFiles">The list of <see cref="CsprojModel"/> to process.</param>
     /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to build the diagram.</param>
-    public static void AddClickableLinks(List<CsprojModel> projectFiles, StringBuilder diagramBuilder)
+    public static void AddClickableLinks(IEnumerable<CsprojModel> projectFiles, StringBuilder diagramBuilder)
     {
         foreach (var project in projectFiles.Where(p => p.HasSourceFiles))
         {
@@ -101,7 +101,9 @@ static class MermaidGeneratorHelpers
             // Split the relative path by both kinds of directory separators
             // (so it handles both '\' and '/').
             var tokens = proj.RelativePathFromSln
-                          .Split([Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar], StringSplitOptions.RemoveEmptyEntries);
+                             .Split([Path.DirectorySeparatorChar,
+                                     Path.AltDirectorySeparatorChar],
+                                     StringSplitOptions.RemoveEmptyEntries);
 
             // two tokens(folder and csproj file)
             if (tokens.Length == 2)
@@ -118,7 +120,7 @@ static class MermaidGeneratorHelpers
                 {
                     string folder = tokens[i];
                     var child = currentNode.SubFolders.FirstOrDefault(f => f.FolderName == folder);
-                    if (child == null)
+                    if (child is null)
                     {
                         child = new FolderNode { FolderName = folder };
                         currentNode.SubFolders.Add(child);

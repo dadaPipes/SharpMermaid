@@ -12,26 +12,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/project-diagram/clickableNode.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/features/project-diagram/clickableNode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/features/project-diagram/interactivity.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/features/project-diagram/interactivity.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "docs/features/project-diagram/logical-project-diagram.md",
       "output": {
         ".html": {

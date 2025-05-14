@@ -89,8 +89,8 @@
 
 <h2 id="description">Description</h2>
 <p>As a developer,<br>
-I want to generate a diagram that accurately captures the logical arrangement of projects in the solution<br>
-So that I can understand how projects are grouped and interconnected.</p>
+I want to generate a package-style diagram that groups projects by their folder structure,<br>
+So that I can understand how the solution is logically organized and interconnected.</p>
 <h2 id="rules">Rules</h2>
 <ul>
 <li><code>bin</code> and <code>obj</code> <strong>must</strong> not appear in the generated diagram.</li>
@@ -102,7 +102,24 @@ So that I can understand how projects are grouped and interconnected.</p>
 <li>Nodes <strong>may</strong> support tooltips.</li>
 <li>Nodes <strong>may</strong> support click actions.</li>
 </ul>
+
+<ul>
+<li>Nodes <strong>must</strong> be grouped visually according to their folder structure.</li>
+<li>Grouping boxes <strong>must</strong> be based on the folder names containing the projects.</li>
+<li>The diagram <strong>must not</strong> include <code>bin</code>, <code>obj</code>, or non-project folders.</li>
+</ul>
 <h2 id="scenarios">Scenarios</h2>
+<hr>
+<h3 id="generate-diagram-with-projects-in-root-folder">Generate Diagram With Projects in Root Folder</h3>
+<p><strong>Given</strong> all projects are in the solution root folder,<br>
+<strong>When</strong> the diagram is generated,<br>
+<strong>Then</strong> the diagram should:</p>
+<ul>
+<li>Include a node for each project.</li>
+<li>Show all project nodes in a single group (the root).</li>
+<li>Include no nested folder boxes.</li>
+</ul>
+<hr>
 <h3 id="generate-diagram-representing-logical-structure">Generate Diagram Representing Logical Structure</h3>
 <p><strong>Given</strong> the solution folder contains multiple projects with dependencies<br>
 <strong>When</strong> the diagram is generated<br>

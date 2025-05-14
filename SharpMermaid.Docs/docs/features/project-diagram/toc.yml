@@ -4,7 +4,3 @@
   href: physical-project -diagram.md
 - name: Logical Project Diagram
   href: logical-project-diagram.md
-- name: Clickable Node
-  href: clickableNode.md
-- name: Interactivity
-  href: interactivity.md

@@ -1,9 +1,9 @@
 ﻿namespace SharpMermaid;
-public class SlnModel
+class SlnModel
 {
     public readonly string Name;
     public readonly string Directory;
-    public readonly List<CsprojModel> Csprojs = [];
+    public List<CsprojModel> Csprojs { get; } = [];
     public bool HasProjects => Csprojs.Count > 0;
 
     public SlnModel(string slnFullPath)

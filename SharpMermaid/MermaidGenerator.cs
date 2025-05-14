@@ -3,7 +3,7 @@
 namespace SharpMermaid;
 public class MermaidGenerator(string solutionFullPath)
 {
-    public readonly SlnModel _solution = new(solutionFullPath);
+    internal readonly SlnModel _solution = new(solutionFullPath);
 
     public string PhysicalProjectDiagram()
     {

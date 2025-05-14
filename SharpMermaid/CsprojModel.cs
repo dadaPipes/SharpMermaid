@@ -1,11 +1,29 @@
 ﻿using System.Xml.Linq;
 
 namespace SharpMermaid;
-public class CsprojModel
+class CsprojModel
 {
     public string Name { get; }
     public string FullPath { get; }
-    public bool IsTopLevelProject => RelativePathFromSln.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length == 2;
+    /// <summary>
+    /// Determines whether the project is a top-level project in the solution.
+    /// </summary>
+    /// <remarks>
+    /// A top-level project is defined as a project that resides directly in the solution root.
+    /// Since .NET projects are typically stored in their own directories, this method checks
+    /// if the relative path consists of exactly two segments:
+    /// 1. The project folder.
+    /// 2. The `.csproj` file.
+    /// If the path contains more than two segments, the project is inside a subfolder.
+    /// </remarks>
+    /// <example>
+    /// Given the following project structures:
+    /// - "ProjectA/ProjectA.csproj" → Top-level project (returns true)
+    /// - "Subfolder1/ProjectB/ProjectB.csproj" → Nested project (returns false)
+    /// - "Subfolder1/Subfolder2/ProjectC/ProjectC.csproj" → Nested project (returns false)
+    /// </example>
+    public bool IsTopLevelProject =>
+        RelativePathFromSln.Split([Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar], StringSplitOptions.RemoveEmptyEntries).Length == 2;
     public string RelativePathFromSln { get; }
     public List<string> CsprojDependencies { get; private set; } = [];
     public List<CsModel> CsFiles { get; private set; } = [];

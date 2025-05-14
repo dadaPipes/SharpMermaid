@@ -1,74 +1,104 @@
+using Xunit.Abstractions;
+
 namespace SharpMermaid.Test.ProjectDiagram;
-public class PhysicalProjectDiagramTests
+public class PhysicalProjectDiagramTests(ITestOutputHelper output)
 {
+    private readonly ITestOutputHelper _output = output;
+
     [Fact]
-    public void Should_Return_Diagram_With_No_Projects()
+    public void Should_Generate_Diagram_With_No_Projects()
     {
         // Given a solution with no projects
-        using var builder = new TemporarySolutionBuilder("TestSolution");
+        using var solution = new TemporarySolutionBuilder();
 
         // When the diagram is generated
-        var diagram = MermaidGenerator.PhysicalProjectDiagram(builder.RootPath);
+        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
+        var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
         // Then the diagram should be empty
-        const string expected =
-        """
+        string expected =
+        $"""
         ```mermaid
-        graph TD
+        ---
+        {solution.Name}
+        ---
+        graph
         ```
         """;
+
+        // Log expected and actual values for debugging
+        string actual = diagram;
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.Contains("```mermaid", diagram);
+        Assert.Contains("graph", diagram);
         Assert.Equal(expected, diagram);
     }
 
     [Fact]
-    public void Should_Return_Diagram_With_Multiple_Projects_and_Zero_Project_Dependencies()
+    public void Should_Generate_Diagram_With_Multiple_Projects_and_Zero_Project_Dependencies()
     {
         // Given a solution with multiple projects
-        using var builder = new TemporarySolutionBuilder("TestSolution");
+        using var solution = new TemporarySolutionBuilder();
 
-        var projectA = builder.AddProject("ProjectA");
-        var projectB = builder.AddProject("ProjectB");
-        var projectC = builder.AddProject("ProjectC");
+        solution.AddProject("ProjectA");
+        solution.AddProject("ProjectB");
+        solution.AddProject("ProjectC");
 
         // When the diagram is generated
-        var diagram = MermaidGenerator.PhysicalProjectDiagram(builder.RootPath);
+        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
+        var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
         // Then the diagram should include nodes for each project
-        const string expected =
-        """
+        string expected =
+        $"""
         ```mermaid
-        graph TD
+        ---
+        {solution.Name}
+        ---
+        graph
             ProjectA
             ProjectB
             ProjectC
         ```
         """;
 
+        // Log expected and actual values for debugging
+        string actual = diagram;
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.True(mermaidGenerator._solution.HasProjects);
         Assert.Equal(expected, diagram);
     }
 
     [Fact]
-    public void Should_Return_Diagram_With_Multiple_Projects_and_Project_Dependencies()
+    public void Should_Generate_Diagram_With_Multiple_Projects_and_Project_Dependencies()
     {
         // Given a solution with projects and dependencies
-        using var builder = new TemporarySolutionBuilder("TestSolution");
+        using var solution = new TemporarySolutionBuilder();
 
-        var projectA = builder.AddProject("ProjectA");
-        var projectB = builder.AddProject("ProjectB");
-        var projectC = builder.AddProject("ProjectC");
+        var projectA = solution.AddProject("ProjectA");
+        var projectB = solution.AddProject("ProjectB");
+        var projectC = solution.AddProject("ProjectC");
 
-        builder.AddProjectReference(projectA, projectB);
-        builder.AddProjectReference(projectA, projectC);
-        builder.AddProjectReference(projectB, projectC);
+        solution.AddProjectReference(projectA, projectB);
+        solution.AddProjectReference(projectA, projectC);
+        solution.AddProjectReference(projectB, projectC);
 
         // When the diagram is generated
-        var diagram = MermaidGenerator.PhysicalProjectDiagram(builder.RootPath);
+        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
+        var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
-        // Then the diagram should include nodes and edges for each project and its dependencies
-        const string expected =
-        """
+        // Then the diagram should include nodes and arrows for each project and its dependencies
+        string expected =
+        $"""
         ```mermaid
-        graph TD
+        ---
+        {solution.Name}
+        ---
+        graph
             ProjectA
             ProjectB
             ProjectC
@@ -78,17 +108,23 @@ public class PhysicalProjectDiagramTests
         ```
         """;
 
+        // Log expected and actual values for debugging
+        string actual = diagram;
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.True(mermaidGenerator._solution.HasProjects);
         Assert.Equal(expected, diagram);
     }
 
     [Fact]
     public void Should_Generate_Diagram_With_1_Project_and_A_Clickable_URL()
     {
-        // Given a solution with a single project,
-        // And the project includes .cs files
-        using var builder = new TemporarySolutionBuilder("TestSolution");
+        // Given a solution with a single project named ProjectA,
+        // And the project includes source files
+        using var solution = new TemporarySolutionBuilder();
 
-        var projectA = builder.AddProjectWithFiles("ProjectA", new Dictionary<string, string>
+        solution.AddProjectWithFiles("ProjectA", new Dictionary<string, string>
         {
             ["X.cs"] = "public class X {}",
             ["Y.cs"] = "public class Y {}",
@@ -96,18 +132,28 @@ public class PhysicalProjectDiagramTests
         });
 
         // When the diagram is generated
-        var diagram = MermaidGenerator.PhysicalProjectDiagram(builder.RootPath);
+        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
+        var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
         // Then the diagram should include a clickable URL for the project
-        const string expected =
-        """
+        string expected =
+        $"""
         ```mermaid
-        graph TD
+        ---
+        {solution.Name}
+        ---
+        graph
             ProjectA
-            click ProjectA "dummy"
+            click ProjectA "https://example.com/ProjectA/ProjectA.csproj"
         ```
         """;
 
+        // Log expected and actual values for debugging
+        string actual = diagram;
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.True(mermaidGenerator._solution.HasProjects);
         Assert.Equal(expected, diagram);
     }
 
@@ -116,43 +162,55 @@ public class PhysicalProjectDiagramTests
     {
         // Given a solution with multiple projects,
         // And each project includes .cs files
-        using var builder = new TemporarySolutionBuilder("TestSolution");
+        using var solution = new TemporarySolutionBuilder();
 
-        var projectA = builder.AddProjectWithFiles("ProjectA", new Dictionary<string, string>
+        solution.AddProjectWithFiles("ProjectA", new Dictionary<string, string>
         {
             ["X.cs"] = "public class X {}",
             ["Y.cs"] = "public class Y {}",
             ["Z.cs"] = "public class Z {}"
         });
 
-        var projectB = builder.AddProjectWithFiles("ProjectB", new Dictionary<string, string>
+        solution.AddProjectWithFiles("ProjectB", new Dictionary<string, string>
         {
             ["A.cs"] = "public class A {}",
             ["B.cs"] = "public class B {}"
         });
 
-        var projectC = builder.AddProjectWithFiles("ProjectC", new Dictionary<string, string>
+        solution.AddProjectWithFiles("ProjectC", new Dictionary<string, string>
         {
             ["M.cs"] = "public class M {}",
             ["N.cs"] = "public class N {}"
         });
 
         // When the diagram is generated
-        var diagram = MermaidGenerator.PhysicalProjectDiagram(builder.RootPath);
+        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
+        var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
         // Then the diagram should include clickable URLs for each project node
-        const string expected =
-        """
+        string expected =
+        $"""
         ```mermaid
-        graph TD
+        ---
+        {solution.Name}
+        ---
+        graph
             ProjectA
-            click ProjectA "dummy"
             ProjectB
-            click ProjectB "dummy"
             ProjectC
-            click ProjectC "dummy"
+            click ProjectA "https://example.com/ProjectA/ProjectA.csproj"
+            click ProjectB "https://example.com/ProjectB/ProjectB.csproj"
+            click ProjectC "https://example.com/ProjectC/ProjectC.csproj"
         ```
         """;
+
+        // Log expected and actual values for debugging
+        string actual = diagram;
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.True(mermaidGenerator._solution.HasProjects);
+        Assert.Equal(expected, diagram);
     }
 
     [Fact]
@@ -161,52 +219,61 @@ public class PhysicalProjectDiagramTests
         // Given a solution with multiple projects and dependencies
         // And each project includes .cs files
 
-        using var builder = new TemporarySolutionBuilder("TestSolution");
+        using var solution = new TemporarySolutionBuilder();
 
-        var projectD = builder.AddProjectWithFiles("ProjectD", new Dictionary<string, string>
+        var projectD = solution.AddProjectWithFiles("ProjectD", new Dictionary<string, string>
         {
             ["X.cs"] = "public class X {}",
             ["Y.cs"] = "public class Y {}",
             ["Z.cs"] = "public class Z {}"
         });
 
-        var projectE = builder.AddProjectWithFiles("ProjectE", new Dictionary<string, string>
+        var projectE = solution.AddProjectWithFiles("ProjectE", new Dictionary<string, string>
         {
             ["A.cs"] = "public class A {}",
             ["B.cs"] = "public class B {}"
         });
 
-        var projectF = builder.AddProjectWithFiles("ProjectF", new Dictionary<string, string>
+        var projectF = solution.AddProjectWithFiles("ProjectF", new Dictionary<string, string>
         {
             ["M.cs"] = "public class M {}",
             ["N.cs"] = "public class N {}"
         });
 
-        builder.AddProjectReference(projectD, projectE);
-        builder.AddProjectReference(projectD, projectF);
-        builder.AddProjectReference(projectE, projectF);
+        solution.AddProjectReference(projectD, projectE);
+        solution.AddProjectReference(projectD, projectF);
+        solution.AddProjectReference(projectE, projectF);
 
         // When the diagram is generated
-        var diagram = MermaidGenerator.PhysicalProjectDiagram(builder.RootPath);
+        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
+        var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
         // Then the diagram should include clickable URLs for each project node and show project dependencies
-
-        const string expected =
-        """
+        string expected =
+        $"""
         ```mermaid
-        graph TD
+        ---
+        {solution.Name}
+        ---
+        graph
             ProjectD
             ProjectE
             ProjectF
-            click ProjectD "dummy"
-            click ProjectE "dummy"
-            click ProjectF "dummy"
+            click ProjectD "https://example.com/ProjectD/ProjectD.csproj"
+            click ProjectE "https://example.com/ProjectE/ProjectE.csproj"
+            click ProjectF "https://example.com/ProjectF/ProjectF.csproj"
             ProjectD --> ProjectE
             ProjectD --> ProjectF
             ProjectE --> ProjectF
         ```
         """;
 
+        // Log expected and actual values for debugging
+        string actual = diagram;
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.True(mermaidGenerator._solution.HasProjects);
         Assert.Equal(expected, diagram);
     }
 }
