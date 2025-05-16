@@ -93,62 +93,58 @@ I want to generate a package-style diagram that groups projects by their folder 
 So that I can understand how the solution is logically organized and interconnected.</p>
 <h2 id="rules">Rules</h2>
 <ul>
-<li><code>bin</code> and <code>obj</code> <strong>must</strong> not appear in the generated diagram.</li>
-<li>Only <code>.csproj</code> files are included in the diagram</li>
-<li>The diagram <strong>must</strong> include a node for each project in the solution.</li>
-<li>Each project <strong>may</strong> include one or multiple dependencies.</li>
-<li>The diagram <strong>may</strong> represent dependencies between projects in the solution.</li>
-<li>Each project node <strong>may</strong> include a clickable url</li>
-<li>Nodes <strong>may</strong> support tooltips.</li>
-<li>Nodes <strong>may</strong> support click actions.</li>
-<li>All diagrams <strong>must</strong> have a title same as the solution name.</li>
+<li>Diagram <strong>must</strong> have a title same as the solution name</li>
+<li>Project nodes that has source files, <strong>must</strong> include a url to the projects class diagram</li>
+<li>The diagram <strong>must</strong> include a node for each project in the solution</li>
+<li>Each project <strong>may</strong> include one or multiple dependencies</li>
+<li>The diagram <strong>may</strong> represent dependencies between projects in the solution</li>
 </ul>
 <p>// TODO: Add some kind of message: &quot;No projects found&quot;</p>
 
 <ul>
-<li>Nodes <strong>must</strong> be grouped visually according to their folder structure.</li>
-<li>Grouping boxes <strong>must</strong> be based on the folder names containing the projects.</li>
-<li>The diagram <strong>must not</strong> include <code>bin</code>, <code>obj</code>, or non-project folders.</li>
+<li>Project Nodes <strong>must</strong> be grouped into subgraphs based on their folder structure.</li>
 </ul>
 <h2 id="scenarios">Scenarios</h2>
 <hr>
-<h3 id="empty-solution">Empty Solution</h3>
+<h3 id="solution-with-without-projects">Solution With Without Projects</h3>
 <p><strong>Given</strong> the solution contains no projects<br>
 <strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should show a root grouping box with the solution folder name<br>
-<strong>And</strong> no nodes or dependencies</p>
+<strong>Then</strong> the title should be the solution name<br>
+<strong>And</strong> the diagram should have no nodes or dependencies</p>
 <hr>
-<h3 id="root-projects-only">Root Projects Only</h3>
+<h3 id="solution-with-root-projects-only">Solution With Root Projects Only</h3>
 <p><strong>Given</strong> all projects are in the solution root folder<br>
 <strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should show one node per project<br>
-<strong>And</strong> the root folder should be a grouping box</p>
+<strong>Then</strong> the title should be the solution name<br>
+<strong>And</strong> the diagram should include a node for each project</p>
 <hr>
-<h3 id="root-projects-with-dependencies">Root Projects With Dependencies</h3>
+<h3 id="solution-with-root-projects-only-with-dependencies">Solution With Root Projects Only With Dependencies</h3>
 <p><strong>Given</strong> all projects are in the solution root folder<br>
 <strong>And</strong> some projects depend on each other<br>
 <strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should show one node per project<br>
-<strong>And</strong> arrows should represent the dependencies<br>
-<strong>And</strong> the root folder should be a grouping box</p>
+<strong>Then</strong> the title should be the solution name<br>
+<strong>And</strong> the diagram should include a node for each project<br>
+<strong>And</strong> arrows should represent the dependencies between projects</p>
 <hr>
 <h3 id="mixed-folder-structure-with-1-root-project">Mixed Folder Structure With 1 Root Project</h3>
 <p><strong>Given</strong> one project is in the root folder<br>
-<strong>And</strong> other projects are in subfolders<br>
+<strong>And</strong> the other projects are in a subfolder<br>
+<strong>And</strong> the root project has dependencies to the other projects<br>
 <strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should show nodes grouped by folder<br>
-<strong>And</strong> each folder should be a grouping box<br>
-<strong>And</strong> arrows should represent dependencies</p>
+<strong>Then</strong> the title should be the solution name<br>
+<strong>And</strong> the diagram should include a node for each project<br>
+<strong>And</strong> nodes should be grouped into subgraphs based on their folder structure<br>
+<strong>And</strong> And arrows should represent project dependencies</p>
 <hr>
 <h3 id="mixed-folder-structure-with-multiple-root-projects">Mixed Folder Structure With Multiple Root Projects</h3>
 <p><strong>Given</strong> multiple projects are in the root folder<br>
 <strong>And</strong> other projects are in subfolders<br>
 <strong>And</strong> some projects depend on each other<br>
 <strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should show all nodes<br>
-<strong>And</strong> group nodes by folder<br>
-<strong>And</strong> draw arrows for dependencies<br>
-<strong>And</strong> skip non-project folders</p>
+<strong>Then</strong> the title should be the solution name<br>
+<strong>And</strong> the diagram should include a node for each project<br>
+<strong>And</strong> nodes should be grouped into subgraphs based on their folder structure<br>
+<strong>And</strong> And arrows should represent project dependencies</p>
 <hr>
 
 </article>

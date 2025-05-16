@@ -5,22 +5,23 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;
 
-    [Fact]
+    [Fact(DisplayName = "Solution With Without Projects")]
     public void Should_Generate_Diagram_With_No_Projects()
     {
-        // Given a solution with no projects
+        // Given the solution contains no projects
         using var solution = new TemporarySolutionBuilder();
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.LogicalProjectDiagram();
-        
-        // Then the root folder should be represented as a grouping box, with the same name as the folder.
+
+        // Then the title should be the solution name
+        // And the diagram should have no nodes or dependencies
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
         ```
@@ -34,11 +35,10 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Solution With Root Projects Only")]
     public void Should_Generate_Diagram_With_Multiple_Projects_in_the_Root_Folder()
     {
-        // Given all projects are in the solution root folder,
-        // And the projects have dependencies
+        // Given all projects are in the solution root folder
         using var solution = new TemporarySolutionBuilder();
 
         solution.AddProject("ProjectA");
@@ -49,14 +49,13 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.LogicalProjectDiagram();
 
-        // Then the diagram should:
-        // The root folder should be represented as a grouping box, with the same name as the folder.
-        // Represent each project as an individual node
+        // Then the title should be the solution name
+        // And the diagram should include a node for each project
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
             ProjectA
@@ -74,10 +73,11 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Solution With Root Projects Only With Dependencies")]
     public void Should_Generate_Diagram_With_Multiple_Projects_in_the_Root_Folder_with_Project_Dependencies()
     {
         // Given a solution with multiple projects in the root folder and dependencies
+        // And some projects depend on each other
         using var solution = new TemporarySolutionBuilder();
 
         var projectA = solution.AddProject("ProjectA");
@@ -92,15 +92,14 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.LogicalProjectDiagram();
 
-        // Then the diagram should:
-        // The root folder should be represented as a grouping box, with the same name as the folder.
-        // Represent each project as an individual node
-        // Include arrows representing dependencies between projects.
+        // Then the title should be the solution name
+        // And the diagram should include a node for each project
+        // And arrows should represent the dependencies between projects
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
             ProjectA
@@ -121,32 +120,37 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Mixed Folder Structure With 1 Root Project")]
     public void Should_Generate_Diagram_With_1_Project_In_The_Root_Folder_and_Multiple_Projects_in_1_Subfolder()
     {
-        // Given a solution with 1 project in the root folder and multiple projects in 1 subfolder
+        // Given one project is in the root folder
+        // And the other projects are in a subfolder
 
         using var solution = new TemporarySolutionBuilder();
 
-        solution.AddProject("ProjectA");
-        solution.AddProject("Subfolder1", "ProjectB");
-        solution.AddProject("Subfolder1", "ProjectC");
-        solution.AddProject("Subfolder1", "ProjectD");
+        var projectA = solution.AddProject("ProjectA");
+        var projectB = solution.AddProject("Subfolder1", "ProjectB");
+        var projectC = solution.AddProject("Subfolder1", "ProjectC");
+        var projectD = solution.AddProject("Subfolder1", "ProjectD");
+
+        solution.AddProjectReference(projectA, projectB);
+        solution.AddProjectReference(projectA, projectC);
+        solution.AddProjectReference(projectA, projectD);
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.LogicalProjectDiagram();
 
-        // Then the diagram should:
-        // The root folder should be represented as a grouping box, with the same name as the folder.
-        // Represent each project as an individual node.
-        // Group projects visually according to their folder structure.
+        // Then the title should be the solution name  
+        // And the diagram should include a node for each project
+        // And nodes should be grouped into subgraphs based on their folder structure
+        // And And arrows should represent project dependencies  
 
         string expected =
             $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
             ProjectA
@@ -155,6 +159,9 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
                 ProjectC
                 ProjectD
             end
+            ProjectA --> ProjectB
+            ProjectA --> ProjectC
+            ProjectA --> ProjectD
         ```
         """;
 
@@ -165,13 +172,14 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
 
         Assert.True(mermaidGenerator._solution.HasProjects);
         Assert.Equal(expected, diagram);
-
     }
 
-    [Fact]
+    [Fact(DisplayName = "Mixed Folder Structure With Multiple Root Projects")]
     public void Should_Generate_Diagram_With_1_Project_In_The_Root_Folder_and_Multiple_Projects_in_Subfolders_Including_Dependencies()
     {
-        // Given a solution with  1 project in the root folder and projects in subfolders including dependencies
+        // Given  multiple projects are in the root folder
+        // And other projects are in subfolders
+        // And some projects depend on each other
         using var solution = new TemporarySolutionBuilder();
 
         var projectA = solution.AddProject("ProjectA");
@@ -189,18 +197,15 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.LogicalProjectDiagram();
 
-        // Then the diagram should:
-        // The root folder should be represented as a grouping box, with the same name as the folder.
-        // Represent each project as an individual node.
-        // Group projects visually according to their folder structure.
-        // Include arrows representing dependencies between projects.
-        // Each folder should be represented as a grouping box, with the same name as the folder.
-
+        // Then the title should be the solution name  
+        // And the diagram should include a node for each project
+        // And nodes should be grouped into subgraphs based on their folder structure
+        // And And arrows should represent project dependencies
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
             ProjectA
@@ -210,69 +215,6 @@ public class LogicalProjectDiagramTests(ITestOutputHelper output)
                 subgraph Subfolder2
                     ProjectD
                     ProjectE
-                end
-            end
-            ProjectA --> ProjectB
-            ProjectA --> ProjectC
-            ProjectC --> ProjectD
-            ProjectC --> ProjectE
-        ```
-        """;
-
-        // Log expected and actual values for debugging
-        string actual = diagram;
-        _output.WriteLine("Expected:\n" + expected);
-        _output.WriteLine("Actual:\n" + actual);
-
-        Assert.True(mermaidGenerator._solution.HasProjects);
-        Assert.Equal(expected, diagram);
-    }
-
-    [Fact]
-    public void Should_Generate_Diagram_With_Multiple_Projects_in_The_Root_Folder_and_Multiple_Projects_in_Subfolders_Including_Dependencies()
-    {
-        // Given a solution with projects in subfolders
-        using var solution = new TemporarySolutionBuilder();
-
-        var projectA = solution.AddProject("ProjectA");
-        var projectB = solution.AddProject("ProjectB");
-        var projectC = solution.AddProject("Subfolder1", "ProjectC");
-        var projectD = solution.AddProject("Subfolder1", "ProjectD");
-        var projectE = solution.AddProject("Subfolder1/Subfolder2", "ProjectE");
-                       solution.AddProject("Subfolder1/Subfolder2", "ProjectF");
-
-        solution.AddProjectReference(projectA, projectB);
-        solution.AddProjectReference(projectA, projectC);
-        solution.AddProjectReference(projectC, projectD);
-        solution.AddProjectReference(projectC, projectE);
-
-        // When the diagram is generated
-        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
-        var diagram = mermaidGenerator.LogicalProjectDiagram();
-
-
-        // Then the diagram should:
-        // The root folder should be represented as a grouping box, with the same name as the folder.
-        // Represent each project as an individual node.
-        // Group projects visually according to their folder structure.
-        // Include arrows representing dependencies between projects.
-        // Each folder should be represented as a grouping box, with the same name as the folder.
-
-        string expected =
-        $"""
-        ```mermaid
-        ---
-        {solution.Name}
-        ---
-        graph
-            ProjectA
-            ProjectB
-            subgraph Subfolder1
-                ProjectC
-                ProjectD
-                subgraph Subfolder2
-                    ProjectE
-                    ProjectF
                 end
             end
             ProjectA --> ProjectB

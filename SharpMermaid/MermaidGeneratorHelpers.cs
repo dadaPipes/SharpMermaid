@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Text.RegularExpressions;
 
 namespace SharpMermaid;
 
@@ -22,7 +21,7 @@ static class MermaidGeneratorHelpers
 
            $"""
             ---
-            {solutionName}
+            title: {solutionName}
             ---
             """;
 
@@ -193,5 +192,3 @@ static class MermaidGeneratorHelpers
         public List<string> Projects { get; set; } = new List<string>();
     }
 }
-
-// Path.DirectorySeparatorChar

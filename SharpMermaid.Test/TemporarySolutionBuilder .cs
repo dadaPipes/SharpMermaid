@@ -23,7 +23,7 @@ public class TemporarySolutionBuilder : IDisposable
     /// </summary>
     public readonly string FullPath;
 
-    private readonly List<string> _projectPaths = [];
+    public List<string> ProjectPaths { get; private set; } = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TemporarySolutionBuilder"/> class,
@@ -52,7 +52,7 @@ public class TemporarySolutionBuilder : IDisposable
         RunDotnet($"new classlib -n {projectName}", Directory);
 
         string projectFilePath = Path.Combine(newDirectory, $"{projectName}.csproj");
-        _projectPaths.Add(projectFilePath);
+        ProjectPaths.Add(projectFilePath);
 
         RunDotnet($"sln add {projectFilePath}", Directory);
 
@@ -87,7 +87,7 @@ public class TemporarySolutionBuilder : IDisposable
         string projectFolder = Path.Combine(parentFolder, projectName);
         string projectFilePath = Path.Combine(projectFolder, $"{projectName}.csproj");
 
-        _projectPaths.Add(projectFilePath);
+        ProjectPaths.Add(projectFilePath);
         RunDotnet($"sln add \"{projectFilePath}\"", Directory);
 
         var defaultClassFile = Path.Combine(projectFolder, "Class1.cs");
@@ -111,7 +111,7 @@ public class TemporarySolutionBuilder : IDisposable
         RunDotnet($"new classlib -n {projectName}", Directory);
 
         string projectFilePath = Path.Combine(projectPath, $"{projectName}.csproj");
-        _projectPaths.Add(projectFilePath);
+        ProjectPaths.Add(projectFilePath);
 
         RunDotnet($"sln add {projectFilePath}", Directory);
 
@@ -143,7 +143,7 @@ public class TemporarySolutionBuilder : IDisposable
         RunDotnet($"new classlib -n {projectName}", Path.Combine(Directory, relativeFolderPath));
 
         string projectFilePath = Path.Combine(projectFolder, $"{projectName}.csproj");
-        _projectPaths.Add(projectFilePath);
+        ProjectPaths.Add(projectFilePath);
 
         RunDotnet($"sln add \"{projectFilePath}\"", Directory);
 

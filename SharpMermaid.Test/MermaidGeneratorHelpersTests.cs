@@ -39,7 +39,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         string expected =
         $"""
         ---
-        TestSolution
+        title: TestSolution
         ---
 
         """;

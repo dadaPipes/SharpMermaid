@@ -1,0 +1,40 @@
+Documentation:
+Write documentation only for public classes and their public methods. Writting documentation for everything gets out of hands and wont
+give much value.
+Write proper XML comments for non-public classes and methods instead. Most important tags are <Description> and <Return> tags.
+Because they are the only ones shown in the vs 2022 tooltip.
+
+Features:
+
+- When a project diagram is displayed I should be able to see the content of their <Description> tag,
+  as a tooltip 
+  (or just static content, if it turns out that I need to change restrictions from strict to loose to make it work,
+   then reconsider to make it a configurable option).
+
+   ### Generate Diagram With Multiple Projects and Clickable URLs and Tooltips
+
+	Tooltips does not even work in the Mermaid Live Editor, so this one is for another time.
+
+	https://github.com/mermaid-js/mermaid/issues/3111
+	https://github.com/squidfunk/mkdocs-material/issues/4686
+
+	### Generate Diagram With Multiple Projects and Project Dependencies and Clickable URLs and Tooltips
+
+	Tooltips does not even work in the Mermaid Live Editor, so this one is for another time
+
+	https://github.com/mermaid-js/mermaid/issues/3111
+	https://github.com/squidfunk/mkdocs-material/issues/4686
+
+
+- When clicking a project node, I should be redirected to a class diagram of the project. Including classes with all access modifiers.
+
+- Interactive links. When hovering over a project, the link/arrow should turn on animation (https://mermaid.js.org/syntax/flowchart.html#turning-an-animation-on)
+  (or just static content, if it turns out that I need to change restrictions from strict to loose to make it work,
+   then reconsider to make it a configurable option).
+   Thoughts:
+   - Might require some custom Java Script code to handle the animation, like a hover event.
+
+Far future:
+Automate sequence diagram:
+- Start from the top (acceptence test), log the flow of the test, and then create a sequence diagram.
+- Use metalama to log the flow of the test with [Log], then parse the logged data, to MermaidGenerator, to create a sequence diagram.

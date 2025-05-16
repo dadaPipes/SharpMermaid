@@ -5,22 +5,23 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;
 
-    [Fact]
+    [Fact(DisplayName = "Solution Without Projects")]
     public void Should_Generate_Diagram_With_No_Projects()
     {
-        // Given a solution with no projects
+        // Given the solution has no projects
         using var solution = new TemporarySolutionBuilder();
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
-        // Then the diagram should be empty
+        // Then the diagram should have no nodes or dependencies
+        // And the title should be the solution name
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
         ```
@@ -36,111 +37,31 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram);
     }
 
-    [Fact]
-    public void Should_Generate_Diagram_With_Multiple_Projects_and_Zero_Project_Dependencies()
+    [Fact(DisplayName = "Solution With Single Project")]
+    public void Should_Generate_Diagram_With_Single_Project()
     {
-        // Given a solution with multiple projects
-        using var solution = new TemporarySolutionBuilder();
-
-        solution.AddProject("ProjectA");
-        solution.AddProject("ProjectB");
-        solution.AddProject("ProjectC");
-
-        // When the diagram is generated
-        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
-        var diagram = mermaidGenerator.PhysicalProjectDiagram();
-
-        // Then the diagram should include nodes for each project
-        string expected =
-        $"""
-        ```mermaid
-        ---
-        {solution.Name}
-        ---
-        graph
-            ProjectA
-            ProjectB
-            ProjectC
-        ```
-        """;
-
-        // Log expected and actual values for debugging
-        string actual = diagram;
-        _output.WriteLine("Expected:\n" + expected);
-        _output.WriteLine("Actual:\n" + actual);
-
-        Assert.True(mermaidGenerator._solution.HasProjects);
-        Assert.Equal(expected, diagram);
-    }
-
-    [Fact]
-    public void Should_Generate_Diagram_With_Multiple_Projects_and_Project_Dependencies()
-    {
-        // Given a solution with projects and dependencies
-        using var solution = new TemporarySolutionBuilder();
-
-        var projectA = solution.AddProject("ProjectA");
-        var projectB = solution.AddProject("ProjectB");
-        var projectC = solution.AddProject("ProjectC");
-
-        solution.AddProjectReference(projectA, projectB);
-        solution.AddProjectReference(projectA, projectC);
-        solution.AddProjectReference(projectB, projectC);
-
-        // When the diagram is generated
-        var mermaidGenerator = new MermaidGenerator(solution.FullPath);
-        var diagram = mermaidGenerator.PhysicalProjectDiagram();
-
-        // Then the diagram should include nodes and arrows for each project and its dependencies
-        string expected =
-        $"""
-        ```mermaid
-        ---
-        {solution.Name}
-        ---
-        graph
-            ProjectA
-            ProjectB
-            ProjectC
-            ProjectA --> ProjectB
-            ProjectA --> ProjectC
-            ProjectB --> ProjectC
-        ```
-        """;
-
-        // Log expected and actual values for debugging
-        string actual = diagram;
-        _output.WriteLine("Expected:\n" + expected);
-        _output.WriteLine("Actual:\n" + actual);
-
-        Assert.True(mermaidGenerator._solution.HasProjects);
-        Assert.Equal(expected, diagram);
-    }
-
-    [Fact]
-    public void Should_Generate_Diagram_With_1_Project_and_A_Clickable_URL()
-    {
-        // Given a solution with a single project named ProjectA,
-        // And the project includes source files
+        // Given the solution has a single project
+        // And the project has at least one source file
         using var solution = new TemporarySolutionBuilder();
 
         solution.AddProjectWithFiles("ProjectA", new Dictionary<string, string>
         {
-            ["X.cs"] = "public class X {}",
-            ["Y.cs"] = "public class Y {}",
-            ["Z.cs"] = "public class Z {}"
+            ["X.cs"] = "public class X {}"
         });
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
-        // Then the diagram should include a clickable URL for the project
+        // Then the diagram should include one node
+        // And the diagram should have a title same as the solution name
+        // And the diagram should include a node for the project in the solution
+        // And the diagram should include a url to the projects class diagram
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
             ProjectA
@@ -157,42 +78,40 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram);
     }
 
-    [Fact]
-    public void Should_Generate_Diagram_With_Multiple_Projects_and_A_Clickable_URLs()
+    [Fact(DisplayName = "Multiple Projects Without Dependencies")]
+    public void Should_Generate_Diagram_With_Multiple_Projects_And_No_Dependencies()
     {
-        // Given a solution with multiple projects,
-        // And each project includes .cs files
+        // Given the solution has multiple projects with no dependencies
+        // And each project has at least one source file
         using var solution = new TemporarySolutionBuilder();
 
         solution.AddProjectWithFiles("ProjectA", new Dictionary<string, string>
         {
-            ["X.cs"] = "public class X {}",
-            ["Y.cs"] = "public class Y {}",
-            ["Z.cs"] = "public class Z {}"
+            ["X.cs"] = "public class X {}"
         });
 
         solution.AddProjectWithFiles("ProjectB", new Dictionary<string, string>
         {
-            ["A.cs"] = "public class A {}",
-            ["B.cs"] = "public class B {}"
+            ["Y.cs"] = "public class Y {}"
         });
 
         solution.AddProjectWithFiles("ProjectC", new Dictionary<string, string>
         {
-            ["M.cs"] = "public class M {}",
-            ["N.cs"] = "public class N {}"
+            ["Z.cs"] = "public class Z {}"
         });
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
-        // Then the diagram should include clickable URLs for each project node
+        // Then the diagram should include one node per project
+        // And the diagram should have a title same as the solution name
+        // And the diagram should include a url to the projects class diagram
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
             ProjectA
@@ -213,66 +132,59 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram);
     }
 
-    [Fact]
-    public void Should_Generate_Diagram_With_Multiple_Projects_and_A_Clickable_URLs_and_Project_Dependencies()
+    [Fact(DisplayName = "Multiple Projects With Dependencies")]
+    public void Should_Generate_Diagram_With_Multiple_Projects_With_Dependencies()
     {
-        // Given a solution with multiple projects and dependencies
-        // And each project includes .cs files
-
+        // Given the solution has multiple projects with dependencies
+        // And each project has at least one source file
         using var solution = new TemporarySolutionBuilder();
-
-        var projectD = solution.AddProjectWithFiles("ProjectD", new Dictionary<string, string>
+        var projectA = solution.AddProjectWithFiles("ProjectA", new Dictionary<string, string>
         {
-            ["X.cs"] = "public class X {}",
-            ["Y.cs"] = "public class Y {}",
+            ["X.cs"] = "public class X {}"
+        });
+        var projectB = solution.AddProjectWithFiles("ProjectB", new Dictionary<string, string>
+        {
+            ["Y.cs"] = "public class Y {}"
+        });
+        var projectC = solution.AddProjectWithFiles("ProjectC", new Dictionary<string, string>
+        {
             ["Z.cs"] = "public class Z {}"
         });
-
-        var projectE = solution.AddProjectWithFiles("ProjectE", new Dictionary<string, string>
-        {
-            ["A.cs"] = "public class A {}",
-            ["B.cs"] = "public class B {}"
-        });
-
-        var projectF = solution.AddProjectWithFiles("ProjectF", new Dictionary<string, string>
-        {
-            ["M.cs"] = "public class M {}",
-            ["N.cs"] = "public class N {}"
-        });
-
-        solution.AddProjectReference(projectD, projectE);
-        solution.AddProjectReference(projectD, projectF);
-        solution.AddProjectReference(projectE, projectF);
+        solution.AddProjectReference(projectA, projectB);
+        solution.AddProjectReference(projectA, projectC);
+        solution.AddProjectReference(projectB, projectC);
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.PhysicalProjectDiagram();
 
-        // Then the diagram should include clickable URLs for each project node and show project dependencies
+        // Then the diagram should include one node per project
+        // And arrows should represent the dependencies between project nodes
+        // And each should include a url to the projects class diagram
+        // And the diagram should have a title same as the solution name
+        // And the diagram should include a url to the projects class diagram
         string expected =
         $"""
         ```mermaid
         ---
-        {solution.Name}
+        title: {solution.Name}
         ---
         graph
-            ProjectD
-            ProjectE
-            ProjectF
-            click ProjectD "https://example.com/ProjectD/ProjectD.csproj"
-            click ProjectE "https://example.com/ProjectE/ProjectE.csproj"
-            click ProjectF "https://example.com/ProjectF/ProjectF.csproj"
-            ProjectD --> ProjectE
-            ProjectD --> ProjectF
-            ProjectE --> ProjectF
+            ProjectA
+            ProjectB
+            ProjectC
+            click ProjectA "https://example.com/ProjectA/ProjectA.csproj"
+            click ProjectB "https://example.com/ProjectB/ProjectB.csproj"
+            click ProjectC "https://example.com/ProjectC/ProjectC.csproj"
+            ProjectA --> ProjectB
+            ProjectA --> ProjectC
+            ProjectB --> ProjectC
         ```
         """;
-
         // Log expected and actual values for debugging
         string actual = diagram;
         _output.WriteLine("Expected:\n" + expected);
         _output.WriteLine("Actual:\n" + actual);
-
         Assert.True(mermaidGenerator._solution.HasProjects);
         Assert.Equal(expected, diagram);
     }

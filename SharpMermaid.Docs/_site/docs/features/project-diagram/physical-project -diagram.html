@@ -89,48 +89,51 @@
 
 <h2 id="description">Description</h2>
 <p>As a developer,<br>
-I want to generate a diagram that reflects the solution structure on disk,
+I want to generate a diagram that reflects the solution structure on disk,<br>
 So that I can analyze and visualize project organization and dependencies.</p>
 <h2 id="rules">Rules</h2>
 <ul>
-<li><code>bin</code> and <code>obj</code> <strong>must</strong> not appear in the generated diagram.</li>
-<li>Only <code>.csproj</code> files are included in the diagram</li>
-<li>The diagram <strong>must</strong> include a node for each project in the solution.</li>
-<li>Each project <strong>may</strong> include one or multiple dependencies.</li>
-<li>The diagram <strong>may</strong> represent dependencies between projects in the solution.</li>
-<li>Each project node <strong>may</strong> include a clickable url</li>
-<li>Nodes <strong>may</strong> support tooltips.</li>
-<li>Nodes <strong>may</strong> support click actions.</li>
-<li>All diagrams <strong>must</strong> have a title same as the solution name.</li>
+<li>Diagram <strong>must</strong> have a title same as the solution name</li>
+<li>Project nodes that has source files, <strong>must</strong> include a url to the projects class diagram</li>
+<li>The diagram <strong>must</strong> include a node for each project in the solution</li>
+<li>Each project <strong>may</strong> include one or multiple dependencies</li>
+<li>The diagram <strong>may</strong> represent dependencies between projects in the solution</li>
 </ul>
 <p>// TODO: Add some kind of message: &quot;No projects found&quot;</p>
 <h2 id="scenarios">Scenarios</h2>
 <hr>
-<h3 id="empty-solution">Empty Solution</h3>
+<h3 id="solution-with-without-projects">Solution With Without Projects</h3>
 <p><strong>Given</strong> the solution has no projects<br>
 <strong>When</strong> the diagram is generated<br>
 <strong>Then</strong> the diagram should have no nodes or dependencies<br>
-<strong>And</strong> the title should be the solution name</p>
+<strong>And</strong> And the title should be the solution name</p>
 <hr>
-<h3 id="single-project-with-clickable-url">Single Project With Clickable URL</h3>
+<h3 id="solution-with-single-project">Solution With Single Project</h3>
 <p><strong>Given</strong> the solution has a single project<br>
+<strong>And</strong> the project has at least one source file<br>
 <strong>When</strong> the diagram is generated<br>
 <strong>Then</strong> the diagram should include one node<br>
-<strong>And</strong> the node should have a clickable URL</p>
+<strong>And</strong> the diagram should have a title same as the solution name<br>
+<strong>And</strong> the diagram should include a node for the project in the solution<br>
+<strong>And</strong> the diagram should include a url to the projects class diagram</p>
 <hr>
-<h3 id="multiple-projects-with-no-dependencies">Multiple Projects With No Dependencies</h3>
+<h3 id="multiple-projects-without-dependencies">Multiple Projects Without Dependencies</h3>
 <p><strong>Given</strong> the solution has multiple projects with no dependencies<br>
+<strong>And</strong> each project has at least one source file
 <strong>When</strong> the diagram is generated<br>
 <strong>Then</strong> the diagram should include one node per project<br>
-<strong>And</strong> no arrows should exist between them<br>
-<strong>And</strong> all nodes should have clickable URLs</p>
+<strong>And</strong> the diagram should have a title same as the solution name<br>
+<strong>And</strong> the diagram should include a url to the projects class diagram</p>
 <hr>
 <h3 id="multiple-projects-with-dependencies">Multiple Projects With Dependencies</h3>
 <p><strong>Given</strong> the solution has multiple projects with dependencies<br>
+<strong>And</strong> each project has at least one source file<br>
 <strong>When</strong> the diagram is generated<br>
 <strong>Then</strong> the diagram should include one node per project<br>
-<strong>And</strong> arrows should represent the dependencies<br>
-<strong>And</strong> all nodes should have clickable URLs</p>
+<strong>And</strong> arrows should represent the dependencies between project nodes<br>
+<strong>And</strong> each should include a url to the projects class diagram<br>
+<strong>And</strong> the diagram should have a title same as the solution name<br>
+<strong>And</strong> the diagram should include a url to the projects class diagram</p>
 <hr>
 
 </article>

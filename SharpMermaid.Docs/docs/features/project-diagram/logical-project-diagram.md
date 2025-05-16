@@ -8,52 +8,52 @@ So that I can understand how the solution is logically organized and interconnec
 
 ## Rules
 
-[!INCLUDE [shared rules](shared-rules.md)]
-- Nodes **must** be grouped visually according to their folder structure.
-- Grouping boxes **must** be based on the folder names containing the projects.
-- The diagram **must not** include `bin`, `obj`, or non-project folders.
+[!INCLUDE [shared rules](shared-rules.md)]  
+- Project Nodes **must** be grouped into subgraphs based on their folder structure.
 
 ## Scenarios
 
 ---
 
-### Empty Solution
+### Solution With Without Projects
 
 **Given** the solution contains no projects  
 **When** the diagram is generated  
-**Then** the diagram should show a root grouping box with the solution folder name  
-**And** no nodes or dependencies
+**Then** the title should be the solution name  
+**And** the diagram should have no nodes or dependencies
 
 ---
 
-### Root Projects Only
+### Solution With Root Projects Only
 
 **Given** all projects are in the solution root folder  
 **When** the diagram is generated  
-**Then** the diagram should show one node per project  
-**And** the root folder should be a grouping box  
+**Then** the title should be the solution name  
+**And** the diagram should include a node for each project
 
 ---
 
-### Root Projects With Dependencies
+### Solution With Root Projects Only With Dependencies
 
 **Given** all projects are in the solution root folder  
 **And** some projects depend on each other  
 **When** the diagram is generated  
-**Then** the diagram should show one node per project  
-**And** arrows should represent the dependencies  
-**And** the root folder should be a grouping box  
+**Then** the title should be the solution name  
+**And** the diagram should include a node for each project  
+**And** arrows should represent the dependencies between projects  
 
 ---
 
 ### Mixed Folder Structure With 1 Root Project
 
 **Given** one project is in the root folder  
-**And** other projects are in subfolders  
+**And** the other projects are in a subfolder  
+**And** the root project has dependencies to the other projects  
 **When** the diagram is generated  
-**Then** the diagram should show nodes grouped by folder  
-**And** each folder should be a grouping box  
-**And** arrows should represent dependencies  
+**Then** the title should be the solution name  
+**And** the diagram should include a node for each project  
+**And** nodes should be grouped into subgraphs based on their folder structure  
+**And** And arrows should represent project dependencies
 
 ---
 
@@ -63,9 +63,9 @@ So that I can understand how the solution is logically organized and interconnec
 **And** other projects are in subfolders  
 **And** some projects depend on each other  
 **When** the diagram is generated  
-**Then** the diagram should show all nodes  
-**And** group nodes by folder  
-**And** draw arrows for dependencies  
-**And** skip non-project folders  
+**Then** the title should be the solution name  
+**And** the diagram should include a node for each project  
+**And** nodes should be grouped into subgraphs based on their folder structure  
+**And** And arrows should represent project dependencies
 
 ---
