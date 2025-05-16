@@ -1,8 +1,15 @@
+HIGH PRIORITY:
+
+- When clicking a project node, I should be redirected to a class diagram of the project. Including classes with all access modifiers.
+  Public could be green, internal another color, and private ( do they really count ? )
+
 Documentation:
 Write documentation only for public classes and their public methods. Writting documentation for everything gets out of hands and wont
 give much value.
 Write proper XML comments for non-public classes and methods instead. Most important tags are <Description> and <Return> tags.
 Because they are the only ones shown in the vs 2022 tooltip.
+
+LOWER PRIORITY:
 
 Features:
 
@@ -24,9 +31,6 @@ Features:
 
 	https://github.com/mermaid-js/mermaid/issues/3111
 	https://github.com/squidfunk/mkdocs-material/issues/4686
-
-
-- When clicking a project node, I should be redirected to a class diagram of the project. Including classes with all access modifiers.
 
 - Interactive links. When hovering over a project, the link/arrow should turn on animation (https://mermaid.js.org/syntax/flowchart.html#turning-an-animation-on)
   (or just static content, if it turns out that I need to change restrictions from strict to loose to make it work,
