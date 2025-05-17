@@ -1,13 +1,12 @@
 ﻿using System.Text;
 
-namespace SharpMermaid.DiagramGeneratorHelpers;
+namespace SharpMermaid.MermaidGeneratorHelpers;
 
 /// <summary>
 /// Provides helper methods for generating Mermaid project diagrams
 /// from .NET project and solution files.
 /// </summary>
-
-internal class ProjectDiagramGeneratorHelpers
+internal class MermaidGeneratorProjectHelpers
 {
     /// <summary>
     /// Appends the graph declaration for a Mermaid diagram.
@@ -143,7 +142,7 @@ internal class ProjectDiagramGeneratorHelpers
     }
 
     /// <summary>
-    /// Recursively appends a folder node and its subfolders/projects 
+    /// Recursively appends a folder node and its subfolders/projects
     /// to the Mermaid diagram.
     /// </summary>
     /// <param name="node">The folder node to append.</param>
@@ -170,7 +169,7 @@ internal class ProjectDiagramGeneratorHelpers
     }
 
     /// <summary>
-    /// Represents a folder node containing subfolders and projects 
+    /// Represents a folder node containing subfolders and projects
     /// in a hierarchical project structure.
     /// </summary>
     private sealed class FolderNode

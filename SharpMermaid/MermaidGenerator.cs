@@ -1,4 +1,4 @@
-﻿using SharpMermaid.DiagramGeneratorHelpers;
+﻿using SharpMermaid.MermaidGeneratorHelpers;
 using System.Text;
 
 namespace SharpMermaid;
@@ -10,25 +10,25 @@ public class MermaidGenerator(string solutionFullPath)
     {
         var diagramBuilder = new StringBuilder();
 
-        CommonDiagramGeneratorHelpers.AddMermaidBlockStart(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
 
-        CommonDiagramGeneratorHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
 
-        ProjectDiagramGeneratorHelpers.AddGraphDeclaration(diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddGraphDeclaration(diagramBuilder);
 
         if (!_solution.HasProjects)
         {
-            CommonDiagramGeneratorHelpers.AddDiagramFooter(diagramBuilder);
+            MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
             return diagramBuilder.ToString();
         }
 
-        ProjectDiagramGeneratorHelpers.AddProjectNames(_solution.Csprojs, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectNames(_solution.Csprojs, diagramBuilder);
 
-        ProjectDiagramGeneratorHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
 
-        ProjectDiagramGeneratorHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
 
-        CommonDiagramGeneratorHelpers.AddDiagramFooter(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
 
         return diagramBuilder.ToString();
     }
@@ -37,25 +37,25 @@ public class MermaidGenerator(string solutionFullPath)
     {
         var diagramBuilder = new StringBuilder();
 
-        CommonDiagramGeneratorHelpers.AddMermaidBlockStart(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
 
-        CommonDiagramGeneratorHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
 
-        ProjectDiagramGeneratorHelpers.AddGraphDeclaration(diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddGraphDeclaration(diagramBuilder);
 
         if (!_solution.HasProjects) // should write to the console
         {
-            CommonDiagramGeneratorHelpers.AddDiagramFooter(diagramBuilder);
+            MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
             return diagramBuilder.ToString();
         }
 
-        ProjectDiagramGeneratorHelpers.AddProjectHierarchy(_solution, _solution.Csprojs, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectHierarchy(_solution, _solution.Csprojs, diagramBuilder);
 
-        ProjectDiagramGeneratorHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
 
-        ProjectDiagramGeneratorHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
 
-        CommonDiagramGeneratorHelpers.AddDiagramFooter(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
 
         return diagramBuilder.ToString();
     }
@@ -64,8 +64,8 @@ public class MermaidGenerator(string solutionFullPath)
     {
         var diagramBuilder = new StringBuilder();
 
-        CommonDiagramGeneratorHelpers.AddMermaidBlockStart(diagramBuilder);
-        ClassDiagramGeneratorHelpers.AddClassDeclaration(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
+        MermaidGeneratorClassHelpers.AddClassDeclaration(diagramBuilder);
 
         // MermaidGeneratorHelpers.GenerateClassHierarchy();
 

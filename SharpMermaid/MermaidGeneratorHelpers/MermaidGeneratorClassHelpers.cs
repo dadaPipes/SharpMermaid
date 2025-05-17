@@ -1,12 +1,12 @@
 ﻿using System.Text;
 
-namespace SharpMermaid.DiagramGeneratorHelpers;
+namespace SharpMermaid.MermaidGeneratorHelpers;
 
 /// <summary>
 /// Provides helper methods for generating Mermaid class diagrams
 /// from .NET types, including classes, interfaces, and relationships.
 /// </summary>
-public class ClassDiagramGeneratorHelpers
+public class MermaidGeneratorClassHelpers
 {
     /// <summary>
     /// Appends the classDiagram declaration for a Mermaid diagram.

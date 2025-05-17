@@ -1,4 +1,4 @@
-﻿using SharpMermaid.DiagramGeneratorHelpers;
+﻿using SharpMermaid.MermaidGeneratorHelpers;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -14,7 +14,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagramBuilder = new StringBuilder();
 
         // Act: Call the helper method to add the Mermaid block start
-        CommonDiagramGeneratorHelpers.AddMermaidBlockStart(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
 
         // Assert: Verify that the StringBuilder contains the expected Mermaid block start and adds a new line
         string expected =
@@ -34,7 +34,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagram = new StringBuilder();
 
         // Act: add the solution name as title
-        CommonDiagramGeneratorHelpers.AddSolutionNameAsTitle("TestSolution", diagram);
+        MermaidGeneratorCommonHelpers.AddSolutionNameAsTitle("TestSolution", diagram);
 
         // Assert: the output matches the expected Mermaid title block format and adds a new line
         string expected =
@@ -55,7 +55,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagramBuilder = new StringBuilder();
 
         // Act: Call the helper method to add the graph declaration
-        ProjectDiagramGeneratorHelpers.AddGraphDeclaration(diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddGraphDeclaration(diagramBuilder);
 
         // Assert: Verify that the StringBuilder contains the expected graph declaration and adds a new line
         string expected =
@@ -74,7 +74,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagramBuilder = new StringBuilder();
 
         // Act: Call the helper method to add the diagram footer
-        CommonDiagramGeneratorHelpers.AddDiagramFooter(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
 
         // Assert: Verify that the StringBuilder contains the expected Mermaid footer
         string expected =
@@ -107,7 +107,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagramBuilder = new StringBuilder();
 
         // Act: Add project names to the diagram
-        ProjectDiagramGeneratorHelpers.AddProjectNames(projectFiles, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectNames(projectFiles, diagramBuilder);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =
@@ -150,7 +150,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagramBuilder = new StringBuilder();
 
         // Act: Add project dependencies to the diagram
-        ProjectDiagramGeneratorHelpers.AddProjectDependencies(projectFiles, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectDependencies(projectFiles, diagramBuilder);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =
@@ -187,7 +187,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagramBuilder = new StringBuilder();
 
         // Act: Add clickable links to the diagram
-        ProjectDiagramGeneratorHelpers.AddClickableLinks(projectFiles, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddClickableLinks(projectFiles, diagramBuilder);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =
@@ -233,7 +233,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagram = new StringBuilder();
 
         // Act: Add project hierarchy to the diagram
-        ProjectDiagramGeneratorHelpers.AddProjectHierarchy(solution, projectFiles, diagram);
+        MermaidGeneratorProjectHelpers.AddProjectHierarchy(solution, projectFiles, diagram);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =
@@ -298,7 +298,7 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         var diagram = new StringBuilder();
 
         // Act: Add project hierarchy to the diagram
-        ProjectDiagramGeneratorHelpers.AddProjectHierarchy(solution, projectFiles, diagram);
+        MermaidGeneratorProjectHelpers.AddProjectHierarchy(solution, projectFiles, diagram);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =

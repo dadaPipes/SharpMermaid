@@ -1,11 +1,11 @@
 ﻿using System.Text;
 
-namespace SharpMermaid.DiagramGeneratorHelpers;
+namespace SharpMermaid.MermaidGeneratorHelpers;
 
 /// <summary>
 /// Helper methods for generating Mermaid diagrams from .NET project and solution files.
 /// </summary>
-static class CommonDiagramGeneratorHelpers
+static class MermaidGeneratorCommonHelpers
 {
     /// <summary>
     /// Appends the opening Mermaid code block.
@@ -15,6 +15,13 @@ static class CommonDiagramGeneratorHelpers
     {
         diagramBuilder.AppendLine("```mermaid");
     }
+
+    /// <summary>
+    /// Adds the solution name as a title in the Mermaid diagram.
+    /// </summary>
+    /// <param name="solutionName">The name of the solution to be used as the diagram title.</param>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the title is appended.</param>
+
     public static void AddSolutionNameAsTitle(string solutionName, StringBuilder diagramBuilder)
     {
         string formattedTitle =
