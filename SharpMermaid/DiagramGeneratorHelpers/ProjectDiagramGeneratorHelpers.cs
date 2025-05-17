@@ -1,33 +1,14 @@
 ﻿using System.Text;
 
-namespace SharpMermaid;
+namespace SharpMermaid.DiagramGeneratorHelpers;
 
 /// <summary>
-/// Helper methods for generating Mermaid diagrams from .NET project and solution files.
+/// Provides helper methods for generating Mermaid project diagrams
+/// from .NET project and solution files.
 /// </summary>
-static class MermaidGeneratorHelpers
+
+internal class ProjectDiagramGeneratorHelpers
 {
-    /// <summary>
-    /// Appends the opening Mermaid code block.
-    /// </summary>
-    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the Mermaid block start is appended.</param>
-    public static void AddMermaidBlockStart(StringBuilder diagramBuilder)
-    {
-        diagramBuilder.AppendLine("```mermaid");
-    }
-    public static void AddSolutionNameAsTitle(string solutionName, StringBuilder diagramBuilder)
-    {
-        string formattedTitle =
-
-           $"""
-            ---
-            title: {solutionName}
-            ---
-            """;
-
-        diagramBuilder.AppendLine(formattedTitle);
-    }
-
     /// <summary>
     /// Appends the graph declaration for a Mermaid diagram.
     /// </summary>
@@ -35,15 +16,6 @@ static class MermaidGeneratorHelpers
     public static void AddGraphDeclaration(StringBuilder diagramBuilder)
     {
         diagramBuilder.AppendLine("graph");
-    }
-
-    /// <summary>
-    /// Appends the closing fence for a Mermaid diagram.
-    /// </summary>
-    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the footer is appended.</param>
-    public static void AddDiagramFooter(StringBuilder diagramBuilder)
-    {
-        diagramBuilder.Append("```");
     }
 
     /// <summary>
@@ -60,7 +32,7 @@ static class MermaidGeneratorHelpers
     /// <summary>
     /// Appends edges to the Mermaid diagram representing project dependencies.
     /// </summary>
-    /// <param name="projectFiles"></param>
+    /// <param name="projectFiles">The list of <see cref="CsprojModel"/> to process.</param>
     /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to construct the diagram.</param>
     public static void AddProjectDependencies(IEnumerable<CsprojModel> projectFiles, StringBuilder diagramBuilder)
     {
@@ -89,6 +61,13 @@ static class MermaidGeneratorHelpers
         }
     }
 
+    /// <summary>
+    /// Constructs a hierarchical representation of projects and folders
+    /// within a solution and appends it to the Mermaid diagram.
+    /// </summary>
+    /// <param name="sln">The solution model containing project structure.</param>
+    /// <param name="csprojModels">The list of projects in the solution.</param>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to construct the diagram.</param>
     public static void AddProjectHierarchy(SlnModel sln, IEnumerable<CsprojModel> csprojModels, StringBuilder diagramBuilder)
     {
         // Build a tree where the root represents projects with no folder,
@@ -163,7 +142,13 @@ static class MermaidGeneratorHelpers
         }
     }
 
-    // Recursive helper that appends a folder and its subfolders/projects
+    /// <summary>
+    /// Recursively appends a folder node and its subfolders/projects 
+    /// to the Mermaid diagram.
+    /// </summary>
+    /// <param name="node">The folder node to append.</param>
+    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to build the diagram.</param>
+    /// <param name="indentLevel">The indentation level for nested folders.</param>
     private static void AppendFolderNode(FolderNode node, StringBuilder diagramBuilder, int indentLevel)
     {
         string indent = new string(' ', indentLevel * 4);
@@ -184,7 +169,10 @@ static class MermaidGeneratorHelpers
         diagramBuilder.AppendLine($"{indent}end");
     }
 
-    // A helper class to build the folder tree.
+    /// <summary>
+    /// Represents a folder node containing subfolders and projects 
+    /// in a hierarchical project structure.
+    /// </summary>
     private sealed class FolderNode
     {
         public string FolderName { get; set; }
