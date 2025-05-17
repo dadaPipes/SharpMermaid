@@ -22,3 +22,10 @@ So that I can visualize the relationships between classes and understand their d
 
 ---
 
+### Project With Multiple Classes & Relationships
+
+**Given** a project contains multiple .cs files  
+**And** some classes inherit from others or depend on other classes  
+**When** the diagram is generated  
+**Then** each class should be represented as a node  
+**And** arrows should indicate relationships
