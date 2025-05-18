@@ -1,12 +1,9 @@
 ﻿using SharpMermaid.MermaidGeneratorHelpers;
 using System.Text;
-using Xunit.Abstractions;
 
 namespace SharpMermaid.Test.MermaidGeneratorHelpersTests;
-public class MermaidGeneratorCommonHelpersTests(ITestOutputHelper output)
+public class MermaidGeneratorCommonHelpersTests()
 {
-    private readonly ITestOutputHelper _output = output;
-
     [Fact]
     public void AddMermaidBlockStart_ShouldAddMermaidBlockStart()
     {
