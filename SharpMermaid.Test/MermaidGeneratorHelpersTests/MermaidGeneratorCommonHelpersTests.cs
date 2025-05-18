@@ -4,8 +4,8 @@ using System.Text;
 namespace SharpMermaid.Test.MermaidGeneratorHelpersTests;
 public class MermaidGeneratorCommonHelpersTests()
 {
-    [Fact]
-    public void AddMermaidBlockStart_ShouldAddMermaidBlockStart()
+    [Fact(DisplayName = "AddMermaidBlockStart(diagramBuilder)")]
+    public void ShouldAddMermaidBlockStart()
     {
         // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
         var diagramBuilder = new StringBuilder();
@@ -24,8 +24,8 @@ public class MermaidGeneratorCommonHelpersTests()
 
     }
 
-    [Fact]
-    public void AddSolutionNameAsTitle_ShouldAddSolutionNameAsTitle()
+    [Fact(DisplayName = "AddSolutionNameAsTitle(\"TestSolution\", diagram)")]
+    public void ShouldAddSolutionNameAsTitle()
     {
         // Arrange: create an empty StringBuilder
         var diagram = new StringBuilder();
@@ -45,8 +45,8 @@ public class MermaidGeneratorCommonHelpersTests()
         Assert.Equal(expected, diagram.ToString());
     }
 
-    [Fact]
-    public void AddDiagramFooter_ShouldAddDiagramFooter()
+    [Fact(DisplayName = "AddDiagramFooter(diagramBuilder)")]
+    public void ShouldAddDiagramFooter()
     {
         // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
         var diagramBuilder = new StringBuilder();

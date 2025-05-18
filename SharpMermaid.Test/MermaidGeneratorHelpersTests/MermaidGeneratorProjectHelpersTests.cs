@@ -7,8 +7,8 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;
 
-    [Fact]
-    public void AddGraphDeclaration_ShouldAddGraphDeclaration()
+    [Fact(DisplayName = "AddGraphDeclaration(diagramBuilder)")]
+    public void ShouldAddGraphDeclaration()
     {
         // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
         var diagramBuilder = new StringBuilder();
@@ -26,8 +26,8 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         Assert.Equal(expected, diagramBuilder.ToString());
     }
 
-    [Fact]
-    public void AddProjectNames_ShouldAppendProjectNamesToDiagram()
+    [Fact(DisplayName = "AddProjectNames(projectFiles, diagramBuilder)")]
+    public void ShouldAppendProjectNamesToDiagram()
     {
         using var solution = new TemporarySolutionBuilder();
 
@@ -62,8 +62,8 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         Assert.Equal(expected, diagramBuilder.ToString());
     }
 
-    [Fact]
-    public void AddProjectDependencies_ShouldAppendProjectDependenciesToDiagram()
+    [Fact(DisplayName = "AddProjectDependencies(projectFiles, diagramBuilder")]
+    public void ShouldAppendProjectDependenciesToDiagram()
     {
         // Arrange: Create a temporary solution with projects
         using var builder = new TemporarySolutionBuilder();
@@ -105,8 +105,8 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         Assert.Equal(expected, diagramBuilder.ToString());
     }
 
-    [Fact]
-    public void AddClickableLinks_ShouldAppendClickableLinksToDiagram()
+    [Fact(DisplayName = "AddClickableLinks(projectFiles, diagramBuilder)")]
+    public void ShouldAppendClickableLinksToDiagram()
     {
         // Arrange: Create a Solution with Projects
         using var builder = new TemporarySolutionBuilder();
@@ -141,7 +141,7 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         Assert.Equal(expected, diagramBuilder.ToString());
     }
 
-    [Fact]
+    [Fact(DisplayName = "AddProjectHierarchy(solution, projectFiles, diagram)")]
     public void AddProjectHierarchy_ShouldAppendProjectHierarchyToDiagramWithOneProjectInTheSolutionRoot()
     {
         // Arrange: Create a temporary solution with projects
@@ -204,7 +204,7 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram.ToString());
     }
 
-    [Fact]
+    [Fact(DisplayName = "AddProjectHierarchy(solution, projectFiles, diagram)")]
     public void AddProjectHierarchy_ShouldAppendProjectHierarchyToDiagramWithMultipleProjectsInTheSolutionRoot()
     {
         // Arrange: Create a temporary solution with projects
