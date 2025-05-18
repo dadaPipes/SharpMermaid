@@ -1,6 +1,5 @@
-﻿
-using Xunit.Abstractions;
-namespace SharpMermaid.Test;
+﻿using Xunit.Abstractions;
+namespace SharpMermaid.Test.MermaidGeneratorTests;
 public class ClassDiagramTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;

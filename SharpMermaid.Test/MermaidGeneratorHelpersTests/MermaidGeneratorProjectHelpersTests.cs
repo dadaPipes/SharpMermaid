@@ -2,51 +2,10 @@
 using System.Text;
 using Xunit.Abstractions;
 
-namespace SharpMermaid.Test;
-public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
+namespace SharpMermaid.Test.MermaidGeneratorHelpersTests;
+public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;
-
-    [Fact]
-    public void AddMermaidBlockStart_ShouldAddMermaidBlockStart()
-    {
-        // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
-        var diagramBuilder = new StringBuilder();
-
-        // Act: Call the helper method to add the Mermaid block start
-        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
-
-        // Assert: Verify that the StringBuilder contains the expected Mermaid block start and adds a new line
-        string expected =
-        $"""
-        ```mermaid
-
-        """;
-
-        Assert.Equal(expected, diagramBuilder.ToString());
-
-    }
-
-    [Fact]
-    public void AddSolutionNameAsTitle_ShouldAddSolutionNameAsTitle()
-    {
-        // Arrange: create an empty StringBuilder
-        var diagram = new StringBuilder();
-
-        // Act: add the solution name as title
-        MermaidGeneratorCommonHelpers.AddSolutionNameAsTitle("TestSolution", diagram);
-
-        // Assert: the output matches the expected Mermaid title block format and adds a new line
-        string expected =
-        $"""
-        ---
-        title: TestSolution
-        ---
-
-        """;
-
-        Assert.Equal(expected, diagram.ToString());
-    }
 
     [Fact]
     public void AddGraphDeclaration_ShouldAddGraphDeclaration()
@@ -62,24 +21,6 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
         $"""
         graph
 
-        """;
-
-        Assert.Equal(expected, diagramBuilder.ToString());
-    }
-
-    [Fact]
-    public void AddDiagramFooter_ShouldAddDiagramFooter()
-    {
-        // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
-        var diagramBuilder = new StringBuilder();
-
-        // Act: Call the helper method to add the diagram footer
-        MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
-
-        // Assert: Verify that the StringBuilder contains the expected Mermaid footer
-        string expected =
-        $"""
-        ```
         """;
 
         Assert.Equal(expected, diagramBuilder.ToString());
@@ -268,15 +209,15 @@ public class MermaidGeneratorHelpersTests(ITestOutputHelper output)
     {
         // Arrange: Create a temporary solution with projects
         using var builder = new TemporarySolutionBuilder();
-        var projectA  = builder.AddProject("ProjectA");
+        var projectA = builder.AddProject("ProjectA");
         var projectAb = builder.AddProject("ProjectAb");
-        var projectB  = builder.AddProject("Subfolder1", "ProjectB");
-        var projectC  = builder.AddProject("Subfolder1", "ProjectC");
-        var projectD  = builder.AddProject("Subfolder1/Subfolder2", "ProjectD");
-        var projectE  = builder.AddProject("Subfolder1/Subfolder2", "ProjectE");
-        var projectX  = builder.AddProject("Subfolder9", "ProjectX");
-        var projectY  = builder.AddProject("Subfolder9", "ProjectY");
-        var projectZ  = builder.AddProject("Subfolder9", "ProjectZ");
+        var projectB = builder.AddProject("Subfolder1", "ProjectB");
+        var projectC = builder.AddProject("Subfolder1", "ProjectC");
+        var projectD = builder.AddProject("Subfolder1/Subfolder2", "ProjectD");
+        var projectE = builder.AddProject("Subfolder1/Subfolder2", "ProjectE");
+        var projectX = builder.AddProject("Subfolder9", "ProjectX");
+        var projectY = builder.AddProject("Subfolder9", "ProjectY");
+        var projectZ = builder.AddProject("Subfolder9", "ProjectZ");
 
         var solution = new SlnModel(builder.FullPath);
 
