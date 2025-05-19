@@ -1,6 +1,6 @@
 ﻿using Xunit.Abstractions;
 
-namespace SharpMermaid.Test.ProjectDiagram;
+namespace SharpMermaid.Test.MermaidGeneratorTests;
 public class LogicalProjectDiagramTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;

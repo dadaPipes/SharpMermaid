@@ -18,7 +18,7 @@ public class ClassDiagramTests(ITestOutputHelper output)
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
-        var diagram = mermaidGenerator.ClassDiagram();
+        var diagram = mermaidGenerator.ClassDiagrams();
 
         // Then the diagram should have a title same as the project name  
         // And the diagram should include a node representing the.cs file, named according to the file's actual name  
@@ -28,19 +28,19 @@ public class ClassDiagramTests(ITestOutputHelper output)
         $"""
         ```mermaid
         ---
-        title: "ProjectA"
+        title: ProjectA
         ---
         classDiagram
-        class X
-        click X href "https://example.com/ProjectA/X.cs"
+            class X
+            click X href "https://example.com/ProjectA/X.cs"
         ```
         """;
 
         // Log expected and actual values for debugging
-        string actual = diagram;
+        string actual = diagram.ToString();
         _output.WriteLine("Expected:\n" + expected);
         _output.WriteLine("Actual:\n" + actual);
 
-        Assert.Equal(expected, diagram);
+        Assert.Equal(expected, diagram.ToString());
     }
 }

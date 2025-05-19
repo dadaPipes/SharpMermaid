@@ -1,6 +1,6 @@
 using Xunit.Abstractions;
 
-namespace SharpMermaid.Test.ProjectDiagram;
+namespace SharpMermaid.Test.MermaidGeneratorTests;
 public class PhysicalProjectDiagramTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;
@@ -117,9 +117,9 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
             ProjectA
             ProjectB
             ProjectC
-            click ProjectA "https://example.com/ProjectA/ProjectA.csproj"
-            click ProjectB "https://example.com/ProjectB/ProjectB.csproj"
-            click ProjectC "https://example.com/ProjectC/ProjectC.csproj"
+            click ProjectA "https://example.com/repo/ProjectA/ProjectA.csproj"
+            click ProjectB "https://example.com/repo/ProjectB/ProjectB.csproj"
+            click ProjectC "https://example.com/repo/ProjectC/ProjectC.csproj"
         ```
         """;
 
@@ -173,9 +173,9 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
             ProjectA
             ProjectB
             ProjectC
-            click ProjectA "https://example.com/ProjectA/ProjectA.csproj"
-            click ProjectB "https://example.com/ProjectB/ProjectB.csproj"
-            click ProjectC "https://example.com/ProjectC/ProjectC.csproj"
+            click ProjectA "https://example.com/repo/ProjectA/ProjectA.csproj"
+            click ProjectB "https://example.com/repo/ProjectB/ProjectB.csproj"
+            click ProjectC "https://example.com/repo/ProjectC/ProjectC.csproj"
             ProjectA --> ProjectB
             ProjectA --> ProjectC
             ProjectB --> ProjectC

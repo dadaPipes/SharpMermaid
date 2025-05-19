@@ -21,7 +21,6 @@ static class MermaidGeneratorCommonHelpers
     /// </summary>
     /// <param name="solutionName">The name of the solution to be used as the diagram title.</param>
     /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the title is appended.</param>
-
     public static void AddSolutionNameAsTitle(string solutionName, StringBuilder diagramBuilder)
     {
         string formattedTitle =

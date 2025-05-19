@@ -24,6 +24,7 @@ class CsprojModel
     /// </example>
     public bool IsTopLevelProject => RelativePathFromSln.Split([Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar], StringSplitOptions.RemoveEmptyEntries).Length == 2;
     public string RelativePathFromSln { get; }
+    public string RelativePathFromSlnWithoutExtension => Path.GetFileNameWithoutExtension(RelativePathFromSln);
     public List<string> CsprojDependencies { get; private set; }
     public List<CsModel> CsFiles { get; private set; }
     public bool HasCsprojDependencies => CsprojDependencies.Count > 0;
@@ -32,11 +33,12 @@ class CsprojModel
 
     public CsprojModel(string name, string fullPath, string relativePathFromSln)
     {
-        Name                = name;
-        FullPath            = fullPath;
-        RelativePathFromSln = relativePathFromSln;
-        CsprojDependencies  = LoadCsprojDependencies();
-        CsFiles             = LoadCsFilesFromProjectFiles();
+        Name                                = name;
+        FullPath                            = fullPath;
+        RelativePathFromSln                 = relativePathFromSln;
+        CsprojDependencies                  = LoadCsprojDependencies();
+        CsFiles                             = LoadCsFilesFromProjectFiles();
+
     }
 
     List<string> LoadCsprojDependencies()
@@ -58,13 +60,11 @@ class CsprojModel
         if (Directory is null)
             return [];
 
-        var csFiles = System.IO.Directory.GetFiles(Directory, "*.cs", SearchOption.AllDirectories);
-        return csFiles
-            .Select(path => new CsModel
-            {
-                Directory = path,
-                Name = Path.GetFileName(path)
-            })
+        return System.IO.Directory.GetFiles(Directory, "*.cs", SearchOption.AllDirectories)
+            .Select(csFileFullPath => new CsModel(
+                name: Path.GetFileNameWithoutExtension(csFileFullPath),
+                fullPath: csFileFullPath,
+                relativePathFromCsProjDirectory: Path.GetRelativePath(Directory, csFileFullPath)))
             .ToList();
     }
 }

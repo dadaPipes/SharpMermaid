@@ -1,7 +1,10 @@
 HIGH PRIORITY:
 
+Features:
 - When clicking a project node, I should be redirected to a class diagram of the project. Including classes with all access modifiers.
   Public could be green, internal another color, and private ( do they really count ? )
+
+Include Spectre.Console for CLI Warnings- and Error messages, and configurations.
 
 Documentation:
 Write documentation only for public classes and their public methods. Writting documentation for everything gets out of hands and wont
@@ -38,7 +41,17 @@ Features:
    Thoughts:
    - Might require some custom Java Script code to handle the animation, like a hover event.
 
+Refactor: 
+
+Look in to // Load projects with source files into CsprojModel instances, in tests, to modify TemporarySolutionBuilder()
+- Refactor the code to use the new TemporarySolutionBuilder class to load projects with source files into CsprojModel instances.
+  This will make the code cleaner and more maintainable.
+
 Far future:
 Automate sequence diagram:
 - Start from the top (acceptence test), log the flow of the test, and then create a sequence diagram.
 - Use metalama to log the flow of the test with [Log], then parse the logged data, to MermaidGenerator, to create a sequence diagram.
+
+HOW TO USE THE APPLICATION:
+
+Dockerize it. Create a .md file in a chosen location.

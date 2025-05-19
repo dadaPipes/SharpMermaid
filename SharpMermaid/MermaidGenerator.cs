@@ -60,15 +60,22 @@ public class MermaidGenerator(string solutionFullPath)
         return diagramBuilder.ToString();
     }
 
-    public string ClassDiagram()
+    public List<string> ClassDiagrams()
     {
-        var diagramBuilder = new StringBuilder();
+        return _solution.Csprojs
+            .ConvertAll(csproj =>
+            {
+                var diagram = new StringBuilder();
+                MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagram);
+                MermaidGeneratorClassHelpers.AddCsProjectAsTitle(csproj.Name, diagram);
+                MermaidGeneratorClassHelpers.AddClassDeclaration(diagram);
+                MermaidGeneratorClassHelpers.AddCsFileNames(csproj.CsFiles, diagram);
+                MermaidGeneratorClassHelpers.AddClickableLinks(_solution.Csprojs, diagram);
 
-        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
-        MermaidGeneratorClassHelpers.AddClassDeclaration(diagramBuilder);
-
-        // MermaidGeneratorHelpers.GenerateClassHierarchy();
-
-        return diagramBuilder.ToString();
+                return diagram.ToString();
+            });
     }
 }
+
+
+// MermaidGeneratorHelpers.GenerateClassHierarchy();

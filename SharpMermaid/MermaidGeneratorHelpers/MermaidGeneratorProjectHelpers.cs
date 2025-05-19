@@ -6,7 +6,7 @@ namespace SharpMermaid.MermaidGeneratorHelpers;
 /// Provides helper methods for generating Mermaid project diagrams
 /// from .NET project and solution files.
 /// </summary>
-internal class MermaidGeneratorProjectHelpers
+static class MermaidGeneratorProjectHelpers
 {
     /// <summary>
     /// Appends the graph declaration for a Mermaid diagram.

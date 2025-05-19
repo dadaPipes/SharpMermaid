@@ -16,10 +16,10 @@ class SlnModel
     List<CsprojModel> LoadProjectFilesFromSolution()
     {
         return System.IO.Directory.GetFiles(Directory, "*.csproj", SearchOption.AllDirectories)
-            .Select(csprojFullPath => new CsprojModel(
-                name               : Path.GetFileNameWithoutExtension(csprojFullPath),
-                fullPath           : csprojFullPath,
-                relativePathFromSln: Path.GetRelativePath(Directory, csprojFullPath)))
+            .Select(filePath => new CsprojModel(
+                name               : Path.GetFileNameWithoutExtension(filePath),
+                fullPath           : filePath,
+                relativePathFromSln: Path.GetRelativePath(Directory, filePath)))
             .ToList();
     }
 }

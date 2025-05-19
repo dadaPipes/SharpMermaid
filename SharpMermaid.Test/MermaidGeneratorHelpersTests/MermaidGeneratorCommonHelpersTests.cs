@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.Utilities;
-using SharpMermaid.MermaidGeneratorHelpers;
+﻿using SharpMermaid.MermaidGeneratorHelpers;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -30,7 +29,6 @@ public class MermaidGeneratorCommonHelpersTests(ITestOutputHelper output)
         _output.WriteLine("Actual:\n" + actual);
 
         Assert.Equal(expected, diagram.ToString());
-
     }
 
     [Fact(DisplayName = "AddSolutionNameAsTitle(\"TestSolution\", diagram)")]

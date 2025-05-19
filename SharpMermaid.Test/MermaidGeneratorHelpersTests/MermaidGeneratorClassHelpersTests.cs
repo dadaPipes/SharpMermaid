@@ -22,6 +22,12 @@ public class MermaidGeneratorClassHelpersTests(ITestOutputHelper output)
         classDiagram
 
         """;
+
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
         Assert.Equal(expected, diagram.ToString());
     }
 
@@ -55,6 +61,11 @@ public class MermaidGeneratorClassHelpersTests(ITestOutputHelper output)
 
         """;
 
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
         Assert.Equal(expected, diagram.ToString());
     }
 
@@ -87,6 +98,11 @@ public class MermaidGeneratorClassHelpersTests(ITestOutputHelper output)
 
         """;
 
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
         Assert.Equal(expected, diagram.ToString());
     }
 
@@ -104,8 +120,8 @@ public class MermaidGeneratorClassHelpersTests(ITestOutputHelper output)
         });
         var projectB = builder.AddProjectWithFiles("ProjectB", new Dictionary<string, string>
         {
-            ["S.cs"] = "public class S",
-            ["D.cs"] = "public class D"
+            ["D.cs"] = "public class D",
+            ["S.cs"] = "public class S"
         });
         var projectC = builder.AddProjectWithFiles("ProjectC", new Dictionary<string, string>
         {
@@ -120,8 +136,6 @@ public class MermaidGeneratorClassHelpersTests(ITestOutputHelper output)
             new ("ProjectC", Path.GetFullPath(projectC), Path.GetRelativePath(builder.Directory, projectC))
         };
 
-        var projA = projectFiles.First(projectFiles => projectFiles.Name == "ProjectA");
-
         // Mock the Settings.BaseUrl
         Settings.BaseUrl = "https://example.com/repo";
 
@@ -129,13 +143,16 @@ public class MermaidGeneratorClassHelpersTests(ITestOutputHelper output)
         var diagram = new StringBuilder();
 
         // Act: 
-        MermaidGeneratorClassHelpers.AddClickableLinks(projA, diagram);
+        MermaidGeneratorClassHelpers.AddClickableLinks(projectFiles, diagram);
 
         string expected =
         """ 
             click X href "https://example.com/repo/ProjectA/X.cs"
-            click Y href "https://example.com/repo/ProjectB/Y.cs"
-            click Z href "https://example.com/repo/ProjectB/Z.cs"
+            click Y href "https://example.com/repo/ProjectA/Y.cs"
+            click Z href "https://example.com/repo/ProjectA/Z.cs"
+            click D href "https://example.com/repo/ProjectB/D.cs"
+            click S href "https://example.com/repo/ProjectB/S.cs"
+            click J href "https://example.com/repo/ProjectC/J.cs"
 
         """;
 

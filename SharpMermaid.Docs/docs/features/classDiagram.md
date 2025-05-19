@@ -17,7 +17,7 @@ So that I can visualize the relationships between classes and understand their d
 **Given** a project contains one .cs file  
 **When** the diagram is generated  
 **Then** the diagram should have a title same as the project name  
-**And** the diagram should include a node representing the .cs file, named according to the file's actual name  
+**And** the diagram should include a node representing the .cs file, named according to the file's actual name 
 **And** the class node should include a url to the source file
 
 ---
