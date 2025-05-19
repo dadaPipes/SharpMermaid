@@ -19,7 +19,7 @@ So that I can visualize the relationships between classes and understand their d
 ### Generating Diagrams for Multiple Projects
 
 **Given** a solution containing multiple projects  
-**And** each project contains multiple .cs files with relationships  
+**And** each project contains multiple .cs files  
 **When** I generate the diagrams  
 **Then** a separate class diagram should be created for each project  
 **And** each diagram should have a title matching the project name  
