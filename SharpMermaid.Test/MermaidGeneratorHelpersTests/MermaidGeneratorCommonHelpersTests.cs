@@ -1,17 +1,21 @@
-﻿using SharpMermaid.MermaidGeneratorHelpers;
+﻿using Microsoft.VisualStudio.TestPlatform.Utilities;
+using SharpMermaid.MermaidGeneratorHelpers;
 using System.Text;
+using Xunit.Abstractions;
 
 namespace SharpMermaid.Test.MermaidGeneratorHelpersTests;
-public class MermaidGeneratorCommonHelpersTests()
+public class MermaidGeneratorCommonHelpersTests(ITestOutputHelper output)
 {
+    private readonly ITestOutputHelper _output = output;
+
     [Fact(DisplayName = "AddMermaidBlockStart(diagramBuilder)")]
     public void ShouldAddMermaidBlockStart()
     {
         // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
-        var diagramBuilder = new StringBuilder();
+        var diagram = new StringBuilder();
 
         // Act: Call the helper method to add the Mermaid block start
-        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagram);
 
         // Assert: Verify that the StringBuilder contains the expected Mermaid block start and adds a new line
         string expected =
@@ -20,7 +24,12 @@ public class MermaidGeneratorCommonHelpersTests()
 
         """;
 
-        Assert.Equal(expected, diagramBuilder.ToString());
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.Equal(expected, diagram.ToString());
 
     }
 
@@ -42,6 +51,11 @@ public class MermaidGeneratorCommonHelpersTests()
 
         """;
 
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
         Assert.Equal(expected, diagram.ToString());
     }
 
@@ -49,10 +63,10 @@ public class MermaidGeneratorCommonHelpersTests()
     public void ShouldAddDiagramFooter()
     {
         // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
-        var diagramBuilder = new StringBuilder();
+        var diagram = new StringBuilder();
 
         // Act: Call the helper method to add the diagram footer
-        MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
+        MermaidGeneratorCommonHelpers.AddDiagramFooter(diagram);
 
         // Assert: Verify that the StringBuilder contains the expected Mermaid footer
         string expected =
@@ -60,7 +74,12 @@ public class MermaidGeneratorCommonHelpersTests()
         ```
         """;
 
-        Assert.Equal(expected, diagramBuilder.ToString());
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.Equal(expected, diagram.ToString());
     }
 
 

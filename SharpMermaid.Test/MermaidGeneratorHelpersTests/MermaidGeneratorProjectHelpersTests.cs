@@ -11,10 +11,10 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
     public void ShouldAddGraphDeclaration()
     {
         // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
-        var diagramBuilder = new StringBuilder();
+        var diagram = new StringBuilder();
 
         // Act: Call the helper method to add the graph declaration
-        MermaidGeneratorProjectHelpers.AddGraphDeclaration(diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddGraphDeclaration(diagram);
 
         // Assert: Verify that the StringBuilder contains the expected graph declaration and adds a new line
         string expected =
@@ -23,7 +23,12 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
 
         """;
 
-        Assert.Equal(expected, diagramBuilder.ToString());
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.Equal(expected, diagram.ToString());
     }
 
     [Fact(DisplayName = "AddProjectNames(projectFiles, diagramBuilder)")]
@@ -45,10 +50,10 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         };
 
         // Create an empty StringBuilder to store the diagram content
-        var diagramBuilder = new StringBuilder();
+        var diagram = new StringBuilder();
 
         // Act: Add project names to the diagram
-        MermaidGeneratorProjectHelpers.AddProjectNames(projectFiles, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectNames(projectFiles, diagram);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =
@@ -59,7 +64,12 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
 
         """;
 
-        Assert.Equal(expected, diagramBuilder.ToString());
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.Equal(expected, diagram.ToString());
     }
 
     [Fact(DisplayName = "AddProjectDependencies(projectFiles, diagramBuilder")]
@@ -88,10 +98,10 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         };
 
         // Create an empty StringBuilder to store the diagram content
-        var diagramBuilder = new StringBuilder();
+        var diagram = new StringBuilder();
 
         // Act: Add project dependencies to the diagram
-        MermaidGeneratorProjectHelpers.AddProjectDependencies(projectFiles, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddProjectDependencies(projectFiles, diagram);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =
@@ -102,7 +112,12 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
 
         """;
 
-        Assert.Equal(expected, diagramBuilder.ToString());
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.Equal(expected, diagram.ToString());
     }
 
     [Fact(DisplayName = "AddClickableLinks(projectFiles, diagramBuilder)")]
@@ -125,10 +140,10 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
         Settings.BaseUrl = "https://example.com/repo";
 
         // Create an empty StringBuilder to store the diagram content
-        var diagramBuilder = new StringBuilder();
+        var diagram = new StringBuilder();
 
         // Act: Add clickable links to the diagram
-        MermaidGeneratorProjectHelpers.AddClickableLinks(projectFiles, diagramBuilder);
+        MermaidGeneratorProjectHelpers.AddClickableLinks(projectFiles, diagram);
 
         // Assert: Verify that the output matches the expected format and adds a new line
         string expected =
@@ -138,7 +153,12 @@ public class MermaidGeneratorProjectHelpersTests(ITestOutputHelper output)
 
         """;
 
-        Assert.Equal(expected, diagramBuilder.ToString());
+        // Log expected and actual values for debugging
+        string actual = diagram.ToString();
+        _output.WriteLine("Expected:\n" + expected);
+        _output.WriteLine("Actual:\n" + actual);
+
+        Assert.Equal(expected, diagram.ToString());
     }
 
     [Fact(DisplayName = "AddProjectHierarchy(solution, projectFiles, diagram)")]
