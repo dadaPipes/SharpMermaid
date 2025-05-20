@@ -1,5 +1,5 @@
 ﻿namespace SharpMermaid;
-class SlnModel
+public class SlnModel
 {
     public readonly string Name;
     public readonly string Directory;

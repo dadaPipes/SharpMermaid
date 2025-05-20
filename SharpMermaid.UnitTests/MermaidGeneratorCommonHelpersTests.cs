@@ -2,28 +2,27 @@
 using System.Text;
 using Xunit.Abstractions;
 
-namespace SharpMermaid.Test.MermaidGeneratorHelpersTests;
+namespace SharpMermaid.UnitTests;
 public class MermaidGeneratorCommonHelpersTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;
 
-    [Fact(DisplayName = "AddMermaidBlockStart(diagramBuilder)")]
+    [Fact]
     public void ShouldAddMermaidBlockStart()
     {
-        // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
+        // Arrange:
         var diagram = new StringBuilder();
 
-        // Act: Call the helper method to add the Mermaid block start
+        // Act:
         MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagram);
 
-        // Assert: Verify that the StringBuilder contains the expected Mermaid block start and adds a new line
+        // Assert:
         string expected =
         $"""
         ```mermaid
 
         """;
 
-        // Log expected and actual values for debugging
         string actual = diagram.ToString();
         _output.WriteLine("Expected:\n" + expected);
         _output.WriteLine("Actual:\n" + actual);
@@ -31,16 +30,16 @@ public class MermaidGeneratorCommonHelpersTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram.ToString());
     }
 
-    [Fact(DisplayName = "AddSolutionNameAsTitle(\"TestSolution\", diagram)")]
+    [Fact]
     public void ShouldAddSolutionNameAsTitle()
     {
-        // Arrange: create an empty StringBuilder
+        // Arrange:
         var diagram = new StringBuilder();
 
-        // Act: add the solution name as title
+        // Act:
         MermaidGeneratorCommonHelpers.AddSolutionNameAsTitle("TestSolution", diagram);
 
-        // Assert: the output matches the expected Mermaid title block format and adds a new line
+        // Assert:
         string expected =
         $"""
         ---
@@ -49,7 +48,6 @@ public class MermaidGeneratorCommonHelpersTests(ITestOutputHelper output)
 
         """;
 
-        // Log expected and actual values for debugging
         string actual = diagram.ToString();
         _output.WriteLine("Expected:\n" + expected);
         _output.WriteLine("Actual:\n" + actual);
@@ -57,22 +55,21 @@ public class MermaidGeneratorCommonHelpersTests(ITestOutputHelper output)
         Assert.Equal(expected, diagram.ToString());
     }
 
-    [Fact(DisplayName = "AddDiagramFooter(diagramBuilder)")]
+    [Fact]
     public void ShouldAddDiagramFooter()
     {
-        // Arrange: Create an empty StringBuilder to hold the Mermaid diagram
+        // Arrange:
         var diagram = new StringBuilder();
 
-        // Act: Call the helper method to add the diagram footer
+        // Act:
         MermaidGeneratorCommonHelpers.AddDiagramFooter(diagram);
 
-        // Assert: Verify that the StringBuilder contains the expected Mermaid footer
+        // Assert:
         string expected =
         $"""
         ```
         """;
 
-        // Log expected and actual values for debugging
         string actual = diagram.ToString();
         _output.WriteLine("Expected:\n" + expected);
         _output.WriteLine("Actual:\n" + actual);

@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Xml.Linq;
 
 namespace SharpMermaid.MermaidGeneratorHelpers;
 
@@ -35,6 +34,7 @@ static class MermaidGeneratorClassHelpers
 
         diagramBuilder.AppendLine(formattedTitle);
     }
+
     public static void AddCsFileNames(IEnumerable<CsModel> csFiles, StringBuilder diagramBuilder)
     {
         foreach (var csFile in csFiles)
@@ -42,32 +42,17 @@ static class MermaidGeneratorClassHelpers
             diagramBuilder.AppendLine($"    class {csFile.Name}");
         }
     }
-    /*
-    public static void AddClickableLinks(CsprojModel csproj , StringBuilder diagramBuilder)
-    {
-        var baseUrl = Settings.BaseUrl.TrimEnd('/');
-        var relativePath = csproj.RelativePathFromSlnWithoutExtension.Replace('\\', '/');
-        var fullUrl = $"{baseUrl}/{relativePath}";
 
-        foreach(var csFile in csproj.CsFiles)
-        {
-            diagramBuilder.AppendLine($"    click {csFile.Name} href \"{fullUrl}/{csFile.NameWithFileExtension}\"");
-        }
-    }
-    */
-    public static void AddClickableLinks(List<CsprojModel> csprojList, StringBuilder diagramBuilder)
+    public static void AddClickableLinks(CsprojModel csproj, StringBuilder diagramBuilder)
     {
         var baseUrl = Settings.BaseUrl.TrimEnd('/');
 
-        foreach (var csproj in csprojList)
+        foreach (var csFile in csproj.CsFiles)
         {
-            var relativePath = csproj.RelativePathFromSlnWithoutExtension.Replace('\\', '/');
-            var fullUrl = $"{baseUrl}/{relativePath}";
+            var filePath = csFile.RelativePathFromCsProjDirectory.Replace('\\', '/');
+            var fullUrl = $"{baseUrl}/{csproj.RelativePathFromSlnWithoutExtension}/{filePath}";
 
-            foreach (var csFile in csproj.CsFiles)
-            {
-                diagramBuilder.AppendLine($"    click {csFile.Name} href \"{fullUrl}/{csFile.NameWithFileExtension}\"");
-            }
+            diagramBuilder.AppendLine($"    click {csFile.Name} href \"{fullUrl}\"");
         }
     }
 }

@@ -4,16 +4,14 @@ using System.Text;
 namespace SharpMermaid;
 public class MermaidGenerator(string solutionFullPath)
 {
-    internal readonly SlnModel _solution = new(solutionFullPath);
+    public readonly SlnModel _solution = new(solutionFullPath);
 
     public string PhysicalProjectDiagram()
     {
         var diagramBuilder = new StringBuilder();
 
         MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
-
         MermaidGeneratorCommonHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
-
         MermaidGeneratorProjectHelpers.AddGraphDeclaration(diagramBuilder);
 
         if (!_solution.HasProjects)
@@ -23,11 +21,8 @@ public class MermaidGenerator(string solutionFullPath)
         }
 
         MermaidGeneratorProjectHelpers.AddProjectNames(_solution.Csprojs, diagramBuilder);
-
         MermaidGeneratorProjectHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
-
         MermaidGeneratorProjectHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
-
         MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
 
         return diagramBuilder.ToString();
@@ -38,9 +33,7 @@ public class MermaidGenerator(string solutionFullPath)
         var diagramBuilder = new StringBuilder();
 
         MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagramBuilder);
-
         MermaidGeneratorCommonHelpers.AddSolutionNameAsTitle(_solution.Name, diagramBuilder);
-
         MermaidGeneratorProjectHelpers.AddGraphDeclaration(diagramBuilder);
 
         if (!_solution.HasProjects) // should write to the console
@@ -50,32 +43,30 @@ public class MermaidGenerator(string solutionFullPath)
         }
 
         MermaidGeneratorProjectHelpers.AddProjectHierarchy(_solution, _solution.Csprojs, diagramBuilder);
-
         MermaidGeneratorProjectHelpers.AddClickableLinks(_solution.Csprojs, diagramBuilder);
-
         MermaidGeneratorProjectHelpers.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
-
         MermaidGeneratorCommonHelpers.AddDiagramFooter(diagramBuilder);
 
         return diagramBuilder.ToString();
     }
 
-    public List<string> ClassDiagrams()
+    public Dictionary<string, string> ClassDiagrams()
     {
-        return _solution.Csprojs
-            .ConvertAll(csproj =>
+        return _solution.Csprojs.ToDictionary(
+            csproj => csproj.Name,
+            csproj =>
             {
                 var diagram = new StringBuilder();
+
                 MermaidGeneratorCommonHelpers.AddMermaidBlockStart(diagram);
                 MermaidGeneratorClassHelpers.AddCsProjectAsTitle(csproj.Name, diagram);
                 MermaidGeneratorClassHelpers.AddClassDeclaration(diagram);
                 MermaidGeneratorClassHelpers.AddCsFileNames(csproj.CsFiles, diagram);
-                MermaidGeneratorClassHelpers.AddClickableLinks(_solution.Csprojs, diagram);
+                MermaidGeneratorClassHelpers.AddClickableLinks(csproj, diagram);
+                MermaidGeneratorCommonHelpers.AddDiagramFooter(diagram);
 
                 return diagram.ToString();
-            });
+            }
+        );
     }
 }
-
-
-// MermaidGeneratorHelpers.GenerateClassHierarchy();

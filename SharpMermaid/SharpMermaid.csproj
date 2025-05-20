@@ -7,6 +7,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="SharpMermaid.Test" />
+		<InternalsVisibleTo Include="SharpMermaid.AcceptenceTests" />
+		<InternalsVisibleTo Include="SharpMermaid.UnitTests" />
+		<InternalsVisibleTo Include="SharpMermaid.TestHelpers" />
 	</ItemGroup>
 </Project>

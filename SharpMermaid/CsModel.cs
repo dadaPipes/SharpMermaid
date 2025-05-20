@@ -1,17 +1,9 @@
 ﻿namespace SharpMermaid;
-class CsModel
+public class CsModel(string name, string fullPath, string relativePathFromCsProjDirectory)
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = name;
     public string NameWithFileExtension => $"{Name}.cs";
-    public string DirectoryName { get; set; }
-    public string FullPath { get; set; }
-    public string RelativePathFromCsProjDirectory { get; }
-    
-    public CsModel(string name, string fullPath, string relativePathFromCsProjDirectory)
-    {
-        Name                            = name;
-        DirectoryName                   = Path.GetDirectoryName(fullPath) ?? string.Empty;
-        FullPath                        = fullPath;
-        RelativePathFromCsProjDirectory = relativePathFromCsProjDirectory;
-    }
+    public string DirectoryName { get; set; } = Path.GetDirectoryName(fullPath) ?? string.Empty;
+    public string FullPath { get; set; } = fullPath;
+    public string RelativePathFromCsProjDirectory { get; } = relativePathFromCsProjDirectory;
 }

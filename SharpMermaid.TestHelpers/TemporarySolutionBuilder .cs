@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace SharpMermaid.TestFolders;
+namespace SharpMermaid.TestHelpers;
 
 /// <summary>
 /// Builds a temporary .NET solution with projects for test purposes.
@@ -12,18 +12,17 @@ public class TemporarySolutionBuilder : IDisposable
     /// Gets the solution name.
     /// </summary>
     public string Name { get; }
-
     /// <summary>
     /// Gets the directory where the temporary solution is created.
     /// </summary>
     public string Directory { get; }
-
     /// <summary>
     /// Gets the full path where the temporary solution is created.
     /// </summary>
     public readonly string FullPath;
-
     public List<string> ProjectPaths { get; private set; } = [];
+
+    public List<CsprojModel> Projects = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TemporarySolutionBuilder"/> class,
@@ -131,6 +130,9 @@ public class TemporarySolutionBuilder : IDisposable
             File.WriteAllText(fullPath, sourceCode);
         }
 
+        var newProject = new CsprojModel(projectName, projectPath, Path.GetRelativePath(Directory, projectPath));
+        Projects.Add(newProject);
+
         return projectFilePath;
     }
 
@@ -174,6 +176,12 @@ public class TemporarySolutionBuilder : IDisposable
     public void AddProjectReference(string fromProjectPath, string toProjectPath)
     {
         RunDotnet($"add \"{fromProjectPath}\" reference \"{toProjectPath}\"", Directory);
+    }
+
+    public List<CsModel> GetCsFiles(string projectName)
+    {
+        var project = Projects.FirstOrDefault(p => p.Name == projectName);
+        return project?.CsFiles ?? [];
     }
 
     /// <summary>

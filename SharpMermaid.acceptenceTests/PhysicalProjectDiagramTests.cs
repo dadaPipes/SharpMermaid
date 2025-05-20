@@ -1,6 +1,7 @@
+using SharpMermaid.TestHelpers;
 using Xunit.Abstractions;
 
-namespace SharpMermaid.Test.MermaidGeneratorTests;
+namespace SharpMermaid.AcceptenceTests;
 public class PhysicalProjectDiagramTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper _output = output;
@@ -48,6 +49,8 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
         {
             ["X.cs"] = "public class X {}"
         });
+
+        Settings.BaseUrl = "https://example.com/";
 
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
@@ -100,6 +103,8 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
             ["Z.cs"] = "public class Z {}"
         });
 
+        Settings.BaseUrl = "https://example.com/";
+
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.PhysicalProjectDiagram();
@@ -117,9 +122,9 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
             ProjectA
             ProjectB
             ProjectC
-            click ProjectA "https://example.com/repo/ProjectA/ProjectA.csproj"
-            click ProjectB "https://example.com/repo/ProjectB/ProjectB.csproj"
-            click ProjectC "https://example.com/repo/ProjectC/ProjectC.csproj"
+            click ProjectA "https://example.com/ProjectA/ProjectA.csproj"
+            click ProjectB "https://example.com/ProjectB/ProjectB.csproj"
+            click ProjectC "https://example.com/ProjectC/ProjectC.csproj"
         ```
         """;
 
@@ -154,6 +159,8 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
         solution.AddProjectReference(projectA, projectC);
         solution.AddProjectReference(projectB, projectC);
 
+        Settings.BaseUrl = "https://example.com/";
+
         // When the diagram is generated
         var mermaidGenerator = new MermaidGenerator(solution.FullPath);
         var diagram = mermaidGenerator.PhysicalProjectDiagram();
@@ -173,9 +180,9 @@ public class PhysicalProjectDiagramTests(ITestOutputHelper output)
             ProjectA
             ProjectB
             ProjectC
-            click ProjectA "https://example.com/repo/ProjectA/ProjectA.csproj"
-            click ProjectB "https://example.com/repo/ProjectB/ProjectB.csproj"
-            click ProjectC "https://example.com/repo/ProjectC/ProjectC.csproj"
+            click ProjectA "https://example.com/ProjectA/ProjectA.csproj"
+            click ProjectB "https://example.com/ProjectB/ProjectB.csproj"
+            click ProjectC "https://example.com/ProjectC/ProjectC.csproj"
             ProjectA --> ProjectB
             ProjectA --> ProjectC
             ProjectB --> ProjectC

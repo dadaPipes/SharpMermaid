@@ -16,14 +16,18 @@ So that I can visualize the relationships between classes and understand their d
 	- Dependencies
 	- Assosiations between classes
 
+## Scenarios
+
+---
+
 ### Generating Diagrams for Multiple Projects
 
 **Given** a solution containing multiple projects  
-**And** each project contains multiple .cs files  
+**And** each project contains multiple `.cs` files, including files within nested directories 
 **When** I generate the diagrams  
 **Then** a separate class diagram should be created for each project  
 **And** each diagram should have a title matching the project name  
 **And** each class node should be named after its .cs file  
-**And** the class node should include a clickable URL to the source file.
+**And** each class node should have a clickable URL reflecting its full directory structure, including nested folders
 
 ---

@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 
 namespace SharpMermaid;
-class CsprojModel
+public class CsprojModel
 {
     public string Name { get; }
     public string FullPath { get; }
