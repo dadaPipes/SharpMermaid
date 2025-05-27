@@ -1,8 +1,31 @@
+For tomorrow:
+
+Assert exact warning messages.
+Assert.Equals("Expected warning message", actualWarningMessage);
+include the warning messeage in the Docs: Rules in "".
+
+Kind of done above, but need to include the exact messages across docs **and** tests.
+
+**May**
+
+- Project nodes that has source files, **may** include a url to the projects class diagram
+
+This should be a configurable, since there might not be anything to link to, or maybe that is not wanted or needed.
+Keep in mind that it is not only DocFX that can be used to generate API documentation.
+Developers might also want to link to a .cs file in a github repository or something similar.
+
+---
+
+Create a test project named SharpMermaid.RulesTests, for the rules of the features.
+- Focus on the behavior instead of the implementation
+- Unit test the rules of the features, not the implementation
+
 HIGH PRIORITY:
 
 Features:
 - When clicking a project node, I should be redirected to a class diagram of the project. Including classes with all access modifiers.
   Public could be green, internal another color, and private ( do they really count ? )
+  - Just include public.
 
 Include Spectre.Console for CLI Warnings- and Error messages, and configurations.
 

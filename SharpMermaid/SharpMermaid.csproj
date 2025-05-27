@@ -7,8 +7,12 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="SharpMermaid.AcceptenceTests" />
-		<InternalsVisibleTo Include="SharpMermaid.UnitTests" />
+		<InternalsVisibleTo Include="SharpMermaid.ScenarioTests" />
 		<InternalsVisibleTo Include="SharpMermaid.TestHelpers" />
+		<InternalsVisibleTo Include="SharpMermaid.RulesTests" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Spectre.Console.Cli" Version="0.50.0" />
 	</ItemGroup>
 </Project>

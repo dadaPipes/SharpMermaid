@@ -12,43 +12,60 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/project-diagram/logical-project-diagram.md",
+      "source_relative_path": "docs/DomainRules.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/project-diagram/logical-project-diagram.html"
+          "relative_path": "docs/DomainRules.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/project-diagram/physical-project -diagram.md",
+      "source_relative_path": "docs/features/GenerateClassDiagrams/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/project-diagram/physical-project -diagram.html"
+          "relative_path": "docs/features/GenerateClassDiagrams/Main.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/project-diagram/shared-rules.md",
+      "source_relative_path": "docs/features/GenerateLogicalProjectDiagram/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/project-diagram/shared-rules.html"
+          "relative_path": "docs/features/GenerateLogicalProjectDiagram/Main.html"
         }
       },
       "version": ""
     },
     {
-      "type": "Toc",
-      "source_relative_path": "docs/features/project-diagram/toc.yml",
+      "type": "Conceptual",
+      "source_relative_path": "docs/features/GeneratePhysicalProjectDiagram/CommandLineArguments.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/project-diagram/toc.html"
-        },
-        ".json": {
-          "relative_path": "docs/features/project-diagram/toc.json"
+          "relative_path": "docs/features/GeneratePhysicalProjectDiagram/CommandLineArguments.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/features/GeneratePhysicalProjectDiagram/Main.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/features/GeneratePhysicalProjectDiagram/Main.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/features/SaveDiagram.md/Main.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/features/SaveDiagram.md/Main.html"
         }
       },
       "version": ""

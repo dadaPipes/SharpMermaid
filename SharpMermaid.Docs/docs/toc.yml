@@ -6,5 +6,12 @@
   href: getting-started.md
 - name: Features
   items:
-  - name: Project Diagram
-    href: features/project-diagram/toc.yml
+  - name: GenerateClassDiagrams
+    href: features/GenerateClassDiagrams/Main.md
+  - name: GenerateLogicalProjectDiagram
+    href: features/GenerateLogicalProjectDiagram/Main.md
+  - name: GeneratePhysicalProjectDiagram
+    href: features/GeneratePhysicalProjectDiagram/Main.md
+- name: Domain Rules
+  href: DomainRules.md
+  

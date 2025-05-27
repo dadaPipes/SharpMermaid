@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Generate Physical Project Diagram | SharpMermaid </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Generate Physical Project Diagram | SharpMermaid ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/GeneratePhysicalProjectDiagram.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="SharpMermaid">
+            SharpMermaid
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="generate-physical-project-diagram">Generate Physical Project Diagram</h1>
+
+<h2 id="description">Description</h2>
+<p>As a developer,<br>
+I want to generate a diagram that reflects the solution structure on disk,<br>
+So that I can analyze and visualize project organization and dependencies.</p>
+<h2 id="rules">Rules</h2>
+<hr>
+<p>The diagram <strong>must</strong> start with<code> ```mermaid</code></p>
+<hr>
+<p>The diagram <strong>must</strong> end with<code>```</code></p>
+<hr>
+<p>The diagram <strong>must</strong> begin with a <code>graph</code> declaration</p>
+<hr>
+<p>The console <strong>must</strong> display a warning message &quot;No projects found in the solution&quot;, when the solution contains no <code>.csproj</code> files</p>
+<hr>
+<p>Diagram <strong>must</strong> have a title same as the solution name</p>
+<hr>
+<p>The diagram <strong>may</strong> include a node for each project in the solution, with the same name as the project</p>
+<ul>
+<li>If a single project is selected by the developer, a node <strong>must</strong> be included in the diagram</li>
+<li>If multiple projects are selected by the developer, nodes <strong>must</strong> be included in the diagram</li>
+<li>If no projects are selected, nodes <strong>must not</strong> be included in the diagram <strong>and</strong> the console <strong>must</strong> display a warning message &quot;No projects found in the solution&quot;</li>
+</ul>
+<hr>
+<p>Relationships between projects <strong>may</strong> be shown with arrows</p>
+<ul>
+<li>If a dependency exists, the relationship <strong>must</strong> be indicated with an arrow</li>
+<li>If a dependency is bi-directional, the arrow <strong>must</strong> be &lt;--&gt; <strong>and</strong> a warning <strong>must</strong> be issued in the console</li>
+<li>If a project has no dependencies, it <strong>must not</strong> display an arrow</li>
+</ul>
+<hr>
+<p>Diagram <strong>may</strong> include a URL to the project's class diagram</p>
+<ul>
+<li>If the developer has enabled class diagram URLs, the diagram <strong>must</strong> include a clickable URL for each project
+<ul>
+<li>Projects without <code>.cs</code> files <strong>must</strong> display a warning in the console, one per affected project.</li>
+</ul>
+</li>
+<li>If the developer has not enabled class diagram URLs, the diagram <strong>must not</strong> include any clickable URLs for projects</li>
+</ul>
+<hr>
+<p>Each project node in the diagram <strong>may</strong> display all public top-level types defined within the project</p>
+<ul>
+<li>If a developer has enabled public types, the node <strong>must</strong> display all public top-level types<br>
+Supported types: classes, interfaces, structs, enums, records
+<ul>
+<li>If more than a single public top-level type exists in the same <code>.cs</code> file, a warning message <strong>must</strong> be displayed in the console</li>
+</ul>
+</li>
+<li>If the developer has not enabled public types, the node <strong>must not</strong> display any public types</li>
+</ul>
+<hr>
+<h2 id="scenarios">Scenarios</h2>
+<hr>
+<h3 id="required-argument">Required Argument</h3>
+<p>Solution File Path (.sln) -&gt; The tool needs to know what solution file to analyze.</p>
+<pre><code class="lang-shell">yourtool path/to/solution.sln
+
+</code></pre>
+<h3 id="optional-arguments">Optional Arguments</h3>
+<p>To match the rules you�ve set, consider adding these CLI flags:<br>
+--output <file> -&gt; Define a custom output file for the Mermaid diagram.</file></p>
+<pre><code class="lang-shell">yourtool path/to/solution.sln --output diagram.md
+</code></pre>
+<p>--projects Project1,Project2 -&gt; Specify which projects to include in the diagram.<br>
+--include-urls -&gt; Enable clickable class diagram URLs in project nodes.<br>
+--include-public-types -&gt; Show public top-level types in each project node.</p>
+<h3 id="automatic-console-warnings">Automatic Console Warnings</h3>
+<p>If no projects exist -&gt; Show warning: &quot;No projects found in the solution&quot;<br>
+**If a .csproj file has no .cs files -&gt; Show a warning for that project.`</p>
+<h3 id="solution-with-without-projects">Solution With Without Projects</h3>
+<p><strong>Given</strong> the solution has no projects<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should have no nodes or dependencies<br>
+<strong>And</strong> And the title should be the solution name</p>
+<hr>
+<h3 id="solution-with-single-project">Solution With Single Project</h3>
+<p><strong>Given</strong> the solution has a single project<br>
+<strong>And</strong> the project has at least one source file<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should include one node<br>
+<strong>And</strong> the diagram should have a title same as the solution name<br>
+<strong>And</strong> the diagram should include a node for the project in the solution<br>
+<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<hr>
+<h3 id="multiple-projects-without-dependencies">Multiple Projects Without Dependencies</h3>
+<p><strong>Given</strong> the solution has multiple projects with no dependencies<br>
+<strong>And</strong> each project has at least one source file
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should include one node per project<br>
+<strong>And</strong> the diagram should have a title same as the solution name<br>
+<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<hr>
+<h3 id="multiple-projects-with-dependencies">Multiple Projects With Dependencies</h3>
+<p><strong>Given</strong> the solution has multiple projects with dependencies<br>
+<strong>And</strong> each project has at least one source file<br>
+<strong>When</strong> the diagram is generated<br>
+<strong>Then</strong> the diagram should include one node per project<br>
+<strong>And</strong> arrows should represent the dependencies between project nodes<br>
+<strong>And</strong> each should include a url to the projects class diagram<br>
+<strong>And</strong> the diagram should have a title same as the solution name<br>
+<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/GeneratePhysicalProjectDiagram.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

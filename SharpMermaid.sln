@@ -12,11 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODOS.txt = TODOS.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.AcceptenceTests", "SharpMermaid.acceptenceTests\SharpMermaid.AcceptenceTests.csproj", "{47CA6B37-03EC-4AEB-81CB-42BEC4B2AD4E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.UnitTests", "SharpMermaid.UnitTests\SharpMermaid.UnitTests.csproj", "{905E9347-8E04-44B8-97EA-7D76DD255D64}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.TestHelpers", "SharpMermaid.TestHelpers\SharpMermaid.TestHelpers.csproj", "{C3CF7884-7C8C-451F-98D9-DA3D7646AFF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.RulesTests", "SharpMermaid.RulesTests\SharpMermaid.RulesTests.csproj", "{CFE3F6F4-9638-4AA3-B88B-CE0F1A49A443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.FeatureTests", "SharpMermaid.FeatureTests\SharpMermaid.FeatureTests.csproj", "{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.DomainRulesTests", "SharpMermaid.DomainRulesTests\SharpMermaid.DomainRulesTests.csproj", "{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,18 +34,22 @@ Global
 		{CE6C9599-6395-4468-94D5-B1AE841CC877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE6C9599-6395-4468-94D5-B1AE841CC877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE6C9599-6395-4468-94D5-B1AE841CC877}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47CA6B37-03EC-4AEB-81CB-42BEC4B2AD4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47CA6B37-03EC-4AEB-81CB-42BEC4B2AD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47CA6B37-03EC-4AEB-81CB-42BEC4B2AD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47CA6B37-03EC-4AEB-81CB-42BEC4B2AD4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{905E9347-8E04-44B8-97EA-7D76DD255D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{905E9347-8E04-44B8-97EA-7D76DD255D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{905E9347-8E04-44B8-97EA-7D76DD255D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{905E9347-8E04-44B8-97EA-7D76DD255D64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C3CF7884-7C8C-451F-98D9-DA3D7646AFF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3CF7884-7C8C-451F-98D9-DA3D7646AFF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3CF7884-7C8C-451F-98D9-DA3D7646AFF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3CF7884-7C8C-451F-98D9-DA3D7646AFF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFE3F6F4-9638-4AA3-B88B-CE0F1A49A443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFE3F6F4-9638-4AA3-B88B-CE0F1A49A443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFE3F6F4-9638-4AA3-B88B-CE0F1A49A443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFE3F6F4-9638-4AA3-B88B-CE0F1A49A443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

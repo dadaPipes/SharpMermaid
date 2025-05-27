@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using SharpMermaid.Models;
+using System.Diagnostics;
 
 namespace SharpMermaid.TestHelpers;
 
@@ -6,7 +7,7 @@ namespace SharpMermaid.TestHelpers;
 /// Builds a temporary .NET solution with projects for test purposes.
 /// Automatically cleans up temporary files when disposed.
 /// </summary>
-public class TemporarySolutionBuilder : IDisposable
+public sealed class TemporarySolutionBuilder : IDisposable
 {
     /// <summary>
     /// Gets the solution name.
