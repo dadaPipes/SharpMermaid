@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/GeneratePhysicalProjectDiagram/Main.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/GeneratePhysicalProjectDiagram/Main.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,208 +85,518 @@
         </div>
 
         <article data-uid="">
-<h1 id="generate-physical-project-diagram">Generate Physical Project Diagram</h1>
+<h1 id="generate-physical-project-diagram"><strong>Generate Physical Project Diagram</strong></h1>
 
-<h2 id="description">Description</h2>
+<h2 id="description"><strong>Description</strong></h2>
 <p>As a developer,<br>
 I want to generate a diagram that reflects the solution structure on disk,<br>
-and format it as a mermaid code block for use in a <code>.md</code> file,<br>
-So that I can analyze and visualize project organization and dependencies.</p>
-<h2 id="rules">Rules</h2>
-<hr>
-<h3 id="console-warnings">Console Warnings</h3>
-<h4 id="empty-solution-warning">Empty Solution Warning</h4>
-<p><strong>When</strong> a solution has no projects,<br>
-<strong>Then</strong> display console warning: &quot;No projects found in the solution {SolutionName}&quot;</p>
-<p><strong>See: <a href="../../DomainRules.html#empty-solution-warning">SlnModel -&gt; Empty Solution Warning</a></strong></p>
-<h4 id="missing-cs-files-warning">Missing .cs Files Warning</h4>
-<p><strong>Given</strong> a project has no .cs files<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> a console warning <strong>must</strong> be displayed: &quot;No .cs files found in {ProjectName}&quot;</p>
-<p><strong>See: <a href="../../DomainRules.html#Missing-.cs-Files-Warning">CsProjModel -&gt; Missing .cs Files Warning</a></strong></p>
-<hr>
-<h3 id="code-block-formatting">Code Block Formatting</h3>
-<h4 id="mermaid-fences">Mermaid Fences</h4>
-<p><strong>Given</strong> a diagram is generated<br>
-<strong>Then</strong> the output <strong>must</strong> start with<code> ```mermaid</code><br>
-<strong>And</strong> the output <strong>must</strong> end with <code>```</code></p>
-<hr>
-<h3 id="diagram-structure">Diagram Structure</h3>
-<h4 id="graph-declaration">Graph Declaration</h4>
-<p><strong>Given</strong> a diagram is generated<br>
-<strong>Then</strong> the first non-fence line <strong>must</strong> begin with <code>graph</code></p>
-<h4 id="diagram-title">Diagram Title</h4>
-<p><strong>Given</strong> a diagram is generated for solution <code>FooApp</code><br>
-<strong>Then</strong> the diagram <strong>must</strong> include a title <code>FooApp</code></p>
-<h4 id="project-nodes">Project Nodes</h4>
-<p><strong>Given</strong> N projects are selected<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> it <strong>must</strong> include exactly N nodes, each named after its project</p>
-<h3 id="dependency-arrows">Dependency Arrows</h3>
-<h4 id="one-way-dependency">One-way Dependency</h4>
-<p><strong>Given</strong> a one-way dependency exists between <code>Project A</code> and <code>Project B</code><br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram <strong>must</strong> include an arrow: <code>A --&gt; B</code></p>
-<h4 id="bi-directional-dependency">Bi-directional Dependency</h4>
-<p><strong>Given</strong> a bi-directional dependency exists between <code>Project A</code> and <code>Project B</code><br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram <strong>must</strong> include an arrow: <code>A &lt;--&gt; B</code><br>
-<strong>And</strong> a console warning <strong>must</strong> be displayed: &quot;Bi-directional dependency detected between A and B&quot;</p>
-<h4 id="no-dependencies">No Dependencies</h4>
-<p><strong>Given</strong> a project has no dependencies<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> it <strong>must not</strong> include any arrows for that project</p>
-<hr>
-<h3 id="class-diagram-urls-optional">Class-Diagram URLs (Optional)</h3>
-<h4 id="json-configuration">JSON Configuration</h4>
-<p><strong>Given</strong> no CLI parameter is provided,<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> configuration must be read from a diagramconfig.json file if present.</p>
-<h4 id="cli-overrides">CLI Overrides</h4>
-<p><strong>Given</strong> CLI parameters are provided,<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> CLI parameters must override any values in the JSON file</p>
-<h4 id="default-behavior">Default Behavior</h4>
-<p><strong>Given</strong> neither a JSON file nor CLI parameters are provided,<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> no URLs must be included in any node</p>
-<h4 id="url-composition">URL Composition</h4>
-<p><strong>Given</strong> IncludeUrls is true (via JSON or CLI),<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> each node must include a clickable URL,<br>
-<strong>And</strong> the URL must be assembled using the UrlPattern by substituting:</p>
+and format it as a mermaid code block,<br>
+So I can use it in a <code>.md</code> file</p>
+<h2 id="rules"><strong>Rules</strong></h2>
 <ul>
-<li><p>{SolutionName}</p>
+<li><strong>Must</strong> start with mermaid code block fence see</li>
+<li><strong>Must</strong> end with code block fence footer see</li>
+<li>First non-fence line <strong>must</strong> begin with <code>graph</code></li>
+<li><strong>Must</strong> include a title same as the solution name</li>
+<li><strong>Must</strong> include a project node for each project in the solution</li>
+<li>Individual project nodes <strong>must</strong> have the same name as the project</li>
+<li>Project nodes <strong>may</strong> include project references</li>
+<li><strong>May</strong> include a clickable url to a projects class diagram</li>
+<li><strong>May</strong> include projects top-level public types</li>
+</ul>
+<h2 id="scenarios"><strong>Scenarios</strong></h2>
+<h2 id="project-references">Project References</h2>
+<h3 id="no-reference">No Reference</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+<li><code>ProjectB</code> at <code>ProjectB/ProjectB.csproj</code></li>
+<li><code>ProjectC</code> at <code>ProjectC/ProjectC.csproj</code></li>
+</ul>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln`
+</code></pre>
+<p>from the solution directory</p>
+<p><strong>Then</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+</code></pre>
+<hr>
+<h3 id="one-way-reference">One-Way Reference</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+<li><code>ProjectB</code> at <code>ProjectB/ProjectB.csproj</code></li>
+<li><code>ProjectC</code> at <code>ProjectC/ProjectC.csproj</code></li>
+<li><code>ProjectD</code> at <code>ProjectC/ProjectD.csproj</code></li>
+<li><code>ProjectE</code> at <code>ProjectC/ProjectE.csproj</code></li>
+<li><code>ProjectF</code> at <code>ProjectC/ProjectF.csproj</code></li>
+</ul>
+<p><strong>And</strong> <code>ProjectA</code> has a project reference to <code>ProjectB</code> and <code>ProjectC</code><br>
+<strong>And</strong> <code>ProjectB</code> has a project reference to <code>ProjectD</code><br>
+<strong>And</strong> <code>ProjectE</code> has a project reference to <code>ProjectF</code></p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p>from the solution directory</p>
+<p><strong>Then</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectE
+    ProjectF
+    ProjectA --&gt; ProjectB
+    ProjectA --&gt; ProjectC
+    ProjectB --&gt; ProjectD
+    ProjectE --&gt; ProjectF
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectE
+    ProjectF
+    ProjectA --&gt; ProjectB
+    ProjectA --&gt; ProjectC
+    ProjectB --&gt; ProjectD
+    ProjectE --&gt; ProjectF
+</code></pre>
+<hr>
+<h3 id="bi-directional-reference">Bi-Directional Reference</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+<li><code>ProjectB</code> at <code>ProjectB/ProjectB.csproj</code></li>
+<li><code>ProjectC</code> at <code>ProjectC/ProjectC.csproj</code></li>
+</ul>
+<p><strong>And</strong> <code>ProjectA</code> has a project reference to <code>ProjectB</code> and <code>ProjectC</code><br>
+<strong>And</strong> <code>ProjectB</code> has a project reference to <code>ProjectA</code></p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p>from the solution directory</p>
+<p><strong>Then</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectA --&gt; ProjectC
+    ProjectA &lt;--&gt; ProjectB
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectA --&gt; ProjectC
+    ProjectA &lt;--&gt; ProjectB
+</code></pre>
+<hr>
+<h2 id="urls-config">URLs Config</h2>
+<h3 id="explicitly-enabled">Explicitly Enabled</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>Zebra</code>  at <code>Zebra/Zebra.csproj</code></li>
+<li><code>Monkey</code> at <code>Cage/Monkey/Monkey.csproj</code></li>
+<li><code>Penguin</code> at <code>NorthPole/IceBlock/Penguin/Penguin.csproj</code></li>
+</ul>
+<p><strong>And</strong> the base url is set to <code>https://example.com/</code></p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --include-urls true
+</code></pre>
+<p>from the solution directory</p>
+<p><strong>Then</strong> the code block <strong>must</strong> include a clickable URL to each the projects class diagram<br>
+<strong>And</strong> the URL <strong>must</strong> correctly reflect the project’s file path (if it's not at the root directory)<br>
+<strong>And</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    Zebra
+    Monkey
+    Penguin
+    click Zebra &quot;https://example.com/Zebra.csproj&quot;
+    click Monkey &quot;https://example.com/Cage/Monkey.csproj&quot;
+    click Penguin &quot;https://example.com/NorthPole/IceBlock/Penguin.csproj&quot;
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    Zebra
+    Monkey
+    Penguin
+    click Zebra &quot;https://example.com/Zebra.csproj&quot;
+    click Monkey &quot;https://example.com/Cage/Monkey.csproj&quot;
+    click Penguin &quot;https://example.com/NorthPole/IceBlock/Penguin.csproj&quot;
+</code></pre>
+<hr>
+<h3 id="explicitly-disabled">Explicitly Disabled</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p><strong>And</strong> a JSON config file exists with <code>IncludeUrls</code> set to <code>true</code></p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --include-urls false
+</code></pre>
+<p><em><strong>Then</strong></em> the generated diagram output <strong>must not</strong> contain any URLs
+<strong>And</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+</code></pre>
+<hr>
+<h3 id="no-config-default-behavior">No Config (default behavior)</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p><strong>And</strong> no CLI parameters for URLs are provided
+<strong>And</strong> no JSON config file exists
+<strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p><strong>Then</strong> the generated diagram output <strong>must not</strong> contain any URLs
+<strong>And</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+</code></pre>
+<hr>
+<h3 id="json-fallback">JSON Fallback</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code>  at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p><strong>And</strong> no CLI parameter for URLs are provided<br>
+<strong>And</strong> a JSON config file exists with <code>IncludeUrls</code> set to <code>true</code><br>
+<strong>And</strong> the base url is set to <code>https://example.com/</code></p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p>from the solution directory</p>
+<p><strong>Then</strong> the code block <strong>must</strong> include a clickable URL for the projects class diagram<br>
+<strong>And</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    click Zebra &quot;https://example.com/ProjectA.csproj&quot;
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+    click Zebra &quot;https://example.com/ProjectA.csproj&quot;
+</code></pre>
+<hr>
+<h3 id="json-not-found-fallback-to-default">JSON Not Found Fallback to Default</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p><strong>And</strong> no CLI parameters for URLs are provided<br>
+<strong>And</strong> no JSON config file exists</p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p><strong>Then</strong> the generated diagram output <strong>must not</strong> contain any URLs<br>
+<strong>And</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+</code></pre>
+<hr>
+<h3 id="cli-overrides-json-config">CLI Overrides JSON Config</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p><strong>And</strong> a JSON config file exists with <code>IncludeUrls</code> set to <code>false</code><br>
+<strong>And</strong> the base url is set to <code>https://example.com/</code></p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --include-urls true
+</code></pre>
+<p><strong>Then</strong> the code block <strong>must</strong> include a clickable URL to the projects class diagram<br>
+<strong>And</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    click ProjectA &quot;https://example.com/ProjectA.csproj&quot;
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+    click ProjectA &quot;https://example.com/ProjectA.csproj&quot;
+</code></pre>
+<hr>
+<h2 id="public-types-config">Public Types Config</h2>
+<h3 id="explicitly-enabled-1">Explicitly Enabled</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><p><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></p>
 </li>
-<li><p>{ProjectName}</p>
-</li>
-<li><p>{FilePath}</p>
-</li>
-<li><p>{TypeName}</p>
-</li>
-<li><p>Example URL: <code>https://example.com/docs/{ProjectName}/{FilePath}#{TypeName}</code></p>
+<li><p>A file <code>Rabbit.cs</code> in <code>ProjectA</code> with:</p>
 </li>
 </ul>
-<h4 id="no-urls">No URLs</h4>
-<p><strong>Given</strong> IncludeUrls is false (via JSON or CLI),<br>
-<strong>When</strong> the diagram is generated,<br>
-<strong>Then</strong> no URLs must appear in any node</p>
-<h4 id="urls-enabled">URLs Enabled</h4>
-<p><strong>Given</strong> “include URLs” is enabled<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> each node in the diagram <strong>must</strong> include a clickable URL to its class diagram</p>
-<h4 id="urls-disabled">URLs Disabled</h4>
-<p><strong>Given</strong> “include URLs” is disabled<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> no URLs <strong>must</strong> appear in the diagram</p>
-<hr>
-<h3 id="public-type-display-optional">Public-Type Display (Optional)</h3>
-<h4 id="public-types-enabled">Public Types Enabled</h4>
-<p><strong>Given</strong> “show public types” is enabled<br>
-<strong>When</strong> the diagram is generated<br>
-<em><strong>Then</strong></em> each node <strong>must</strong> list all public top-level types:</p>
+<pre><code class="lang-csharp">public class Rabbit {}
+</code></pre>
 <ul>
-<li>classes</li>
-<li>interfaces</li>
-<li>structs</li>
-<li>enums</li>
-<li>records</li>
+<li>A file <code>Dog.cs</code> in <code>ProjectB</code> with:</li>
 </ul>
-<h4 id="public-types-disabled">Public Types Disabled</h4>
-<p><strong>Given</strong> “show public types” is disabled<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> no types <strong>must</strong> appear in any node</p>
-<h4 id="multiple-public-types-warning">Multiple Public Types Warning</h4>
-<p><strong>Given</strong> a <code>.cs</code> file defines more than one public top-level type, such as:<br>
-<code>public class A</code> and <code>public class B</code> <strong>or</strong> <code>public enum X</code> and <code>public struct Y</code><br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> a console warning must be displayed in the following format: &quot;Multiple public types found in {FilePath}: {Type1}, {Type2}, ...&quot;<br>
-<strong>Where</strong> {FilePath} is the full path to the <code>.cs</code> file, and {Type1}, {Type2}, ... are the names of the detected public types</p>
-<hr>
-<h2 id="command-line">Command-Line</h2>
-<h3 id="physical-project-diagram">Physical Project Diagram</h3>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>&lt;solution.sln&gt;</code></td>
-<td>Specifies the solution file to process.</td>
-</tr>
-<tr>
-<td><code>--output &lt;file&gt;</code></td>
-<td>Defines the output file for the diagram.</td>
-</tr>
-<tr>
-<td><code>--include-urls</code></td>
-<td>Adds URLs to class diagrams</td>
-</tr>
-<tr>
-<td><code>--include-public-types</code></td>
-<td>Displays public top-level types</td>
-</tr>
-</tbody>
-</table>
-<h2 id="scenarios">Scenarios</h2>
-<hr>
-<h3 id="required-argument">Required Argument</h3>
-<p>Solution File Path (.sln) -&gt; The tool needs to know what solution file to analyze.</p>
-<pre><code class="lang-shell">sharpmermaid path/to/solution.sln
-
+<pre><code class="lang-csharp">public class Dog {}
+internal class IFoo {}
+private class Bar {}
+class Baz {}
 </code></pre>
-<h3 id="optional-arguments">Optional Arguments</h3>
-<p>To match the rules you�ve set, consider adding these CLI flags:<br>
---output <file> -&gt; Define a custom output file for the Mermaid diagram.</file></p>
-<pre><code class="lang-shell">sharpmermaid path/to/solution.sln --output diagram.md
+<ul>
+<li>A file <code>Cat.cs</code> in <code>ProjectC</code> with:</li>
+</ul>
+<pre><code class="lang-csharp">public class Cat {}
+public interface IFoo {}
+public record Bar {}
 </code></pre>
-<p>--projects Project1,Project2 -&gt; Specify which projects to include in the diagram.<br>
---include-urls -&gt; Enable clickable class diagram URLs in project nodes.<br>
---include-public-types -&gt; Show public top-level types in each project node.</p>
-<h3 id="automatic-console-warnings">Automatic Console Warnings</h3>
-<p>If no projects exist -&gt; Show warning: &quot;No projects found in the solution&quot;<br>
-**If a .csproj file has no .cs files -&gt; Show a warning for that project.`</p>
-<h3 id="solution-with-without-projects">Solution With Without Projects</h3>
-<p><strong>Given</strong> the solution has no projects<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should have no nodes or dependencies<br>
-<strong>And</strong> And the title should be the solution name</p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --include-public-types true
+</code></pre>
+<p><strong>Then</strong> each node <strong>must</strong> list all public top-level types<br>
+<strong>And</strong> the output is:</p>
+<pre><code class="lang-text">```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        public class Rabbit&quot;]
+    ProjectB[&quot;**ProjectB**
+        public class Dog&quot;]
+    ProjectC[&quot;**ProjectC**
+        public class Cat
+        public interface IFoo
+        public record Bar&quot;]
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        public class Rabbit&quot;]
+    ProjectB[&quot;**ProjectB**
+        public class Dog&quot;]
+    ProjectC[&quot;**ProjectC**
+        public class Cat
+        public interface IFoo
+        public record Bar&quot;]
+</code></pre>
+<h3 id="explicitly-disabled-1">Explicitly Disabled</h3>
+<p><strong>Given</strong> a solution TestSolution containing:</p>
+<p><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></p>
+<ul>
+<li>A file <code>Rabbit.cs</code> in <code>ProjectA</code> with:</li>
+</ul>
+<pre><code class="lang-csharp">public class Rabbit {}
+</code></pre>
+<p><strong>And</strong> a JSON config file exists with <code>IncludePublicTypes: true</code></p>
+<p>When I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --include-public-types false
+</code></pre>
+<p><strong>Then</strong> the generated diagram output must not contain any public types<br>
+<strong>And</strong> the output is:</p>
+<pre><code>```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+</code></pre>
 <hr>
-<h3 id="solution-with-single-project">Solution With Single Project</h3>
-<p><strong>Given</strong> the solution has a single project<br>
-<strong>And</strong> the project has at least one source file<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should include one node<br>
-<strong>And</strong> the diagram should have a title same as the solution name<br>
-<strong>And</strong> the diagram should include a node for the project in the solution<br>
-<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<h3 id="no-config-default-behavior-1">No Config (Default Behavior)</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p>A file <code>PublicTypeExample.cs</code> in <code>ProjectA</code> with:</p>
+<pre><code class="lang-csharp">public class Foo {}
+And no CLI parameter or JSON config file is present
+</code></pre>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p><strong>Then</strong> the generated diagram output must not contain any public types
+<strong>And</strong> the output is:</p>
+<pre><code>```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+</code></pre>
 <hr>
-<h3 id="multiple-projects-without-dependencies">Multiple Projects Without Dependencies</h3>
-<p><strong>Given</strong> the solution has multiple projects with no dependencies<br>
-<strong>And</strong> each project has at least one source file
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should include one node per project<br>
-<strong>And</strong> the diagram should have a title same as the solution name<br>
-<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<h3 id="json-fallback-1">JSON Fallback</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p>A file <code>PublicTypeExample.cs</code> in <code>ProjectA</code> with:</p>
+<pre><code class="lang-csharp">public class Foo {}
+</code></pre>
+<p><strong>And</strong> a JSON config file exists with:</p>
+<pre><code class="lang-json">{
+  &quot;IncludePublicTypes&quot;: true
+}
+</code></pre>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p><strong>Then</strong> the generated diagram output must include the public type Foo<br>
+<strong>And</strong> the output is:</p>
+<pre><code>```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        public class Foo&quot;]
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        public class Foo&quot;]
+</code></pre>
 <hr>
-<h3 id="multiple-projects-with-dependencies">Multiple Projects With Dependencies</h3>
-<p><strong>Given</strong> the solution has multiple projects with dependencies<br>
-<strong>And</strong> each project has at least one source file<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should include one node per project<br>
-<strong>And</strong> arrows should represent the dependencies between project nodes<br>
-<strong>And</strong> each should include a url to the projects class diagram<br>
-<strong>And</strong> the diagram should have a title same as the solution name<br>
-<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<h3 id="json-not-found-fallback-to-default-1">JSON Not Found Fallback to Default</h3>
+<p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
+<ul>
+<li><code>ProjectA</code> at <code>ProjectA/ProjectA.csproj</code></li>
+</ul>
+<p><strong>And</strong> a file <code>PublicTypeExample.cs</code> in <code>ProjectA</code> with:</p>
+<pre><code class="lang-csharp">public class Foo {}
+</code></pre>
+<p><strong>And</strong> no JSON config file exists</p>
+<p><strong>When</strong> I run the command:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln
+</code></pre>
+<p><strong>Then</strong> the generated diagram output <strong>must not</strong> include any public types<br>
+<strong>And</strong> the output is:</p>
+<pre><code>```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA
+</code></pre>
 <hr>
+<h3 id="cli-overrides-json-config-1">CLI Overrides JSON Config</h3>
+<hr>
+<h2 id="technical-notes">Technical Notes</h2>
+<p>The URL pattern for clickable links is currently global, set to {baseUrl}/{FilePath}/{ProjectName}, and cannot be customized</p>
+<h2 id="file-output-handling">File Output Handling</h2>
+<h3 id="save-to-md-file">Save to .md file</h3>
+<p>Content of file matches in-memory diagram</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/GeneratePhysicalProjectDiagram/Main.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/GeneratePhysicalProjectDiagram/Main.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

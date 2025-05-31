@@ -1,244 +1,685 @@
-# Generate Physical Project Diagram
+# **Generate Physical Project Diagram**
 
-## Description
+## **Description**
 
 As a developer,  
 I want to generate a diagram that reflects the solution structure on disk,  
-and format it as a mermaid code block for use in a `.md` file,  
-So that I can analyze and visualize project organization and dependencies.
+and format it as a mermaid code block,  
+So I can use it in a `.md` file
 
-## Rules
+## **Rules**
 
----
+- **Must** start with mermaid code block fence
+- **Must** end with code block fence footer
+- First non-fence line **must** begin with `graph`
+- **Must** include a title same as the solution name
+- **Must** include a project node for each project in the solution
+- Individual project nodes **must** have the same name as the project
+- Project nodes **may** include project references
+- **May** include a clickable url to a projects class diagram
+- **May** include projects top-level public types
 
-### Console Warnings
+## **Scenarios**
 
-#### Empty Solution Warning
+## Project References
 
-**When** a solution has no projects,  
-**Then** display console warning: "No projects found in the solution {SolutionName}"
+### No Reference
 
-**See: [SlnModel -> Empty Solution Warning](./../../DomainRules.md#empty-solution-warning)**
+**Given** a solution `TestSolution` containing:
 
-#### Missing .cs Files Warning
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+- `ProjectB` at `ProjectB/ProjectB.csproj`
+- `ProjectC` at `ProjectC/ProjectC.csproj`
 
-**Given** a project has no .cs files  
-**Then** a console warning **must** be displayed: "No .cs files found in {ProjectName}"
-
-**See: [CsProjModel -> Missing .cs Files Warning](./../../DomainRules.md#Missing-.cs-Files-Warning)**
-
-#### Multiple Public Types Warning
-
-**Given** a `.cs` file has more than a single public top-level type, such as:  
-`public class A` and `public class B` **or** `public enum X` and `public struct Y`  
-**Then** a console warning **must** be displayed in the following format: "Multiple public types found in {FilePath}: {Type1}, {Type2}, ..."  
-**Where** {FilePath} is the full path to the `.cs` file, and {Type1}, {Type2}, ... are the names of the detected public types
-
----
-
-### Code Block Formatting
-
-#### Mermaid Fences
-
-**Given** a diagram is generated  
-**Then** the output **must** start with` ```mermaid`  
-**And** the output **must** end with ` ``` `
-
----
-
-### Diagram Structure
-
-#### Graph Declaration
-
-**Given** a diagram is generated  
-**Then** the first non-fence line **must** begin with `graph`
-
-#### Diagram Title
-
-**Given** a diagram is generated for solution `FooApp`  
-**Then** the diagram **must** include a title `FooApp`
-
-#### Project Nodes
-
-**Given** N projects are selected  
-**When** the diagram is generated  
-**Then** it **must** include exactly N nodes, each named after its project  
-
-### Dependency Arrows
-
-#### One-way Dependency
-
-**Given** a one-way dependency exists between `Project A` and `Project B`  
-**When** the diagram is generated  
-**Then** the diagram **must** include an arrow: `A --> B`
-
-#### Bi-directional Dependency
-
-**Given** a bi-directional dependency exists between `Project A` and `Project B`  
-**When** the diagram is generated  
-**Then** the diagram **must** include an arrow: `A <--> B`  
-**And** a console warning **must** be displayed: "Bi-directional dependency detected between A and B"
-
-#### No Dependencies
-
-**Given** a project has no dependencies  
-**When** the diagram is generated  
-**Then** it **must not** include any arrows for that project
-
----
-
-### Class-Diagram URLs (Optional)
-
-#### JSON Configuration
-
-**Given** no CLI parameter is provided,  
-**When** the diagram is generated,  
-**Then** configuration must be read from a diagramconfig.json file if present.
-
-#### CLI Overrides
-
-**Given** CLI parameters are provided,  
-**When** the diagram is generated,  
-**Then** CLI parameters must override any values in the JSON file
-
-#### Default Behavior
-
-**Given** neither a JSON file nor CLI parameters are provided,  
-**When** the diagram is generated,  
-**Then** no URLs must be included in any node
-
-#### URL Composition
-
-**Given** IncludeUrls is true (via JSON or CLI),  
-**When** the diagram is generated,  
-**Then** each node must include a clickable URL,  
-**And** the URL must be assembled using the UrlPattern by substituting:
-
-- {SolutionName}
-- {ProjectName}
-- {FilePath}
-- {TypeName}
-
-- Example URL: `https://example.com/docs/{ProjectName}/{FilePath}#{TypeName}`
-
-#### No URLs
-
-**Given** IncludeUrls is false (via JSON or CLI),  
-**When** the diagram is generated,  
-**Then** no URLs must appear in any node
-
-#### URLs Enabled
-
-**Given** “include URLs” is enabled  
-**When** the diagram is generated  
-**Then** each node in the diagram **must** include a clickable URL to its class diagram
-
-#### URLs Disabled
-
-**Given** “include URLs” is disabled  
-**When** the diagram is generated  
-**Then** no URLs **must** appear in the diagram
-
----
-
-### Public-Type Display (Optional)
-
-#### Public Types Enabled
-
-**Given** “show public types” is enabled  
-**When** the diagram is generated  
-***Then*** each node **must** list all public top-level types:
-
-- classes
-- interfaces
-- structs
-- enums
-- records
-
-#### Public Types Disabled
-
-**Given** “show public types” is disabled  
-**When** the diagram is generated  
-**Then** no types **must** appear in any node
-
----
-
-## Command-Line
-
-[!INCLUDE [Console Arguments](./CommandLineArguments.md)]
-
-## Scenarios
-
----
-
-### Required Argument
-
-Solution File Path (.sln) -> The tool needs to know what solution file to analyze.
+**When** I run the command:
 
 ```shell
-sharpmermaid path/to/solution.sln
-
+sharpmermaid generate-diagram --solution ./TestSolution.sln`
 ```
 
-### Optional Arguments
+from the solution directory
 
-To match the rules you�ve set, consider adding these CLI flags:  
---output <file> -> Define a custom output file for the Mermaid diagram.
+**Then** the output is:
+
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+```
+
+---
+
+### One-Way Reference
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+- `ProjectB` at `ProjectB/ProjectB.csproj`
+- `ProjectC` at `ProjectC/ProjectC.csproj`
+- `ProjectD` at `ProjectC/ProjectD.csproj`
+- `ProjectE` at `ProjectC/ProjectE.csproj`
+- `ProjectF` at `ProjectC/ProjectF.csproj`
+
+**And** `ProjectA` has a project reference to `ProjectB` and `ProjectC`  
+**And** `ProjectB` has a project reference to `ProjectD`  
+**And** `ProjectE` has a project reference to `ProjectF`
+
+**When** I run the command:
 
 ```shell
-sharpmermaid path/to/solution.sln --output diagram.md
+sharpmermaid generate-diagram --solution ./TestSolution.sln
 ```
 
---projects Project1,Project2 -> Specify which projects to include in the diagram.  
---include-urls -> Enable clickable class diagram URLs in project nodes.  
---include-public-types -> Show public top-level types in each project node.
+from the solution directory
 
-### Automatic Console Warnings
+**Then** the output is:
 
-If no projects exist -> Show warning: "No projects found in the solution"  
-**If a .csproj file has no .cs files -> Show a warning for that project.`
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectE
+    ProjectF
+    ProjectA --> ProjectB
+    ProjectA --> ProjectC
+    ProjectB --> ProjectD
+    ProjectE --> ProjectF
+```
+~~~
 
-### Solution With Without Projects
-
-**Given** the solution has no projects  
-**When** the diagram is generated  
-**Then** the diagram should have no nodes or dependencies  
-**And** And the title should be the solution name
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectE
+    ProjectF
+    ProjectA --> ProjectB
+    ProjectA --> ProjectC
+    ProjectB --> ProjectD
+    ProjectE --> ProjectF
+```
 
 ---
 
-### Solution With Single Project
+### Bi-Directional Reference
 
-**Given** the solution has a single project  
-**And** the project has at least one source file  
-**When** the diagram is generated  
-**Then** the diagram should include one node  
-**And** the diagram should have a title same as the solution name  
-**And** the diagram should include a node for the project in the solution  
-**And** the diagram should include a url to the projects class diagram
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+- `ProjectB` at `ProjectB/ProjectB.csproj`
+- `ProjectC` at `ProjectC/ProjectC.csproj`
+
+**And** `ProjectA` has a project reference to `ProjectB` and `ProjectC`  
+**And** `ProjectB` has a project reference to `ProjectA`
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln
+```
+
+from the solution directory
+
+**Then** the output is:
+
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectA --> ProjectC
+    ProjectA <--> ProjectB
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    ProjectB
+    ProjectC
+    ProjectA --> ProjectC
+    ProjectA <--> ProjectB
+```
 
 ---
 
-### Multiple Projects Without Dependencies
+## URLs Config
 
-**Given** the solution has multiple projects with no dependencies  
-**And** each project has at least one source file
-**When** the diagram is generated  
-**Then** the diagram should include one node per project  
-**And** the diagram should have a title same as the solution name  
-**And** the diagram should include a url to the projects class diagram
+### Explicitly Enabled
+
+**Given** a solution `TestSolution` containing:
+
+- `Zebra`  at `Zebra/Zebra.csproj`
+- `Monkey` at `Cage/Monkey/Monkey.csproj`  
+- `Penguin` at `NorthPole/IceBlock/Penguin/Penguin.csproj`
+
+**And** the base url is set to `https://example.com/`  
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln --include-urls true
+```
+
+from the solution directory
+
+**Then** the code block **must** include a clickable URL to each the projects class diagram  
+**And** the URL **must** correctly reflect the project’s file path (if it's not at the root directory)  
+**And** the output is:
+
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    Zebra
+    Monkey
+    Penguin
+    click Zebra "https://example.com/Zebra.csproj"
+    click Monkey "https://example.com/Cage/Monkey.csproj"
+    click Penguin "https://example.com/NorthPole/IceBlock/Penguin.csproj"
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    Zebra
+    Monkey
+    Penguin
+    click Zebra "https://example.com/Zebra.csproj"
+    click Monkey "https://example.com/Cage/Monkey.csproj"
+    click Penguin "https://example.com/NorthPole/IceBlock/Penguin.csproj"
+```
 
 ---
 
-### Multiple Projects With Dependencies
+### Explicitly Disabled
 
-**Given** the solution has multiple projects with dependencies  
-**And** each project has at least one source file  
-**When** the diagram is generated  
-**Then** the diagram should include one node per project  
-**And** arrows should represent the dependencies between project nodes  
-**And** each should include a url to the projects class diagram  
-**And** the diagram should have a title same as the solution name  
-**And** the diagram should include a url to the projects class diagram
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+**And** a JSON config file exists with `IncludeUrls` set to `true`
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln --include-urls false
+```
+
+***Then*** the generated diagram output **must not** contain any URLs
+**And** the output is:
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
 
 ---
+
+### No Config (default behavior)
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+**And** no CLI parameters for URLs are provided
+**And** no JSON config file exists
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln
+```
+
+**Then** the generated diagram output **must not** contain any URLs
+**And** the output is:
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+
+---
+
+### JSON Fallback
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA`  at `ProjectA/ProjectA.csproj`
+
+**And** no CLI parameter for URLs are provided  
+**And** a JSON config file exists with `IncludeUrls` set to `true`  
+**And** the base url is set to `https://example.com/`  
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln
+```
+
+from the solution directory
+
+**Then** the code block **must** include a clickable URL for the projects class diagram  
+**And** the output is:
+
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    click Zebra "https://example.com/ProjectA.csproj"
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    click Zebra "https://example.com/ProjectA.csproj"
+```
+
+---
+
+### JSON Not Found Fallback to Default
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+**And** no CLI parameters for URLs are provided  
+**And** no JSON config file exists
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln
+```
+
+**Then** the generated diagram output **must not** contain any URLs  
+**And** the output is:
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+
+---
+
+### CLI Overrides JSON Config
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+**And** a JSON config file exists with `IncludeUrls` set to `false`  
+**And** the base url is set to `https://example.com/`
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln --include-urls true
+```
+
+**Then** the code block **must** include a clickable URL to the projects class diagram  
+**And** the output is:
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    click ProjectA "https://example.com/ProjectA.csproj"
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+    click ProjectA "https://example.com/ProjectA.csproj"
+```
+
+---
+
+## Public Types Config
+
+### Explicitly Enabled
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+- A file `Rabbit.cs` in `ProjectA` with:
+
+```csharp
+public class Rabbit {}
+```
+
+- A file `Dog.cs` in `ProjectB` with:
+
+```csharp
+public class Dog {}
+internal class IFoo {}
+private class Bar {}
+class Baz {}
+```
+
+- A file `Cat.cs` in `ProjectC` with:
+
+```csharp
+public class Cat {}
+public interface IFoo {}
+public record Bar {}
+```
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln --include-public-types true
+```
+
+**Then** each node **must** list all public top-level types  
+**And** the output is:
+~~~text
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA["**ProjectA**
+        public class Rabbit"]
+    ProjectB["**ProjectB**
+        public class Dog"]
+    ProjectC["**ProjectC**
+        public class Cat
+        public interface IFoo
+        public record Bar"]
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA["**ProjectA**
+        public class Rabbit"]
+    ProjectB["**ProjectB**
+        public class Dog"]
+    ProjectC["**ProjectC**
+        public class Cat
+        public interface IFoo
+        public record Bar"]
+```
+
+### Explicitly Disabled
+
+**Given** a solution TestSolution containing:
+
+`ProjectA` at `ProjectA/ProjectA.csproj`
+
+- A file `Rabbit.cs` in `ProjectA` with:
+
+```csharp
+public class Rabbit {}
+```
+
+**And** a JSON config file exists with `IncludePublicTypes: true`
+
+When I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln --include-public-types false
+```
+
+**Then** the generated diagram output must not contain any public types  
+**And** the output is:
+~~~
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+
+---
+
+### No Config (Default Behavior)
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+A file `PublicTypeExample.cs` in `ProjectA` with:
+
+```csharp
+public class Foo {}
+And no CLI parameter or JSON config file is present
+```
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln
+```
+
+**Then** the generated diagram output must not contain any public types
+**And** the output is:
+
+~~~
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+
+---
+
+### JSON Fallback
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+A file `PublicTypeExample.cs` in `ProjectA` with:
+
+```csharp
+public class Foo {}
+```
+
+**And** a JSON config file exists with:
+
+```json
+{
+  "IncludePublicTypes": true
+}
+```
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln
+```
+
+**Then** the generated diagram output must include the public type Foo  
+**And** the output is:
+
+~~~
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA["**ProjectA**
+        public class Foo"]
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA["**ProjectA**
+        public class Foo"]
+```
+
+---
+
+### JSON Not Found Fallback to Default
+
+**Given** a solution `TestSolution` containing:
+
+- `ProjectA` at `ProjectA/ProjectA.csproj`
+
+**And** a file `PublicTypeExample.cs` in `ProjectA` with:
+
+```csharp
+public class Foo {}
+```
+
+**And** no JSON config file exists
+
+**When** I run the command:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln
+```
+
+**Then** the generated diagram output **must not** include any public types  
+**And** the output is:
+
+~~~
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+~~~
+
+```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA
+```
+
+---
+
+### CLI Overrides JSON Config
+
+
+
+---
+
+## Technical Notes
+
+The URL pattern for clickable links is currently global, set to {baseUrl}/{FilePath}/{ProjectName}, and cannot be customized
+
+## File Output Handling
+### Save to .md file
+
+Content of file matches in-memory diagram

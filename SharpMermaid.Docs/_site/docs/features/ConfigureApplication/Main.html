@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Save Physical Project Diagram | SharpMermaid </title>
+      <title>Configure Application | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Save Physical Project Diagram | SharpMermaid ">
+      <meta name="title" content="Configure Application | SharpMermaid ">
       
       
       <link rel="icon" href="../../../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/SaveDiagram.md/Main.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/ConfigureApplication/Main.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,38 +85,40 @@
         </div>
 
         <article data-uid="">
-<h1 id="save-physical-project-diagram">Save Physical Project Diagram</h1>
+<h1 id="configure-application">Configure Application</h1>
 
 <h2 id="description">Description</h2>
-<p>As a developer,<br>
-I need to save the diagram I generated,<br>
-So I can easily reference my project's structure and dependencies later.</p>
-<h2 id="saving-rules">Saving Rules</h2>
-<ol>
-<li>The diagram <strong>must</strong> be saved as a <code>.md</code> file containing a Mermaid.js code block.</li>
-<li>The file <strong>must</strong> always be overwritten to reflect the latest solution state.</li>
-<li>The default path <strong>must</strong> be the directory where the command is executed.
+<p>As a developer,
+I want to configure the application via a combination of CLI parameters, JSON files, and default values,
+So that I can ensure flexibility and robust fallback behavior in different environments</p>
+<h2 id="rules">Rules</h2>
 <ul>
-<li><strong>3.a</strong> If the developer specifies a custom path in the console, the diagram <strong>must</strong> be saved accordingly.</li>
+<li>CLI parameters always override JSON and defaults</li>
+<li>JSON configuration file overrides default values</li>
+<li>Defaults are used only when a value is not provided in either CLI or JSON</li>
+<li>If a required CLI parameter is missing (and not in JSON), the system must stop execution and display an error message</li>
+<li>If CLI input references a non-existent file or resource, the system must stop execution and display an error message</li>
+<li>If CLI parameters are malformed, the system must stop execution and display an error message</li>
+<li>If the JSON file does not exist or is malformed, the system must stop execution and display an error message</li>
+<li>If JSON config is partial, it must merge with defaults for missing values</li>
+<li>Final Options object must reflect the merged configuration (CLI &gt; JSON &gt; Defaults)</li>
 </ul>
-</li>
-<li>The default filename <strong>must</strong> be <code>PhysicalProjectDiagram.md</code>.
-<ul>
-<li><strong>4.a</strong> If the developer specifies a custom filename in the console, the diagram <strong>must</strong> be saved accordingly.</li>
-</ul>
-</li>
-<li>The console <strong>must</strong> display a confirmation message showing the saved file location.</li>
-</ol>
-<h2 id="edge-case-handling">Edge Case Handling</h2>
-<p><strong>Non-Existent Path</strong> -&gt; Display <code>&quot;Error: The specified path does not exist.&quot;</code><br>
-<strong>Invalid Characters in Filename</strong> -&gt; Display <code>&quot;Error: Invalid filename detected.&quot;</code><br>
-<strong>Insufficient Write Permissions</strong> -&gt; Display <code>&quot;Error: Unable to save diagram. Check permissions.&quot;</code></p>
-<hr>
+<h2 id="scenarios">Scenarios</h2>
+<p><strong>Given</strong> no CLI parameter <code>SlnPath</code> and no value in JSON
+<strong>When</strong> the CLI is run
+<strong>Then</strong> the system stops execution
+<strong>And</strong> the console displays an error message indicating the missing required parameter</p>
+<p>Given the CLI parameter <code>--configPath=nonexistent.json</code>
+When the CLI is run
+Then the system stops execution
+And the console displays an error message indicating the file was not found</p>
+<p>This is an example command where &quot;generate-diagram&quot; is the main(?) command, &quot;--solution&quot; is the path to the solution, relative from where directory the command is executed from, and &quot;--include-urls false&quot; is a flag:</p>
+<p>sharpmermaid generate-diagram --solution ./TestSolution.sln --include-urls false</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/SaveDiagram.md/Main.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/ConfigureApplication/Main.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

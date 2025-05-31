@@ -1,17 +1,17 @@
 ### YamlMime:ManagedReference
 
-- name: Welcome to SharpMermaid
-  href: ../index.md
-- name: Getting Started
-  href: getting-started.md
-- name: Features
-  items:
-  - name: GenerateClassDiagrams
-    href: features/GenerateClassDiagrams/Main.md
-  - name: GenerateLogicalProjectDiagram
-    href: features/GenerateLogicalProjectDiagram/Main.md
-  - name: GeneratePhysicalProjectDiagram
-    href: features/GeneratePhysicalProjectDiagram/Main.md
-- name: Domain Rules
-  href: DomainRules.md
-  
+items:
+  - name: Welcome to SharpMermaid
+    href: ../index.md
+  - name: Getting Started
+    href: getting-started.md
+  - name: Features
+    items:
+    - name: GenerateClassDiagrams
+      href: Features/GenerateClassDiagrams/Main.md
+    - name: GenerateLogicalProjectDiagram
+      href: Features/GenerateLogicalProjectDiagram/Main.md
+    - name: GeneratePhysicalProjectDiagram
+      href: Features/GeneratePhysicalProjectDiagram/AcceptanceTests.md
+  - name: Documentation Dogma
+    href: DocumentationDogma.md

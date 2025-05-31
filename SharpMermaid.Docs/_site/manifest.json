@@ -12,60 +12,100 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/DomainRules.md",
+      "source_relative_path": "docs/ConfigTestCoverageChecklist.md",
       "output": {
         ".html": {
-          "relative_path": "docs/DomainRules.html"
+          "relative_path": "docs/ConfigTestCoverageChecklist.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/GenerateClassDiagrams/Main.md",
+      "source_relative_path": "docs/CrossFeatures/Warnings.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/GenerateClassDiagrams/Main.html"
+          "relative_path": "docs/CrossFeatures/Warnings.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/GenerateLogicalProjectDiagram/Main.md",
+      "source_relative_path": "docs/DocumentationDogma.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/GenerateLogicalProjectDiagram/Main.html"
+          "relative_path": "docs/DocumentationDogma.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/GeneratePhysicalProjectDiagram/CommandLineArguments.md",
+      "source_relative_path": "docs/Features/ConfigureApplication/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/GeneratePhysicalProjectDiagram/CommandLineArguments.html"
+          "relative_path": "docs/Features/ConfigureApplication/Main.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/GeneratePhysicalProjectDiagram/Main.md",
+      "source_relative_path": "docs/Features/GenerateClassDiagrams/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/GeneratePhysicalProjectDiagram/Main.html"
+          "relative_path": "docs/Features/GenerateClassDiagrams/Main.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/features/SaveDiagram.md/Main.md",
+      "source_relative_path": "docs/Features/GenerateLogicalProjectDiagram/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/features/SaveDiagram.md/Main.html"
+          "relative_path": "docs/Features/GenerateLogicalProjectDiagram/Main.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram/AcceptanceTests.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram/AcceptanceTests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram/CommandLineArguments.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram/CommandLineArguments.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram/Main.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram/Main.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/Features/SaveDiagram.md/Main.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Features/SaveDiagram.md/Main.html"
         }
       },
       "version": ""

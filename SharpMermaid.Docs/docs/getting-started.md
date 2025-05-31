@@ -5,6 +5,8 @@ Meatball short loin pig turkey shoulder pork belly. T-bone drumstick pastrami cu
 strip steak turducken shankle jowl kevin beef ribs bacon short loin. Sirloin pig shank tri-tip t-bone jerky bacon tail,  
 hamburger landjaeger swine. Hamburger pancetta chislic fatback, tongue tri-tip bacon capicola pastrami ground round beef ribs venison.
 
+Mention .sharpmermaidconfig.json
+
 ## Command-Line
 
 [!INCLUDE [Generate Physical Project CLI Arguments](./features/GeneratePhysicalProjectDiagram/CommandLineArguments.md)]

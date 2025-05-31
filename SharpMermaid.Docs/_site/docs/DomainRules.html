@@ -88,18 +88,24 @@
 <h1 id="domain-rules-cross-feature">Domain Rules (Cross-Feature)</h1>
 
 <h2 id="slnmodel">SlnModel</h2>
-<hr>
 <h3 id="empty-solution-warning">Empty Solution Warning</h3>
 <p><strong>When</strong> a solution contains no <code>.csproj</code> files<br>
-<strong>Then</strong> the system must display a console warning: <code>No projects found in the solution {SolutionName}</code></p>
+<strong>Then</strong> the system must display a console warning: &quot;No projects found in the solution {SolutionName}&quot;</p>
 <hr>
 <h2 id="csprojmodel">CsProjModel</h2>
-<hr>
+<h3 id="bi-directional-dependency-warning">Bi-directional Dependency Warning</h3>
+<p><strong>When</strong> a bi-directional dependency is detected between <code>Project A</code> and <code>Project B</code>
+<strong>Then</strong> a console warning must be displayed: &quot;Bi-directional dependency detected between A and B&quot;</p>
 <h3 id="missing-cs-files-warning">Missing .cs Files Warning</h3>
 <p><strong>When</strong> a project contains no <code>.cs</code> files<br>
-<strong>Then</strong> the system must display a console warning: <code>No .cs files found in {ProjectName}</code></p>
+<strong>Then</strong> the system must display a console warning: &quot;No .cs files found in {ProjectName}&quot;</p>
 <hr>
 <h2 id="csmodel">CsModel</h2>
+<h3 id="multiple-public-types-warning">Multiple Public Types Warning</h3>
+<p><strong>Given</strong> a <code>.cs</code> file has more than a single public top-level type, such as:<br>
+<code>public class A</code> and <code>public class B</code> <strong>or</strong> <code>public enum X</code> and <code>public struct Y</code><br>
+<strong>Then</strong> a console warning <strong>must</strong> be displayed in the following format: &quot;Multiple public types found in {FilePath}: {Type1}, {Type2}, ...&quot;<br>
+<strong>Where</strong> {FilePath} is the full path to the <code>.cs</code> file, and {Type1}, {Type2}, ... are the names of the detected public types</p>
 
 </article>
 
