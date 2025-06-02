@@ -12,16 +12,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/ConfigTestCoverageChecklist.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/ConfigTestCoverageChecklist.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "docs/CrossFeatures/Warnings.md",
       "output": {
         ".html": {
@@ -42,10 +32,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/ConfigureApplication/Main.md",
+      "source_relative_path": "docs/Features/Generate/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/ConfigureApplication/Main.html"
+          "relative_path": "docs/Features/Generate/Main.html"
         }
       },
       "version": ""
@@ -72,40 +62,50 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram/AcceptanceTests.md",
+      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram/AcceptanceTests.html"
+          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram/CommandLineArguments.md",
+      "source_relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram/CommandLineArguments.html"
+          "relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram/Main.md",
+      "source_relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram/Main.html"
+          "relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/SaveDiagram.md/Main.md",
+      "source_relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/SaveDiagram.md/Main.html"
+          "relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/Main.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/Features/Init.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Features/Init.html"
         }
       },
       "version": ""

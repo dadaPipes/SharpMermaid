@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Init | SharpMermaid </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Init | SharpMermaid ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/Init.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="SharpMermaid">
+            SharpMermaid
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="init">Init</h1>
+
+<h2 id="description">Description</h2>
+<p><strong>As a</strong> developer,<br>
+<strong>I want</strong> to Create a default <code>mermaidconfig.json</code> in the current directory<br>
+<strong>So that</strong>  I have a ready-to-edit configuration file for diagram generation</p>
+<h2 id="cli-usage">CLI Usage</h2>
+<pre><code class="lang-shell">sharpmermaid init --solution {string} --output {string}
+</code></pre>
+<h2 id="required-arguments">Required arguments</h2>
+<p><code>--solution {string}</code><br>
+Path to the solution file (relative to the current directory)</p>
+<p><code>--output {string}</code><br>
+Path to the output directory for generated diagrams (relative to the current directory)</p>
+<h2 id="rules">Rules</h2>
+<ul>
+<li><p><strong>Must</strong> create a default <code>mermaidconfig.json</code> in the current directory
+<a href="#create-default-config-file"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p>Must pre-populate the file with:</p>
+<ul>
+<li><code>solution</code>: the provided solution path</li>
+<li><code>output</code>: the provided output directory<br>
+<a href="#create-default-config-file"><em><strong>see: scenario</strong></em></a></li>
+</ul>
+</li>
+<li><p><strong>Must</strong> check if <code>mermaidconfig.json</code> already exists in the current directory<br>
+If it does, execution must stop and the console must display:<br>
+&quot;Error: A <code>mermaidconfig.json</code> file already exists at '{cwd}/mermaidconfig.json'&quot;
+<a href="#config-file-already-exist"><em><strong>see: scenario</strong></em></a></p>
+</li>
+</ul>
+<h2 id="scenarios">Scenarios</h2>
+<hr>
+<h3 id="create-default-config-file">Create Default Config File</h3>
+<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
+<strong>And</strong> a solution file <code>TestSolution.sln</code> exists at <code>{cwd}/TestSolution.sln</code><br>
+<strong>And</strong> the developer specifies:</p>
+<ul>
+<li>Solution: <code>./TestSolution.sln</code></li>
+<li>Output: <code>./TestSolution</code></li>
+</ul>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">sharpmermaid init --solution ./TestSolution.sln --output ./TestSolution
+</code></pre>
+<p><strong>Then</strong> the system must create a new <code>mermaidconfig.json</code> file at <code>{cwd}/mermaidconfig.json</code><br>
+<strong>And</strong> the console must display: &quot;Created new file 'mermaidconfig.json' at '{cwd}/mermaidconfig.json'&quot;<br>
+<strong>And</strong> the <code>mermaidconfig.json</code> file must contain:</p>
+<pre><code class="lang-json">{
+  &quot;solution&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;output&quot;: &quot;./TestSolution&quot;
+}
+</code></pre>
+<hr>
+<h3 id="config-file-already-exist">Config File Already Exist</h3>
+<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
+<strong>And</strong> a solution file <code>TestSolution.sln</code> exists at <code>{cwd}/TestSolution.sln</code><br>
+<strong>And</strong> the developer specifies:</p>
+<ul>
+<li>Solution: <code>./TestSolution.sln</code></li>
+<li>Output: <code>./TestSolution</code></li>
+</ul>
+<p><strong>And</strong> <code>mermaidconfig.json</code> file already exists at <code>{cwd}/mermaidconfig.json</code></p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">sharpmermaid init --solution ./TestSolution.sln --output ./TestSolution
+</code></pre>
+<p><strong>Then</strong> the execution <strong>must</strong> stop and the console <strong>must</strong> display:<br>
+&quot;Error: A <code>mermaidconfig.json</code> file already exists at '{cwd}/mermaidconfig.json'&quot;</p>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/Init.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 # Documentation Dogma
 
+If you can't explain something in a simple way, then you do not understand it good enough (and **must** consult with stakeholder)
+
 ## Features
 
 As a, I want, So that.

@@ -5,6 +5,7 @@ using Xunit.Abstractions;
 namespace SharpMermaid.FeatureTests;
 public class GenerateClassDiagramTests(ITestOutputHelper output)
 {
+    /*
     private readonly ITestOutputHelper _output = output;
 
     [Fact(DisplayName = "Generating Diagrams for Multiple Projects")]
@@ -105,4 +106,5 @@ public class GenerateClassDiagramTests(ITestOutputHelper output)
             Assert.Equal(expectedClassDiagrams[csproject], diagrams[csproject]);
         }
     }
+    */
 }

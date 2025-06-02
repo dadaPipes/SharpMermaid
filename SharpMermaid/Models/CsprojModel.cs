@@ -39,7 +39,7 @@ public class CsprojModel
             return [];
 
         var xdoc = XDocument.Load(FullPath);
-        return xdoc
+        return xdoc 
             .Descendants("ProjectReference")
             .Select(e => e.Attribute("Include")?.Value)
             .Where(value => !string.IsNullOrWhiteSpace(value))

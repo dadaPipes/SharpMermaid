@@ -1,4 +1,4 @@
-# Create Physical Project Diagram
+# Generate Physical Project Markdown File
 
 ## Description
 
@@ -15,9 +15,9 @@ sharpmermaid generate-diagram --solution {string} --output {string} [--fileName 
 
 **Required**:  
 
-`--solution {pathToSolution}`: Path to the solution file (relative to the current directory)  
+`--solution {string}`: Path to the solution file (relative to the current directory)  
 
-`--output {pathToOutput}`: Path to the generated `.md` file (relative to the current directory)  
+`--output {string}`: Path to the generated `.md` file (relative to the current directory)  
 
 **Optional**:  
 
@@ -38,11 +38,11 @@ Default: `false`
 
 ### Creating .md File
 
-- If no `.md` file exists at the specified location, the system **must** create a new `.md` file and **must** display  
+- If no `.md` file exists at the specified location, the system **must** create a new `.md` file and the console **must** display:  
 "Created new file '{fileName}.md' at '{path}'"  
 [***see: scenario***](#creating-a-new-md-file)  
 
-- If a `.md` file with the same name already exists at that location, the system **must** overwrite it and **must** display  
+- If a `.md` file with the same name already exists at that location, the system **must** overwrite it and the console **must** display:  
 "Overwriting existing file at '{path}/{fileName}.md'"  
 [***see: scenario***](#overwriting-an-existing-md-file)
 
@@ -69,48 +69,84 @@ values **must** be taken from the `.sharpmermaidconfig.json` file located in the
 the system **must** fall back to default values  
 [***see: scenario***](#defaults-used-for-missing-optionals)
 
+### Warnings
+
+- If no project are found in the solution, the console must display:  
+"{solution path}:  
+Warning: No projects found in the '{solution name}'"  
+[***see: scenario:***](#no-projects-found-in-solution)
+
+- If no source files are found in a project, the console must display:  
+"{solution path}:  
+Warning: No .cs files found in '{project Name}'"  
+[***see: scenario:***](#no-source-files-found-in-project)
+
 ### Error Handling
   
-- If a `{required argument}` is not provided, the system **must** stop execution and **must** display:  
+- If a `{required argument}` is not provided, the system **must** stop execution and the console **must** display:  
 "Error: Missing required argument '{required argument}'"  
 [***see: scenario***](#required-argument-missing)
   
-- If the provided solution file does not exist, the system **must** stop execution and **must** display:  
-"Error: Solution file not found at '{path}'. Please provide a valid path"  
+- If the provided solution file does not exist, the system **must** stop execution and the console **must** display:  
+"Error: Solution file not found at '{path}'.  
+Please provide a valid path"  
 [***see: scenario***](#invalid-solution-path)
   
-- If the specified output path is invalid or inaccessible, the system **must** stop execution and **must** display:  
-"Error: Unable to write to '{path}'. Ensure the directory exists and is writable"  
+- If the specified output path is invalid or inaccessible, the system **must** stop execution and the console **must** display:  
+"Error: Unable to write to '{path}'.  
+Ensure the directory exists and is writable"  
 [***see: scenario***](#invalid-output-path)
   
-- If the JSON config file is invalid, the system **must** stop execution and **must** display:  
-"Error: Invalid configuration file at '{path}'. Please check the JSON format"  
+- If the JSON config file is invalid, the system **must** stop execution and the console **must** display:  
+"Error: Invalid configuration file at '{path}'.  
+Please check the JSON format"  
 [***see: scenario***](#invalid-sharpmermaidconfigjson)
 
-- If `--classDiagramLinks` is true but no `--baseUrl` is provided, the system **must** stop execution and **must** display:  
-"Error: Missing required argument 'baseUrl' when 'classDiagramLinks' is enabled. Please provide '--baseUrl {string}' or configure it in '.sharpmermaidconfig.json'"  
+- If `--classDiagramLinks` is true but no `--baseUrl` is provided, the system **must** stop execution and the console **must** display:  
+"Error: Missing required argument 'baseUrl' when 'classDiagramLinks' is enabled.  
+Please provide '--baseUrl {string}' or configure it in '.sharpmermaidconfig.json'"  
 [***see: scenario***](#missing---baseurl-with---classdiagramlinks-enabled)
 
-- If the specified output path {path} contains illegal characters, the system must stop execution and must display:  
-"Error: The output path '{path}' contains illegal characters. Please provide a valid file path."  
+- If the specified output path {path} contains illegal characters, the system **must** stop execution and the console **must** display:  
+"Error: The output path '{path}' contains illegal characters.  
+Please provide a valid file path."  
 [***see: scenario***](#illegal-characters-in-output-path)
 
-- If the system cannot interpret the specified output path {path} as a valid file path, the system **must** stop execution and **must** display:  
-"Error: The output path '{path}' is not a valid file path. Please provide a valid file path."  
+- If the system cannot interpret the specified output path {path} as a valid file path, the system **must** stop execution and the console **must** display:  
+"Error: Invalid filepath '{path}'.  
+Please provide a valid file path."  
 [***see: scenario***](#invalid-output-path)
 
 ## Scenarios
 
 ---
 
+### No projects found in solution
+
+Given, When, Then
+
+---
+
+### No source files found in project
+
+Given, When, Then
+
+---
+
 ### Creating a New .md File
 
-Given the specified output path {path} exists and is writable
-And no file named {fileName}.md exists at {path}
-When the system executes the command
-Then the system must create a new .md file named {fileName}.md at {path}
-And the system must display:
-"Created new file '{fileName}.md' at '{path}'"
+**Given** the developer’s current working directory is `{cwd}`  
+**And** a solution file named `TestSolution.sln` is located at `{cwd}/TestSolution.sln`  
+**And** the developer specifies the output directory `./Diagrams`  
+**When** the developer runs:
+
+```shell
+sharpmermaid generate-diagram --solution ./TestSolution.sln --output ./Diagrams
+```
+
+**Then** the system must create a new `.md` file named `mermaid.md` at `{cwd}/Diagrams`  
+**And** the console must display:
+"Created new file '{fileName}' at '{solutionPath}/Diagrams'"
 
 ---
 

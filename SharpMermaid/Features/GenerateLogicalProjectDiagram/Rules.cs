@@ -166,7 +166,7 @@ public static class Rules
         public List<FolderNode> SubFolders { get; set; } = new List<FolderNode>();
         public List<string> Projects { get; set; } = new List<string>();
     }
-
+    /*
     /// <summary>
     /// Adds clickable Mermaid diagram links for each project that contains source files.
     /// Projects without source files are ignored.
@@ -184,7 +184,7 @@ public static class Rules
             diagramBuilder.AppendLine($"    click {project.Name} \"{fullUrl}\"");
         }
     }
-
+    */
     /// <summary>
     /// Constructs Mermaid diagram arrows to represent project dependencies.
     /// Bi-directional dependencies are detected and represented with `<-->`, ensuring each relationship appears only once.

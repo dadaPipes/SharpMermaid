@@ -9,7 +9,7 @@ public static class Rules
     /// Appends the opening Mermaid code block.
     /// </summary>
     /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the Mermaid block start is appended.</param>
-    public static void AddMermaidBlockStart(StringBuilder diagramBuilder)
+    public static void AddMermaidCodeBlockStart(StringBuilder diagramBuilder)
     {
         diagramBuilder.AppendLine("```mermaid");
     }
@@ -18,7 +18,7 @@ public static class Rules
     /// Appends the closing fence for a Mermaid diagram.
     /// </summary>
     /// <param name="diagramBuilder">The <see cref="StringBuilder"/> to which the footer is appended.</param>
-    public static void AddDiagramFooter(StringBuilder diagramBuilder)
+    public static void AddCodeBlockEnd(StringBuilder diagramBuilder)
     {
         diagramBuilder.Append("```");
     }
@@ -62,31 +62,23 @@ public static class Rules
         }
     }
 
-    /// <summary>
-    /// Adds clickable Mermaid diagram links for each project that contains source files.
-    /// If a project lacks source files, no link is added, and a warning message is returned.
-    /// </summary>
-    /// <param name="projectFiles">The list of <see cref="CsprojModel"/> representing projects to process.</param>
-    /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to build the diagram.</param>
-    /// <returns>
-    /// A list of warning messages for projects that do not contain source files.
-    /// </returns>
-    public static List<string> AddClickableLinks(IEnumerable<CsprojModel> projectFiles, StringBuilder diagramBuilder)
+    public static void AddClickableLinks(IEnumerable<CsprojModel> projectFiles, StringBuilder diagram, Settings settings)
     {
-        foreach (var project in projectFiles.Where(p => p.HasCsFiles))
+        if (!settings.IncludeUrls || string.IsNullOrEmpty(settings.BaseUrl))
+            return;
+
+        foreach (var project in projectFiles)
         {
-            diagramBuilder.AppendLine($"    click {project.Name} \"{project.ClassDiagramUrl}\"");
+            string filePath = Path.GetRelativePath(Directory.GetCurrentDirectory(), project.FullPath)
+                                 .Replace("\\", "/");
+            string formattedUrl =
+                settings.UrlPattern
+                    .Replace("{baseUrl}", settings.BaseUrl)
+                    .Replace("{FilePath}", filePath)
+                    .Replace("{ProjectName}", project.Name);
+
+            diagram.AppendLine($"    click {project.Name} \"{formattedUrl}\"");
         }
-
-        List<string> warningMessages = [];
-
-        foreach (var project in projectFiles.Where(p => !p.HasCsFiles))
-        {
-            var warning = $"Warning: Project '{project.Name}' does not contain any source files and will not include a class diagram url.";
-            warningMessages.Add(warning);
-        }
-
-        return warningMessages;
     }
 
     /// <summary>
@@ -95,11 +87,10 @@ public static class Rules
     /// </summary>
     /// <param name="projectFiles">The list of <see cref="CsprojModel"/> to process.</param>
     /// <param name="diagramBuilder">The <see cref="StringBuilder"/> used to construct the diagram.</param>
-    public static string? AddProjectDependencies(IEnumerable<CsprojModel> projectFiles, StringBuilder diagramBuilder)
+    public static void AddProjectDependencies(IEnumerable<CsprojModel> projectFiles, StringBuilder diagramBuilder)
     {
         var dependencyMap = projectFiles.ToDictionary(p => p.Name, p => p.CsprojDependencies.ToHashSet());
         var processedPairs = new HashSet<string>();
-        string? warningMessage = null;
 
         foreach (var projectFile in projectFiles)
         {
@@ -114,9 +105,6 @@ public static class Rules
                     {
                         diagramBuilder.AppendLine($"    {projectFile.Name} <--> {dependency}");
                         processedPairs.Add(pairKey);
-
-                        // Assign warning message instead of appending to StringBuilder
-                        warningMessage = $"Warning: Bi-directional dependency detected between {projectFile.Name} and {dependency}.";
                     }
                 }
                 else
@@ -125,6 +113,5 @@ public static class Rules
                 }
             }
         }
-        return warningMessage;
     }
 }

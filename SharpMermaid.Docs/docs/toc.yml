@@ -7,11 +7,9 @@ items:
     href: getting-started.md
   - name: Features
     items:
-    - name: GenerateClassDiagrams
-      href: Features/GenerateClassDiagrams/Main.md
-    - name: GenerateLogicalProjectDiagram
-      href: Features/GenerateLogicalProjectDiagram/Main.md
-    - name: GeneratePhysicalProjectDiagram
-      href: Features/GeneratePhysicalProjectDiagram/AcceptanceTests.md
+    - name: Init
+      href: Features/Init.md
+    - name: Generate Physical Project Diagram
+      href: Features/GeneratePhysicalProjectDiagram.md
   - name: Documentation Dogma
     href: DocumentationDogma.md

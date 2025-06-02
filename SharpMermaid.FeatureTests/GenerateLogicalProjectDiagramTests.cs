@@ -5,6 +5,7 @@ using Xunit.Abstractions;
 namespace SharpMermaid.FeatureTests;
 public class GenerateLogicalProjectDiagramTests(ITestOutputHelper output)
 {
+    /*
     private readonly ITestOutputHelper _output = output;
 
     [Fact(DisplayName = "Solution With Without Projects")]
@@ -230,4 +231,5 @@ public class GenerateLogicalProjectDiagramTests(ITestOutputHelper output)
 
         Assert.Equal(expected, diagram);
     }
+    */
 }

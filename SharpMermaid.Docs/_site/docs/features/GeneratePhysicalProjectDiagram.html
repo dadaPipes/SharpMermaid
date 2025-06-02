@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/GeneratePhysicalProjectDiagram.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/GeneratePhysicalProjectDiagram.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -88,112 +88,330 @@
 <h1 id="generate-physical-project-diagram">Generate Physical Project Diagram</h1>
 
 <h2 id="description">Description</h2>
-<p>As a developer,<br>
-I want to generate a diagram that reflects the solution structure on disk,<br>
-So that I can analyze and visualize project organization and dependencies.</p>
+<p><strong>As</strong> a developer,<br>
+<strong>I want</strong> to generate a Physical Project diagram from the <code>Diagrams</code> collection in <code>mermaidconfig.json</code><br>
+<strong>So that</strong> I get a visual representation of my project structure on disk.</p>
+<h2 id="cli-usage">CLI Usage</h2>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<h2 id="config-variables">Config Variables</h2>
+<ul>
+<li><p><strong>SolutionPath</strong> (string, required)<br>
+Path to the solution file (relative to mermaidconfig.json)</p>
+</li>
+<li><p><strong>OutputPath</strong> (string, optional, Default: ./Diagrams)<br>
+Path to the output directory for generated diagrams (relative to mermaidconfig.json)</p>
+</li>
+<li><p><strong>Diagrams</strong> (array of objects, required)<br>
+A collection of diagram configurations to generate.<br>
+Each diagram entry represents a different diagram type with its own specific settings</p>
+<ul>
+<li><p><strong>DiagramType</strong> (enum, required)</p>
+</li>
+<li><p><strong>OutputPath</strong> (string, optional)<br>
+Overrides root-level OutputPath for this diagram</p>
+</li>
+<li><p><strong>FileName</strong> (string, optional, Default: &quot;Mermaid&quot;)<br>
+Name of the generated file (without file extension)</p>
+</li>
+<li><p><strong>FileType</strong> (enum, optional, Default: &quot;.mmd&quot;)<br>
+Output file type:</p>
+<ul>
+<li>.mmd: Mermaid syntax</li>
+<li>.md: Mermaid diagram wrapped in a Markdown code block</li>
+<li>Other types like .svg or .png, require external rendering tools (not handled by this tool)</li>
+</ul>
+</li>
+<li><p><strong>TopLevelPublicTypes</strong> (bool, optional, Default: false)<br>
+Whether to include top-level public types in each project</p>
+</li>
+<li><p><strong>ClassDiagramLinks</strong> (bool, optional)<br>
+Whether to include clickable URLs to a class diagram for each project<br>
+The URL pattern for class diagram links is: <code>{baseUrl}/{FilePath}/{ProjectName}</code><br>
+It cannot be customized beyond this pattern</p>
+</li>
+<li><p><strong>BaseUrl</strong> (string, required if <code>ClassDiagramLinks</code> is enabled)
+Base URL to prepend to diagram links</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="config-structure">Config Structure</h2>
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;OutputPath&quot;: &quot;./Diagrams&quot;,
+  &quot;Diagrams&quot;: [
+    {
+      &quot;OutputPath&quot;: &quot;./Override/Diagrams&quot;,
+      &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
+      &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
+      &quot;FileType&quot;: &quot;.mmd&quot;,
+      &quot;TopLevelPublicTypes&quot;: true,
+      &quot;ClassDiagramLinks&quot;: true,
+      &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
+    }
+  ]
+}
+</code></pre>
 <h2 id="rules">Rules</h2>
-<hr>
-<p>The diagram <strong>must</strong> start with<code> ```mermaid</code></p>
-<hr>
-<p>The diagram <strong>must</strong> end with<code>```</code></p>
-<hr>
-<p>The diagram <strong>must</strong> begin with a <code>graph</code> declaration</p>
-<hr>
-<p>The console <strong>must</strong> display a warning message &quot;No projects found in the solution&quot;, when the solution contains no <code>.csproj</code> files</p>
-<hr>
-<p>Diagram <strong>must</strong> have a title same as the solution name</p>
-<hr>
-<p>The diagram <strong>may</strong> include a node for each project in the solution, with the same name as the project</p>
+<h3 id="file-format">File Format</h3>
 <ul>
-<li>If a single project is selected by the developer, a node <strong>must</strong> be included in the diagram</li>
-<li>If multiple projects are selected by the developer, nodes <strong>must</strong> be included in the diagram</li>
-<li>If no projects are selected, nodes <strong>must not</strong> be included in the diagram <strong>and</strong> the console <strong>must</strong> display a warning message &quot;No projects found in the solution&quot;</li>
-</ul>
-<hr>
-<p>Relationships between projects <strong>may</strong> be shown with arrows</p>
+<li><strong>The created .mmd file</strong>:
 <ul>
-<li>If a dependency exists, the relationship <strong>must</strong> be indicated with an arrow</li>
-<li>If a dependency is bi-directional, the arrow <strong>must</strong> be &lt;--&gt; <strong>and</strong> a warning <strong>must</strong> be issued in the console</li>
-<li>If a project has no dependencies, it <strong>must not</strong> display an arrow</li>
-</ul>
-<hr>
-<p>Diagram <strong>may</strong> include a URL to the project's class diagram</p>
-<ul>
-<li>If the developer has enabled class diagram URLs, the diagram <strong>must</strong> include a clickable URL for each project
-<ul>
-<li>Projects without <code>.cs</code> files <strong>must</strong> display a warning in the console, one per affected project.</li>
+<li><strong>Must</strong> start with a title that matches the solution name</li>
+<li><strong>Must</strong> include a graph declaration</li>
+<li><strong>Must</strong> include project nodes matching the project names</li>
+<li><strong>May</strong> include clickable URLs to class diagrams</li>
+<li><strong>May</strong> include top-level public types</li>
+<li><strong>May</strong> include project references between projects</li>
 </ul>
 </li>
-<li>If the developer has not enabled class diagram URLs, the diagram <strong>must not</strong> include any clickable URLs for projects</li>
 </ul>
-<hr>
-<p>Each project node in the diagram <strong>may</strong> display all public top-level types defined within the project</p>
+<p><a href="#valid-mmd-file"><em><strong>see: scenario</strong></em></a></p>
 <ul>
-<li>If a developer has enabled public types, the node <strong>must</strong> display all public top-level types<br>
-Supported types: classes, interfaces, structs, enums, records
+<li><strong>The created .md file</strong>:
 <ul>
-<li>If more than a single public top-level type exists in the same <code>.cs</code> file, a warning message <strong>must</strong> be displayed in the console</li>
+<li><strong>Must</strong> start with mermaid code block fence</li>
+<li><strong>Must</strong> end with code block fence footer</li>
+<li><strong>Must</strong> have its first non-fence line start with graph</li>
+<li><strong>Must</strong> include a title that matches the solution name</li>
+<li><strong>Must</strong> include project nodes matching the project names</li>
+<li><strong>May</strong> include clickable URLs to class diagrams</li>
+<li><strong>May</strong> include top-level public types</li>
+<li><strong>May</strong> include project references between projects</li>
 </ul>
 </li>
-<li>If the developer has not enabled public types, the node <strong>must not</strong> display any public types</li>
 </ul>
-<hr>
+<p><a href="#valid-md-file"><em><strong>see: scenario</strong></em></a></p>
+<h3 id="configuration">Configuration</h3>
+<ul>
+<li><p>If the provided solution file does not exist,<br>
+the system <strong>must</strong> stop execution and the console <strong>must</strong> display:<br>
+&quot;Error: Solution file not found at '{path}'.<br>
+Please provide a valid path&quot;<br>
+<a href="#invalid-solution-path"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p>If no file, with a specified <code>FileName</code> and <code>FileType</code> exists at <code>OutputPath</code>,<br>
+the system <strong>must</strong> create a new file with the specified <code>FileName</code> and <code>FileType</code> at <code>OutputPath</code><br>
+and the console <strong>must</strong> display:<br>
+&quot;Created new file '{FileName}{FileType}' at '{OutputPath}'&quot;<br>
+<a href="#creating-new-file"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p>If a file with the same <code>FileName</code> and <code>FileType</code> already exists at <code>OutputPath</code>,<br>
+the system <strong>must</strong> overwrite it and the console <strong>must</strong> display:<br>
+&quot;Overwriting existing file at '{OutputPath}/{FileName}{FileType}&quot;<br>
+<a href="#overwriting-existing-file"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p><strong>Must</strong> resolve <code>SolutionPath</code> and <code>OutputPath</code> by prioritizing <code>Diagrams</code> specific overrides</p>
+<ul>
+<li>Use <code>Diagrams</code> specific values if present</li>
+<li>Fall back to root-level values if not present</li>
+</ul>
+<p><a href="#json-config-fallback"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p>If <code>ClassDiagramLinks</code> is enabled, <code>BaseUrl</code> is required<br>
+<a href="#classdiagramlinks-enabled"><em><strong>see: scenario</strong></em></a></p>
+</li>
+</ul>
+<h3 id="warnings">Warnings</h3>
+<ul>
+<li><p>If no projects are found in the solution, the console <strong>must</strong> display:<br>
+&quot;{solution path}:<br>
+Warning: No projects found at '{SolutionPath}'&quot;<br>
+<a href="#no-projects-found-in-solution"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+<li><p>If no source files are found in a project, the console must display:<br>
+&quot;{solution path}:<br>
+Warning: No .cs files found in '{project name}' at '{SolutionPath}'&quot;<br>
+<a href="#no-source-files-found-in-project"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+</ul>
+<h3 id="errors">Errors</h3>
+<ul>
+<li><p>If <code>mermaidconfig.json</code> is not found in the current working directory, the console <strong>must</strong> display:
+&quot;Error: Configuration file 'mermaidconfig.json' not found in the current directory&quot;<br>
+<a href="#config-file-missing"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+<li><p>If <code>mermaidconfig.json</code> is invalid, the console <strong>must</strong> display:
+&quot;Error: Configuration file 'mermaidconfig.json' contains invalid JSON. Please fix the file and try again.&quot;<br>
+<a href="#invalid-json-in-config"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+<li><p>If multiple diagrams have the same <code>FileName</code> and <code>OutputPath</code>, execution must stop and the console must display:<br>
+&quot;Error: Multiple diagrams cannot have the same FileName '{FileName}' and OutputPath '{OutputPath}'. Please resolve the conflict.&quot;<br>
+<a href="#diagram-conflicts"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+</ul>
 <h2 id="scenarios">Scenarios</h2>
 <hr>
-<h3 id="required-argument">Required Argument</h3>
-<p>Solution File Path (.sln) -&gt; The tool needs to know what solution file to analyze.</p>
-<pre><code class="lang-shell">yourtool path/to/solution.sln
-
+<h3 id="creating-new-file">Creating New File</h3>
+<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
+<strong>And</strong> a solution file named <code>TestSolution.sln</code> is located at <code>{cwd}/TestSolution.sln</code><br>
+<strong>And</strong> the developer specifies the output directory <code>./Diagrams</code><br>
+<strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --output ./Diagrams
 </code></pre>
-<h3 id="optional-arguments">Optional Arguments</h3>
-<p>To match the rules you�ve set, consider adding these CLI flags:<br>
---output <file> -&gt; Define a custom output file for the Mermaid diagram.</file></p>
-<pre><code class="lang-shell">yourtool path/to/solution.sln --output diagram.md
+<p><strong>Then</strong> the system must create a new <code>.md</code> file named <code>mermaid.md</code> at <code>{cwd}/Diagrams</code><br>
+<strong>And</strong> the console must display:
+&quot;Created new file '{fileName}' at '{solutionPath}/Diagrams'&quot;</p>
+<hr>
+<h3 id="overwriting-existing-file">Overwriting Existing File</h3>
+<p>Given the specified output path {path} exists and is writable
+And a file named {fileName}.md already exists at {path}
+When the system executes the command
+Then the system must overwrite the existing {fileName}.md file with the new content
+And the system must not create a backup of the old file
+And the system must display:
+&quot;Overwriting existing file at '{path}/{fileName}.md'&quot;</p>
+<hr>
+<h3 id="valid-mmd-file">Valid .mmd file</h3>
+<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
+<strong>And</strong> a solution file TestSolution.sln exists at {cwd}/TestSolution.sln<br>
+<strong>And</strong> ./TestSolution contains:</p>
+<p>ProjectA at ./ProjectA/ProjectA.csproj</p>
+<ul>
+<li>A file ExamplA.cs in ProjectA with <code>public class ExampleA {}</code></li>
+<li>A file IExamplA.cs in ProjectA with <code>public interface IExampleA {}</code></li>
+</ul>
+<p>ProjectB at ./Folder1/ProjectB/ProjectB.csproj</p>
+<ul>
+<li>A file ExampleClassPrivate.cs in ProjectB with <code>private class ExampleClassDefaultInternal {}</code></li>
+<li>A file ExampleClassDefaultInternal.cs in ProjectB with <code>class ExampleClassDefaultInternal {}</code></li>
+<li>A file ExampleClassInternal.cs in ProjectB with <code>class ExampleClassInternal {}</code></li>
+</ul>
+<p><strong>And</strong> ProjectA has a reference to ProjectB</p>
+<p><strong>And</strong> a sharpmermaidconfig.json file exist in the solution with:</p>
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;OutputPath&quot;: &quot;./Diagrams&quot;,
+  &quot;Diagrams&quot;: [
+    {
+      &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
+      &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
+      &quot;FileType&quot;: &quot;.mmd&quot;,
+      &quot;TopLevelPublicTypes&quot;: true,
+      &quot;ClassDiagramLinks&quot;: true,
+      &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
+    }
+  ]
+}
 </code></pre>
-<p>--projects Project1,Project2 -&gt; Specify which projects to include in the diagram.<br>
---include-urls -&gt; Enable clickable class diagram URLs in project nodes.<br>
---include-public-types -&gt; Show public top-level types in each project node.</p>
-<h3 id="automatic-console-warnings">Automatic Console Warnings</h3>
-<p>If no projects exist -&gt; Show warning: &quot;No projects found in the solution&quot;<br>
-**If a .csproj file has no .cs files -&gt; Show a warning for that project.`</p>
-<h3 id="solution-with-without-projects">Solution With Without Projects</h3>
-<p><strong>Given</strong> the solution has no projects<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should have no nodes or dependencies<br>
-<strong>And</strong> And the title should be the solution name</p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the generated file <strong>must</strong> be created at <code>{cwd}/Diagrams/PhysicalDiagram.mmd</code><br>
+<strong>And</strong> the file <strong>must</strong> imclude:</p>
+<ul>
+<li>A title: TestSolution</li>
+<li>A graph declaration</li>
+<li>Project nodes: ProjectA and ProjectB</li>
+<li>Clickable URLs:
+<ul>
+<li><a href="https://example.com/ProjectA/ProjectA.csproj">https://example.com/ProjectA/ProjectA.csproj</a></li>
+<li><a href="https://example.com/Folder1/ProjectB/ProjectB.csproj">https://example.com/Folder1/ProjectB/ProjectB.csproj</a></li>
+</ul>
+</li>
+<li>Top-level public type in ProjectA:
+<ul>
+<li><code>public class ExampleA</code></li>
+<li><code>public interface IExampleA</code></li>
+</ul>
+</li>
+<li>An arrow from ProjectA to ProjectB</li>
+</ul>
+<pre><code>---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        Example&quot;
+        IExample]
+    ProjectB
+    ProjectA --&gt; ProjectB
+    click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
+    click ProjectB &quot;https://example.com/Folder1/ProjectB/ProjectB.csproj&quot;
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        Example&quot;
+        IExample]
+    ProjectB
+    ProjectA --&gt; ProjectB
+    click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
+    click ProjectB &quot;https://example.com/Folder1/ProjectB/ProjectB.csproj&quot;
+</code></pre>
 <hr>
-<h3 id="solution-with-single-project">Solution With Single Project</h3>
-<p><strong>Given</strong> the solution has a single project<br>
-<strong>And</strong> the project has at least one source file<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should include one node<br>
-<strong>And</strong> the diagram should have a title same as the solution name<br>
-<strong>And</strong> the diagram should include a node for the project in the solution<br>
-<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<h3 id="valid-md-file">Valid .md file</h3>
+<p>Given</p>
 <hr>
-<h3 id="multiple-projects-without-dependencies">Multiple Projects Without Dependencies</h3>
-<p><strong>Given</strong> the solution has multiple projects with no dependencies<br>
-<strong>And</strong> each project has at least one source file
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should include one node per project<br>
-<strong>And</strong> the diagram should have a title same as the solution name<br>
-<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<h3 id="invalid-solution-path">Invalid Solution Path</h3>
+<p>Given</p>
 <hr>
-<h3 id="multiple-projects-with-dependencies">Multiple Projects With Dependencies</h3>
-<p><strong>Given</strong> the solution has multiple projects with dependencies<br>
-<strong>And</strong> each project has at least one source file<br>
-<strong>When</strong> the diagram is generated<br>
-<strong>Then</strong> the diagram should include one node per project<br>
-<strong>And</strong> arrows should represent the dependencies between project nodes<br>
-<strong>And</strong> each should include a url to the projects class diagram<br>
-<strong>And</strong> the diagram should have a title same as the solution name<br>
-<strong>And</strong> the diagram should include a url to the projects class diagram</p>
+<h3 id="json-config-fallback">Json Config Fallback</h3>
+<p>Given</p>
+<hr>
+<h3 id="classdiagramlinks-enabled">ClassDiagramLinks enabled</h3>
+<p>given</p>
+<hr>
+<h3 id="no-projects-found-in-solution">No projects found in solution</h3>
+<p>Given, When, Then</p>
+<hr>
+<h3 id="no-source-files-found-in-project">No source files found in project</h3>
+<p>Given, When, Then</p>
+<hr>
+<h3 id="diagram-conflicts">Diagram Conflicts</h3>
+<p>Given</p>
+<hr>
+<h3 id="config-file-missing">Config File Missing</h3>
+<p>Given no <code>mermaidconfig.json</code> file exists in <code>{cwd}</code></p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must stop and display:
+&quot;Error: No 'mermaidconfig.json' file found in '{cwd}'&quot;</p>
+<hr>
+<h3 id="invalid-json-in-config">Invalid JSON in Config</h3>
+<p><strong>Given</strong> an invalid JSON in mermaidconfig.json in <code>{cwd}</code></p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must stop and display:
+&quot;Error: Invalid JSON in 'mermaidconfig.json'&quot;</p>
+<hr>
+<h3 id="generate-diagram-with-overrides">Generate Diagram with Overrides</h3>
+<p><strong>Given</strong> the developer’s current working directory is {cwd}
+<strong>And</strong> a mermaidconfig.json file exists in {cwd} containing:
+<strong>And</strong> a solution &quot;TestSolution&quot; containing:</p>
+<ul>
+<li>ProjectA at ProjectA/ProjectA.csproj</li>
+</ul>
+<p><strong>And</strong> a sharpmermaidconfig.json file exist in the solution with:</p>
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./Solution.sln&quot;,
+  &quot;OutputPath&quot;: &quot;./Diagrams&quot;,
+  &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
+  &quot;PhysicalProject&quot;: {
+    &quot;OutputPath&quot;: &quot;./Diagrams/Physical&quot;,
+    &quot;FileName&quot;: &quot;PhysicalDiagram&quot;
+  }
+}
+</code></pre>
+<p><strong>When</strong> the developer runs: <code>dotnet sharpmermaid generate</code></p>
+<p><strong>Then</strong> the system must generate a physical project diagram at {cwd}/Diagrams/Mermaid.mmd<br>
+<strong>And</strong> the console must display:<br>
+&quot;Generated diagram: {cwd}/diagrams/mermaid.mmd&quot;</p>
+<hr>
+<h3 id="generate-diagram-without-overrides">Generate Diagram Without Overrides</h3>
+<hr>
+<h3 id="output-in-markdown-file">Output in Markdown File</h3>
 <hr>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/GeneratePhysicalProjectDiagram.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/GeneratePhysicalProjectDiagram.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

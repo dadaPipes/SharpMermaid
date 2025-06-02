@@ -17,7 +17,7 @@ public class ClassDiagramGenerator(string solutionFullPath)
                 Rules.AddCsProjectAsTitle(csproj.Name, diagram);
                 Rules.AddClassDeclaration(diagram);
                 Rules.AddCsFileNames(csproj.CsFiles, diagram);
-                Rules.AddClickableLinks(csproj, diagram);
+                //Rules.AddClickableLinks(csproj, diagram);
                 Rules.AddDiagramFooter(diagram);
 
                 return diagram.ToString();

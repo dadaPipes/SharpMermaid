@@ -57,6 +57,7 @@ public static class Rules
         }
     }
 
+    /*
     public static void AddClickableLinks(CsprojModel csproj, StringBuilder diagramBuilder)
     {
         var baseUrl = Settings.BaseUrl.TrimEnd('/');
@@ -69,4 +70,5 @@ public static class Rules
             diagramBuilder.AppendLine($"    click {csFile.Name} href \"{fullUrl}\"");
         }
     }
+    */
 }

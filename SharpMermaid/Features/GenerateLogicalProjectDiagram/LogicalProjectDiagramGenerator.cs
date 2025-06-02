@@ -20,7 +20,7 @@ public class LogicalProjectDiagramGenerator(string solutionFullPath)
         }
 
         Rules.AddProjectHierarchy(_solution.Csprojs, diagramBuilder);
-        Rules.AddClickableLinks(_solution.Csprojs, diagramBuilder);
+        //Rules.AddClickableLinks(_solution.Csprojs, diagramBuilder);
         Rules.AddProjectDependencies(_solution.Csprojs, diagramBuilder);
         Rules.AddDiagramFooter(diagramBuilder);
 

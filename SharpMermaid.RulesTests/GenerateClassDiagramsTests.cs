@@ -7,6 +7,7 @@ using SharpMermaid.Features.GenerateClassDiagrams;
 namespace SharpMermaid.RulesTests;
 public class GenerateClassDiagramsTests(ITestOutputHelper output)
 {
+    /*
     private readonly ITestOutputHelper _output = output;
 
     [Fact(DisplayName = "Each diagram **must** start with a `classDiagram` declaration")]

@@ -1,5 +1,7 @@
 ﻿namespace SharpMermaid;
-public static class Settings
+public class Settings
 {
-    public static string BaseUrl { get; set; } = String.Empty;
+    public bool IncludeUrls { get; set; }
+    public string BaseUrl { get; set; } = string.Empty;
+    public string UrlPattern { get; set; } = string.Empty;
 }

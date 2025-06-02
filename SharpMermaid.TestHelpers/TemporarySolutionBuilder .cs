@@ -12,7 +12,7 @@ public sealed class TemporarySolutionBuilder : IDisposable
     /// <summary>
     /// Gets the solution name.
     /// </summary>
-    public string Name { get; }
+    public string Name { get; private set; }
     /// <summary>
     /// Gets the directory where the temporary solution is created.
     /// </summary>
@@ -29,14 +29,14 @@ public sealed class TemporarySolutionBuilder : IDisposable
     /// Initializes a new instance of the <see cref="TemporarySolutionBuilder"/> class,
     /// creates a temporary folder and initializes a solution.
     /// </summary>
-    public TemporarySolutionBuilder()
+    public TemporarySolutionBuilder(string name, string solutionPath)
     {
-        Name = $"SharpMermaidTest_{Guid.NewGuid()}";
-        Directory = Path.Combine(Path.GetTempPath(), Name);
-        System.IO.Directory.CreateDirectory(Directory);
-        FullPath = Path.Combine(Directory, $"{Name}.sln");
+        Name = name;
+        FullPath = Path.Combine(solutionPath, $"{name}.sln");
 
-        RunDotnet($"new sln --name {Name}", Directory);
+        System.IO.Directory.CreateDirectory(solutionPath);
+
+        RunDotnet($"new sln --name {Name}", solutionPath);
     }
 
     /// <summary>
@@ -46,10 +46,10 @@ public sealed class TemporarySolutionBuilder : IDisposable
     /// <returns>The full path to the project file (.csproj).</returns>
     public string AddProject(string projectName)
     {
-        string newDirectory = Path.Combine(Directory, projectName);
+        string newDirectory = Path.Combine(FullPath, projectName);
         System.IO.Directory.CreateDirectory(newDirectory);
 
-        RunDotnet($"new classlib -n {projectName}", Directory);
+        RunDotnet($"new classlib -n {projectName}", FullPath);
 
         string projectFilePath = Path.Combine(newDirectory, $"{projectName}.csproj");
         ProjectPaths.Add(projectFilePath);

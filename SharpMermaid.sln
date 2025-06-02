@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.RulesTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.FeatureTests", "SharpMermaid.FeatureTests\SharpMermaid.FeatureTests.csproj", "{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.DomainRulesTests", "SharpMermaid.DomainRulesTests\SharpMermaid.DomainRulesTests.csproj", "{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMermaid.CLI", "SharpMermaid.CLI\SharpMermaid.CLI.csproj", "{6207DECD-CCB8-4AE0-8C61-B4C35E75BA7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,12 +46,15 @@ Global
 		{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA92E0A0-60FA-4D6A-B041-9AEAB867E65D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{009EA0C3-A01A-4449-9CC9-0BCEDB52BC87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6207DECD-CCB8-4AE0-8C61-B4C35E75BA7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6207DECD-CCB8-4AE0-8C61-B4C35E75BA7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6207DECD-CCB8-4AE0-8C61-B4C35E75BA7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6207DECD-CCB8-4AE0-8C61-B4C35E75BA7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93074BBA-F372-45C8-885C-AD95D41D7D8A}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Generate | SharpMermaid </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Generate | SharpMermaid ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/Generate/Main.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="SharpMermaid">
+            SharpMermaid
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="generate">Generate</h1>
+
+<p><strong>As</strong> a developer,
+<strong>I want</strong> to use the configuration file <code>mermaidconfig.json</code>
+<strong>So that</strong> diagrams are automatically generated based on the settings in that file</p>
+<h2 id="cli-usage">CLI Usage</h2>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<h2 id="config-variables">Config Variables</h2>
+<p><strong>fileName</strong>, string, Name of the generated file (without the file extension), Default: &quot;mermaid&quot;<br>
+<strong>topLevelPublicTypes</strong>, bool,  Whether to include top-level public types in each project node, Default: <code>false</code>
+<strong>classDiagramLinks</strong>, bool, Whether to include clickable URLs to a class diagram for each project node<br>
+The URL pattern for class diagram links is: <code>{baseUrl}/{FilePath}/{ProjectName}</code><br>
+It cannot be customized beyond this pattern,<br>
+Default: <code>false</code>
+<strong>baseUrl</strong>, string, Base URL to prepend to diagram links when <code>classDiagramLinks</code> is enabled<br>
+<strong>diagramType</strong>, enum, What type of diagram to generate, Default: physicalProject
+<strong>fileType</strong>, enum, Default: markdown</p>
+<h2 id="rules">Rules</h2>
+<ul>
+<li><strong>Must</strong> locate <code>mermaidconfig.json</code> in the current working directory</li>
+<li><strong>Must</strong> read and parse <code>mermaidconfig.json</code> as a valid JSON configuration file</li>
+<li><strong>Must</strong> validate that the file contains required fields:
+<ul>
+<li><code>solution</code>: path to the solution file</li>
+<li><code>output</code>: output directory for generated diagrams</li>
+</ul>
+</li>
+<li>Must generate diagrams based on the configuration</li>
+<li>Must support adding additional optional configuration fields in <code>mermaidconfig.json</code>
+<ul>
+<li>diagram type</li>
+<li>direction</li>
+<li>subgraphs
+<strong>- Must display relevant console output during generation starting generation, success message</strong></li>
+</ul>
+</li>
+</ul>
+<p>If <code>mermaidconfig.json</code> does not exist in the current directory,
+Then execution <strong>must</strong> stop and the console must display:
+&quot;Error: No 'mermaidconfig.json' file found in '{cwd}'&quot;</p>
+<p>If <code>mermaidconfig.json</code> is invalid JSON,
+Then execution must stop and display an error:
+&quot;Error: Invalid JSON in 'mermaidconfig.json'&quot;</p>
+<p>If required fields are missing,
+Then execution must stop and display an error:
+&quot;Error: Missing required 'field(s)' in 'mermaidconfig.json'&quot;</p>
+<p>If generation succeeds,
+Then the console must display:
+&quot;Diagram generated successfully at '{outputPath}'&quot;</p>
+<h3 id="scenarios">Scenarios</h3>
+<hr>
+<h4 id="generate-diagrams-from-valid-config">Generate Diagrams from Valid Config</h4>
+<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
+<strong>And</strong> a valid <code>mermaidconfig.json</code> file exists in <code>{cwd}</code>:</p>
+<pre><code class="lang-json">{
+  &quot;solution&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;output&quot;: &quot;./TestDiagrams&quot;,
+  &quot;diagramType&quot;: &quot;physical&quot;,
+  &quot;fileType&quot;: &quot;markdown&quot;
+}
+</code></pre>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system <strong>must</strong>:</p>
+<ul>
+<li>Parse mermaidconfig.json</li>
+<li>Validate required fields</li>
+<li>Generate diagrams based on the provided configuration</li>
+<li>Output diagrams to {cwd}/TestDiagrams</li>
+<li>Display:<br>
+&quot;Diagrams generated successfully at '{cwd}/TestDiagrams'&quot;</li>
+</ul>
+<hr>
+<h4 id="config-file-missing">Config File Missing</h4>
+<p>Given no <code>mermaidconfig.json</code> file exists in <code>{cwd}</code></p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must stop and display:
+&quot;Error: No 'mermaidconfig.json' file found in '{cwd}'&quot;</p>
+<hr>
+<h4 id="invalid-json-in-config">Invalid JSON in Config</h4>
+<p><strong>Given</strong> an invalid JSON in mermaidconfig.json in <code>{cwd}</code></p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must stop and display:
+&quot;Error: Invalid JSON in 'mermaidconfig.json'&quot;</p>
+<hr>
+<h4 id="missing-required-fields">Missing Required Fields</h4>
+<p><strong>Given</strong> a mermaidconfig.json in {cwd} missing required fields:</p>
+<pre><code class="lang-json">{
+  &quot;diagramType&quot;: &quot;physical&quot;
+}
+</code></pre>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must stop and display:
+&quot;Error: Missing required field(s) in 'mermaidconfig.json'&quot;</p>
+<hr>
+<p>Success with Optional Fields
+Given a mermaidconfig.json in {cwd}:</p>
+<pre><code class="lang-json">{
+  &quot;solution&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;output&quot;: &quot;./TestDiagrams&quot;,
+  &quot;diagramType&quot;: &quot;api&quot;,
+  &quot;direction&quot;: &quot;LR&quot;,
+  &quot;subgraphs&quot;: true
+}
+</code></pre>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must:</p>
+<p>Parse and validate config</p>
+<p>Use diagramType, direction, subgraphs for diagram generation</p>
+<p>Output diagrams to {cwd}/TestDiagrams</p>
+<p>Display:
+&quot;Diagrams generated successfully at '{cwd}/TestDiagrams'&quot;</p>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/Generate/Main.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
