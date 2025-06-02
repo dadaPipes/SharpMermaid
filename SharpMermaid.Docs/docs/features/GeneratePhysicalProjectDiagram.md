@@ -126,7 +126,7 @@ dotnet sharpmermaid generate
 ### Succes
 
 - When a file is created the console **must** display:  
-  Created new file 'mermaid.md' at '{mermaidFilePath}'
+  Created new file '{FileName}{FileType}' at '{cwd}{OutputDirectory}'
   [***see: scenario***](#valid-mmd-file)
 
 ### Warnings
@@ -234,7 +234,7 @@ dotnet sharpmermaid generate
 
 **Then** the generated file **must** be created at `{cwd}/Diagrams/PhysicalDiagram.mmd`
 **And** the console must display:  
-"Created new file 'mermaid.md' at '{cwd}/Diagrams/PhysicalDiagram.mmd'" TODO: ADD THIS UNDER RULES !!!  
+Created new file 'mermaid.md' at '{cwd}/Diagrams/PhysicalDiagram.mmd'  
 **And** the file **must** imclude:
 
 - A title: TestSolution

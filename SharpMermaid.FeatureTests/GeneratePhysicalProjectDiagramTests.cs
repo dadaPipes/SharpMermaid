@@ -105,6 +105,7 @@ public class GeneratePhysicalProjectDiagramTests(ITestOutputHelper output)
 
         Assert.Equal(expected, diagram);
     }
+
     /*
     [Fact(DisplayName = "Solution Without Projects")]
     public void Should_Generate_Diagram_With_No_Projects()
