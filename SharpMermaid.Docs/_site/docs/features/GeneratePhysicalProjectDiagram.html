@@ -99,7 +99,7 @@
 <li><p><strong>SolutionPath</strong> (string, required)<br>
 Path to the solution file (relative to mermaidconfig.json)</p>
 </li>
-<li><p><strong>OutputPath</strong> (string, optional, Default: ./Diagrams)<br>
+<li><p><strong>OutputDirectory</strong> (string, optional, Default: ./Diagrams)<br>
 Path to the output directory for generated diagrams (relative to mermaidconfig.json)</p>
 </li>
 <li><p><strong>Diagrams</strong> (array of objects, required)<br>
@@ -108,7 +108,7 @@ Each diagram entry represents a different diagram type with its own specific set
 <ul>
 <li><p><strong>DiagramType</strong> (enum, required)</p>
 </li>
-<li><p><strong>OutputPath</strong> (string, optional)<br>
+<li><p><strong>OutputDirectory</strong> (string, optional)<br>
 Overrides root-level OutputPath for this diagram</p>
 </li>
 <li><p><strong>FileName</strong> (string, optional, Default: &quot;Mermaid&quot;)<br>
@@ -139,10 +139,10 @@ Base URL to prepend to diagram links</p>
 <h2 id="config-structure">Config Structure</h2>
 <pre><code class="lang-json">{
   &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
-  &quot;OutputPath&quot;: &quot;./Diagrams&quot;,
+  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
   &quot;Diagrams&quot;: [
     {
-      &quot;OutputPath&quot;: &quot;./Override/Diagrams&quot;,
+      &quot;OutputDirectory&quot;: &quot;./Override/Diagrams&quot;,
       &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
       &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
       &quot;FileType&quot;: &quot;.mmd&quot;,
@@ -191,18 +191,18 @@ the system <strong>must</strong> stop execution and the console <strong>must</st
 Please provide a valid path&quot;<br>
 <a href="#invalid-solution-path"><em><strong>see: scenario</strong></em></a></p>
 </li>
-<li><p>If no file, with a specified <code>FileName</code> and <code>FileType</code> exists at <code>OutputPath</code>,<br>
-the system <strong>must</strong> create a new file with the specified <code>FileName</code> and <code>FileType</code> at <code>OutputPath</code><br>
+<li><p>If no file, with a specified <code>FileName</code> and <code>FileType</code> exists at <code>OutputDirectory</code>,<br>
+the system <strong>must</strong> create a new file with the specified <code>FileName</code> and <code>FileType</code> at <code>OutputDirectory</code><br>
 and the console <strong>must</strong> display:<br>
-&quot;Created new file '{FileName}{FileType}' at '{OutputPath}'&quot;<br>
+&quot;Created new file '{FileName}{FileType}' at '{OutputDirectory}'&quot;<br>
 <a href="#creating-new-file"><em><strong>see: scenario</strong></em></a></p>
 </li>
-<li><p>If a file with the same <code>FileName</code> and <code>FileType</code> already exists at <code>OutputPath</code>,<br>
+<li><p>If a file with the same <code>FileName</code> and <code>FileType</code> already exists at <code>OutputDirectory</code>,<br>
 the system <strong>must</strong> overwrite it and the console <strong>must</strong> display:<br>
-&quot;Overwriting existing file at '{OutputPath}/{FileName}{FileType}&quot;<br>
+&quot;Overwriting existing file at '{OutputDirectory}/{FileName}{FileType}&quot;<br>
 <a href="#overwriting-existing-file"><em><strong>see: scenario</strong></em></a></p>
 </li>
-<li><p><strong>Must</strong> resolve <code>SolutionPath</code> and <code>OutputPath</code> by prioritizing <code>Diagrams</code> specific overrides</p>
+<li><p><strong>Must</strong> resolve <code>SolutionPath</code> and <code>OutputDirectory</code> by prioritizing <code>Diagrams</code> specific overrides</p>
 <ul>
 <li>Use <code>Diagrams</code> specific values if present</li>
 <li>Fall back to root-level values if not present</li>
@@ -212,6 +212,12 @@ the system <strong>must</strong> overwrite it and the console <strong>must</stro
 <li><p>If <code>ClassDiagramLinks</code> is enabled, <code>BaseUrl</code> is required<br>
 <a href="#classdiagramlinks-enabled"><em><strong>see: scenario</strong></em></a></p>
 </li>
+</ul>
+<h3 id="succes">Succes</h3>
+<ul>
+<li>When a file is created the console <strong>must</strong> display:<br>
+Created new file '{FileName}{FileType}' at '{cwd}{OutputDirectory}'
+<a href="#valid-mmd-file"><em><strong>see: scenario</strong></em></a></li>
 </ul>
 <h3 id="warnings">Warnings</h3>
 <ul>
@@ -236,8 +242,8 @@ Warning: No .cs files found in '{project name}' at '{SolutionPath}'&quot;<br>
 &quot;Error: Configuration file 'mermaidconfig.json' contains invalid JSON. Please fix the file and try again.&quot;<br>
 <a href="#invalid-json-in-config"><em><strong>see: scenario:</strong></em></a></p>
 </li>
-<li><p>If multiple diagrams have the same <code>FileName</code> and <code>OutputPath</code>, execution must stop and the console must display:<br>
-&quot;Error: Multiple diagrams cannot have the same FileName '{FileName}' and OutputPath '{OutputPath}'. Please resolve the conflict.&quot;<br>
+<li><p>If multiple diagrams have the same <code>FileName</code> and <code>OutputDirectory</code>, execution must stop and the console must display:<br>
+&quot;Error: Multiple diagrams cannot have the same FileName '{FileName}' and OutputDirectory '{OutputDirectory}'. Please resolve the conflict.&quot;<br>
 <a href="#diagram-conflicts"><em><strong>see: scenario:</strong></em></a></p>
 </li>
 </ul>
@@ -265,24 +271,24 @@ And the system must display:
 <hr>
 <h3 id="valid-mmd-file">Valid .mmd file</h3>
 <p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
-<strong>And</strong> a solution file TestSolution.sln exists at {cwd}/TestSolution.sln<br>
-<strong>And</strong> ./TestSolution contains:</p>
-<p>ProjectA at ./ProjectA/ProjectA.csproj</p>
+<strong>And</strong> a solution file <code>TestSolution.sln</code> exists at <code>{cwd}/TestSolution.sln</code><br>
+<strong>And</strong> <code>./TestSolution</code> contains:</p>
+<p><code>ProjectA</code> at <code>./ProjectA/ProjectA.csproj</code></p>
 <ul>
-<li>A file ExamplA.cs in ProjectA with <code>public class ExampleA {}</code></li>
-<li>A file IExamplA.cs in ProjectA with <code>public interface IExampleA {}</code></li>
+<li>A file <code>ExampleA.cs</code> in <code>ProjectA</code> with <code>public class ExampleA {}</code></li>
+<li>A file <code>IExampleA.cs</code> in <code>ProjectA</code> with <code>public interface IExampleA {}</code></li>
 </ul>
-<p>ProjectB at ./Folder1/ProjectB/ProjectB.csproj</p>
+<p><code>ProjectB</code> at <code>./Folder1/ProjectB/ProjectB.csproj</code></p>
 <ul>
-<li>A file ExampleClassPrivate.cs in ProjectB with <code>private class ExampleClassDefaultInternal {}</code></li>
-<li>A file ExampleClassDefaultInternal.cs in ProjectB with <code>class ExampleClassDefaultInternal {}</code></li>
-<li>A file ExampleClassInternal.cs in ProjectB with <code>class ExampleClassInternal {}</code></li>
+<li>A file <code>ExamplePrivate.cs</code> in <code>ProjectB</code> with <code>private class ExampleDefaultInternal {}</code></li>
+<li>A file <code>ExampleDefaultInternal.cs</code> in <code>ProjectB</code> with <code>class ExampleDefaultInternal {}</code></li>
+<li>A file <code>ExampleInternal.cs</code> in <code>ProjectB</code> with <code>class ExampleInternal {}</code></li>
 </ul>
-<p><strong>And</strong> ProjectA has a reference to ProjectB</p>
-<p><strong>And</strong> a sharpmermaidconfig.json file exist in the solution with:</p>
+<p><strong>And</strong> <code>ProjectA</code> has a reference to <code>ProjectB</code></p>
+<p><strong>And</strong> a <code>sharpmermaidconfig.json</code> file exist in the solution with:</p>
 <pre><code class="lang-json">{
   &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
-  &quot;OutputPath&quot;: &quot;./Diagrams&quot;,
+  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
   &quot;Diagrams&quot;: [
     {
       &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
@@ -298,7 +304,9 @@ And the system must display:
 <p><strong>When</strong> the developer runs:</p>
 <pre><code class="lang-shell">dotnet sharpmermaid generate
 </code></pre>
-<p><strong>Then</strong> the generated file <strong>must</strong> be created at <code>{cwd}/Diagrams/PhysicalDiagram.mmd</code><br>
+<p><strong>Then</strong> the generated file <strong>must</strong> be created at <code>{cwd}/Diagrams/PhysicalDiagram.mmd</code>
+<strong>And</strong> the console must display:<br>
+Created new file 'mermaid.md' at '{cwd}/Diagrams/PhysicalDiagram.mmd'<br>
 <strong>And</strong> the file <strong>must</strong> imclude:</p>
 <ul>
 <li>A title: TestSolution</li>

@@ -32,8 +32,8 @@ public sealed class TemporarySolutionBuilder : IDisposable
     public TemporarySolutionBuilder(string name, string solutionPath)
     {
         Name = name;
+        Directory = solutionPath;
         FullPath = Path.Combine(solutionPath, $"{name}.sln");
-
         System.IO.Directory.CreateDirectory(solutionPath);
 
         RunDotnet($"new sln --name {Name}", solutionPath);
@@ -46,10 +46,10 @@ public sealed class TemporarySolutionBuilder : IDisposable
     /// <returns>The full path to the project file (.csproj).</returns>
     public string AddProject(string projectName)
     {
-        string newDirectory = Path.Combine(FullPath, projectName);
+        string newDirectory = Path.Combine(Directory, projectName);
         System.IO.Directory.CreateDirectory(newDirectory);
 
-        RunDotnet($"new classlib -n {projectName}", FullPath);
+        RunDotnet($"new classlib -n {projectName}", Directory);
 
         string projectFilePath = Path.Combine(newDirectory, $"{projectName}.csproj");
         ProjectPaths.Add(projectFilePath);

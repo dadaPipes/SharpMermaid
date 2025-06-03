@@ -32,6 +32,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/ExitCodes.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/ExitCodes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/Features/Generate/Main.md",
       "output": {
         ".html": {

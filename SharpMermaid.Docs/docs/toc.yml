@@ -5,6 +5,8 @@ items:
     href: ../index.md
   - name: Getting Started
     href: getting-started.md
+  - name: Exit Codes
+    href: ExitCodes.md
   - name: Features
     items:
     - name: Init
