@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/Init.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/init.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -94,7 +94,7 @@
 <h2 id="cli-usage">CLI Usage</h2>
 <pre><code class="lang-shell">dotnet sharpmermaid init
 </code></pre>
-<h2 id="rules">Rules</h2>
+[!include[DefaultMermaidconfig](../snippets/config-structure.md)]<h2 id="rules">Rules</h2>
 <h3 id="create-default-config-file">Create Default Config File</h3>
 <ul>
 <li><p>If <code>mermaidconfig.json</code> does not exist in the {cwd}:<br>
@@ -129,22 +129,6 @@ and must exit with code 3<br>
 <a href="#create-default-config-file-a4">(see: scenario A4)</a></p>
 </li>
 </ul>
-<h2 id="default-mermaidconfigjson">Default mermaidconfig.json</h2>
-<pre><code class="lang-json">{
-  &quot;SolutionPath&quot;: &quot;./Solution.sln&quot;,
-  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
-  &quot;Diagrams&quot;: [
-    {
-      &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
-      &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
-      &quot;FileType&quot;: &quot;.mmd&quot;,
-      &quot;TopLevelPublicTypes&quot;: false,
-      &quot;ClassDiagramLinks&quot;: false,
-      &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
-    }
-  ]
-}
-</code></pre>
 <h2 id="scenarios">Scenarios</h2>
 <hr>
 <h3 id="create-default-config-file-a1">Create Default Config File A1</h3>
@@ -163,7 +147,7 @@ and must exit with code 3<br>
 <strong>And</strong> no <code>mermaidconfig.json</code> exists in <code>{cwd}</code></p>
 <p><strong>When</strong> the system attempts to create a default configuration</p>
 <p><strong>Then</strong> a file named <code>mermaidconfig.json</code> exist in <code>{cwd}</code><br>
-<strong>And</strong> the file content match the <a href="#default-mermaidconfigjson">default config structure</a></p>
+<strong>And</strong> the content must match the structure in <a href="#default-mermaidconfigjson">default config structure</a></p>
 <hr>
 <h3 id="create-default-config-file-a2">Create Default Config File A2</h3>
 <p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
@@ -207,7 +191,7 @@ When the developer runs:</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/Init.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/init.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

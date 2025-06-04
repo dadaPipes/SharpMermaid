@@ -12,62 +12,7 @@
 dotnet sharpmermaid generate
 ```
 
-## Config Variables
-
-- **SolutionPath** (string, required)  
-  Path to the solution file (relative to mermaidconfig.json)
-
-- **OutputDirectory** (string, optional, Default: ./Diagrams)  
-  Path to the output directory for generated diagrams (relative to mermaidconfig.json)
-
-- **Diagrams** (array of objects, required)  
-  A collection of diagram configurations to generate.  
-  Each diagram entry represents a different diagram type with its own specific settings
-  
-  - **DiagramType** (enum, required)
-  
-  - **OutputDirectory** (string, optional)  
-    Overrides root-level OutputPath for this diagram
-  
-  - **FileName** (string, optional, Default: "Mermaid")  
-    Name of the generated file (without file extension)  
-  
-  - **FileType** (enum, optional, Default: ".mmd")  
-    Output file type:
-    - .mmd: Mermaid syntax
-    - .md: Mermaid diagram wrapped in a Markdown code block
-    - Other types like .svg or .png, require external rendering tools (not handled by this tool)
-
-  - **TopLevelPublicTypes** (bool, optional, Default: false)  
-    Whether to include top-level public types in each project
-  
-  - **ClassDiagramLinks** (bool, optional)  
-    Whether to include clickable URLs to a class diagram for each project  
-    The URL pattern for class diagram links is: `{baseUrl}/{FilePath}/{ProjectName}`  
-    It cannot be customized beyond this pattern
-  
-  - **BaseUrl** (string, required if `ClassDiagramLinks` is enabled)
-    Base URL to prepend to diagram links
-
-## Config Structure
-
-```json
-{
-  "SolutionPath": "./TestSolution.sln",
-  "OutputDirectory": "./Diagrams",
-  "Diagrams": [
-    {
-      "OutputDirectory": "./Override/Diagrams",
-      "DiagramType": "PhysicalProject",
-      "FileName": "PhysicalDiagram",
-      "FileType": ".mmd",
-      "TopLevelPublicTypes": true,
-      "ClassDiagramLinks": true,
-      "BaseUrl": "https://example.com/"
-    }
-  ]
-}
-```
+[!include[config-structure](../snippets/config-structure.md)]
 
 ## Rules
 

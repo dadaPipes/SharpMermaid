@@ -111,17 +111,10 @@ Error: Cannot write to '{path}/{file}' — permission denied</p>
 <hr>
 <h2 id="3---general-io-error">3 —  General I/O Error</h2>
 <p>Exit Code: 3<br>
-Description: Unhandled I/O failure (e.g., disk full, file is locked)<br>
+Description: Unhandled I/O failure (ex: disk full, file is locked)<br>
 Message:<br>
 Error: Failed to write file at '{path}/{file}': {errorMessage}</p>
 <hr>
-<h2 id="usage-convention">Usage Convention</h2>
-<p>These codes and messages should be referenced in:</p>
-<ul>
-<li>All .feature files for CLI commands</li>
-<li>CLI stderr output in production</li>
-<li>Unit/integration test assertions</li>
-</ul>
 
 </article>
 

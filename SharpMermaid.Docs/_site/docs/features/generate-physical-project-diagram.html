@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Generate Physical Project Diagram | SharpMermaid </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Generate Physical Project Diagram | SharpMermaid ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/generate-physical-project-diagram.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="SharpMermaid">
+            SharpMermaid
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="generate-physical-project-diagram">Generate Physical Project Diagram</h1>
+
+<h2 id="description">Description</h2>
+<p><strong>As</strong> a developer,<br>
+<strong>I want</strong> to generate a Physical Project diagram from the <code>Diagrams</code> collection in <code>mermaidconfig.json</code><br>
+<strong>So that</strong> I get a visual representation of my project structure on disk.</p>
+<h2 id="cli-usage">CLI Usage</h2>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+[!include[config-structure](../snippets/config-structure.md)]<h2 id="rules">Rules</h2>
+<h3 id="file-format">File Format</h3>
+<ul>
+<li><strong>The created .mmd file</strong>:
+<ul>
+<li><strong>Must</strong> start with a title that matches the solution name</li>
+<li><strong>Must</strong> include a graph declaration</li>
+<li><strong>Must</strong> include project nodes matching the project names</li>
+<li><strong>May</strong> include clickable URLs to class diagrams</li>
+<li><strong>May</strong> include top-level public types</li>
+<li><strong>May</strong> include project references between projects</li>
+</ul>
+</li>
+</ul>
+<p><a href="#valid-mmd-file"><em><strong>see: scenario</strong></em></a></p>
+<ul>
+<li><strong>The created .md file</strong>:
+<ul>
+<li><strong>Must</strong> start with mermaid code block fence</li>
+<li><strong>Must</strong> end with code block fence footer</li>
+<li><strong>Must</strong> have its first non-fence line start with graph</li>
+<li><strong>Must</strong> include a title that matches the solution name</li>
+<li><strong>Must</strong> include project nodes matching the project names</li>
+<li><strong>May</strong> include clickable URLs to class diagrams</li>
+<li><strong>May</strong> include top-level public types</li>
+<li><strong>May</strong> include project references between projects</li>
+</ul>
+</li>
+</ul>
+<p><a href="#valid-md-file"><em><strong>see: scenario</strong></em></a></p>
+<h3 id="configuration">Configuration</h3>
+<ul>
+<li><p>If the provided solution file does not exist,<br>
+the system <strong>must</strong> stop execution and the console <strong>must</strong> display:<br>
+&quot;Error: Solution file not found at '{path}'.<br>
+Please provide a valid path&quot;<br>
+<a href="#invalid-solution-path"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p>If no file, with a specified <code>FileName</code> and <code>FileType</code> exists at <code>OutputDirectory</code>,<br>
+the system <strong>must</strong> create a new file with the specified <code>FileName</code> and <code>FileType</code> at <code>OutputDirectory</code><br>
+and the console <strong>must</strong> display:<br>
+&quot;Created new file '{FileName}{FileType}' at '{OutputDirectory}'&quot;<br>
+<a href="#creating-new-file"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p>If a file with the same <code>FileName</code> and <code>FileType</code> already exists at <code>OutputDirectory</code>,<br>
+the system <strong>must</strong> overwrite it and the console <strong>must</strong> display:<br>
+&quot;Overwriting existing file at '{OutputDirectory}/{FileName}{FileType}&quot;<br>
+<a href="#overwriting-existing-file"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p><strong>Must</strong> resolve <code>SolutionPath</code> and <code>OutputDirectory</code> by prioritizing <code>Diagrams</code> specific overrides</p>
+<ul>
+<li>Use <code>Diagrams</code> specific values if present</li>
+<li>Fall back to root-level values if not present</li>
+</ul>
+<p><a href="#json-config-fallback"><em><strong>see: scenario</strong></em></a></p>
+</li>
+<li><p>If <code>ClassDiagramLinks</code> is enabled, <code>BaseUrl</code> is required<br>
+<a href="#classdiagramlinks-enabled"><em><strong>see: scenario</strong></em></a></p>
+</li>
+</ul>
+<h3 id="succes">Succes</h3>
+<ul>
+<li>When a file is created the console <strong>must</strong> display:<br>
+Created new file '{FileName}{FileType}' at '{cwd}{OutputDirectory}'
+<a href="#valid-mmd-file"><em><strong>see: scenario</strong></em></a></li>
+</ul>
+<h3 id="warnings">Warnings</h3>
+<ul>
+<li><p>If no projects are found in the solution, the console <strong>must</strong> display:<br>
+&quot;{solution path}:<br>
+Warning: No projects found at '{SolutionPath}'&quot;<br>
+<a href="#no-projects-found-in-solution"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+<li><p>If no source files are found in a project, the console must display:<br>
+&quot;{solution path}:<br>
+Warning: No .cs files found in '{project name}' at '{SolutionPath}'&quot;<br>
+<a href="#no-source-files-found-in-project"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+</ul>
+<h3 id="errors">Errors</h3>
+<ul>
+<li><p>If <code>mermaidconfig.json</code> is not found in the current working directory, the console <strong>must</strong> display:
+&quot;Error: Configuration file 'mermaidconfig.json' not found in the current directory&quot;<br>
+<a href="#config-file-missing"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+<li><p>If <code>mermaidconfig.json</code> is invalid, the console <strong>must</strong> display:
+&quot;Error: Configuration file 'mermaidconfig.json' contains invalid JSON. Please fix the file and try again.&quot;<br>
+<a href="#invalid-json-in-config"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+<li><p>If multiple diagrams have the same <code>FileName</code> and <code>OutputDirectory</code>, execution must stop and the console must display:<br>
+&quot;Error: Multiple diagrams cannot have the same FileName '{FileName}' and OutputDirectory '{OutputDirectory}'. Please resolve the conflict.&quot;<br>
+<a href="#diagram-conflicts"><em><strong>see: scenario:</strong></em></a></p>
+</li>
+</ul>
+<h2 id="scenarios">Scenarios</h2>
+<hr>
+<h3 id="creating-new-file">Creating New File</h3>
+<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
+<strong>And</strong> a solution file named <code>TestSolution.sln</code> is located at <code>{cwd}/TestSolution.sln</code><br>
+<strong>And</strong> the developer specifies the output directory <code>./Diagrams</code><br>
+<strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --output ./Diagrams
+</code></pre>
+<p><strong>Then</strong> the system must create a new <code>.md</code> file named <code>mermaid.md</code> at <code>{cwd}/Diagrams</code><br>
+<strong>And</strong> the console must display:
+&quot;Created new file '{fileName}' at '{solutionPath}/Diagrams'&quot;</p>
+<hr>
+<h3 id="overwriting-existing-file">Overwriting Existing File</h3>
+<p>Given the specified output path {path} exists and is writable
+And a file named {fileName}.md already exists at {path}
+When the system executes the command
+Then the system must overwrite the existing {fileName}.md file with the new content
+And the system must not create a backup of the old file
+And the system must display:
+&quot;Overwriting existing file at '{path}/{fileName}.md'&quot;</p>
+<hr>
+<h3 id="valid-mmd-file">Valid .mmd file</h3>
+<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
+<strong>And</strong> a solution file <code>TestSolution.sln</code> exists at <code>{cwd}/TestSolution.sln</code><br>
+<strong>And</strong> <code>./TestSolution</code> contains:</p>
+<p><code>ProjectA</code> at <code>./ProjectA/ProjectA.csproj</code></p>
+<ul>
+<li>A file <code>ExampleA.cs</code> in <code>ProjectA</code> with <code>public class ExampleA {}</code></li>
+<li>A file <code>IExampleA.cs</code> in <code>ProjectA</code> with <code>public interface IExampleA {}</code></li>
+</ul>
+<p><code>ProjectB</code> at <code>./Folder1/ProjectB/ProjectB.csproj</code></p>
+<ul>
+<li>A file <code>ExamplePrivate.cs</code> in <code>ProjectB</code> with <code>private class ExampleDefaultInternal {}</code></li>
+<li>A file <code>ExampleDefaultInternal.cs</code> in <code>ProjectB</code> with <code>class ExampleDefaultInternal {}</code></li>
+<li>A file <code>ExampleInternal.cs</code> in <code>ProjectB</code> with <code>class ExampleInternal {}</code></li>
+</ul>
+<p><strong>And</strong> <code>ProjectA</code> has a reference to <code>ProjectB</code></p>
+<p><strong>And</strong> a <code>sharpmermaidconfig.json</code> file exist in the solution with:</p>
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
+  &quot;Diagrams&quot;: [
+    {
+      &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
+      &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
+      &quot;FileType&quot;: &quot;.mmd&quot;,
+      &quot;TopLevelPublicTypes&quot;: true,
+      &quot;ClassDiagramLinks&quot;: true,
+      &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
+    }
+  ]
+}
+</code></pre>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the generated file <strong>must</strong> be created at <code>{cwd}/Diagrams/PhysicalDiagram.mmd</code>
+<strong>And</strong> the console must display:<br>
+Created new file 'mermaid.md' at '{cwd}/Diagrams/PhysicalDiagram.mmd'<br>
+<strong>And</strong> the file <strong>must</strong> imclude:</p>
+<ul>
+<li>A title: TestSolution</li>
+<li>A graph declaration</li>
+<li>Project nodes: ProjectA and ProjectB</li>
+<li>Clickable URLs:
+<ul>
+<li><a href="https://example.com/ProjectA/ProjectA.csproj">https://example.com/ProjectA/ProjectA.csproj</a></li>
+<li><a href="https://example.com/Folder1/ProjectB/ProjectB.csproj">https://example.com/Folder1/ProjectB/ProjectB.csproj</a></li>
+</ul>
+</li>
+<li>Top-level public type in ProjectA:
+<ul>
+<li><code>public class ExampleA</code></li>
+<li><code>public interface IExampleA</code></li>
+</ul>
+</li>
+<li>An arrow from ProjectA to ProjectB</li>
+</ul>
+<pre><code>---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        Example&quot;
+        IExample]
+    ProjectB
+    ProjectA --&gt; ProjectB
+    click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
+    click ProjectB &quot;https://example.com/Folder1/ProjectB/ProjectB.csproj&quot;
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        Example&quot;
+        IExample]
+    ProjectB
+    ProjectA --&gt; ProjectB
+    click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
+    click ProjectB &quot;https://example.com/Folder1/ProjectB/ProjectB.csproj&quot;
+</code></pre>
+<hr>
+<h3 id="valid-md-file">Valid .md file</h3>
+<p>Given</p>
+<hr>
+<h3 id="invalid-solution-path">Invalid Solution Path</h3>
+<p>Given</p>
+<hr>
+<h3 id="json-config-fallback">Json Config Fallback</h3>
+<p>Given</p>
+<hr>
+<h3 id="classdiagramlinks-enabled">ClassDiagramLinks enabled</h3>
+<p>given</p>
+<hr>
+<h3 id="no-projects-found-in-solution">No projects found in solution</h3>
+<p>Given, When, Then</p>
+<hr>
+<h3 id="no-source-files-found-in-project">No source files found in project</h3>
+<p>Given, When, Then</p>
+<hr>
+<h3 id="diagram-conflicts">Diagram Conflicts</h3>
+<p>Given</p>
+<hr>
+<h3 id="config-file-missing">Config File Missing</h3>
+<p>Given no <code>mermaidconfig.json</code> file exists in <code>{cwd}</code></p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must stop and display:
+&quot;Error: No 'mermaidconfig.json' file found in '{cwd}'&quot;</p>
+<hr>
+<h3 id="invalid-json-in-config">Invalid JSON in Config</h3>
+<p><strong>Given</strong> an invalid JSON in mermaidconfig.json in <code>{cwd}</code></p>
+<p><strong>When</strong> the developer runs:</p>
+<pre><code class="lang-shell">dotnet sharpmermaid generate
+</code></pre>
+<p><strong>Then</strong> the system must stop and display:
+&quot;Error: Invalid JSON in 'mermaidconfig.json'&quot;</p>
+<hr>
+<h3 id="generate-diagram-with-overrides">Generate Diagram with Overrides</h3>
+<p><strong>Given</strong> the developer’s current working directory is {cwd}
+<strong>And</strong> a mermaidconfig.json file exists in {cwd} containing:
+<strong>And</strong> a solution &quot;TestSolution&quot; containing:</p>
+<ul>
+<li>ProjectA at ProjectA/ProjectA.csproj</li>
+</ul>
+<p><strong>And</strong> a sharpmermaidconfig.json file exist in the solution with:</p>
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./Solution.sln&quot;,
+  &quot;OutputPath&quot;: &quot;./Diagrams&quot;,
+  &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
+  &quot;PhysicalProject&quot;: {
+    &quot;OutputPath&quot;: &quot;./Diagrams/Physical&quot;,
+    &quot;FileName&quot;: &quot;PhysicalDiagram&quot;
+  }
+}
+</code></pre>
+<p><strong>When</strong> the developer runs: <code>dotnet sharpmermaid generate</code></p>
+<p><strong>Then</strong> the system must generate a physical project diagram at {cwd}/Diagrams/Mermaid.mmd<br>
+<strong>And</strong> the console must display:<br>
+&quot;Generated diagram: {cwd}/diagrams/mermaid.mmd&quot;</p>
+<hr>
+<h3 id="generate-diagram-without-overrides">Generate Diagram Without Overrides</h3>
+<hr>
+<h3 id="output-in-markdown-file">Output in Markdown File</h3>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/generate-physical-project-diagram.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

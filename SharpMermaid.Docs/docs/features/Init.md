@@ -12,6 +12,8 @@
 dotnet sharpmermaid init
 ```
 
+[!include[DefaultMermaidconfig](../snippets/config-structure.md)]
+
 ## Rules
 
 ### Create Default Config File
@@ -45,25 +47,6 @@ dotnet sharpmermaid init
   "Error: Failed to write file at '{cwd}/mermaidconfig.json': {message}"  
   and must exit with code 3  
   [(see: scenario A4)](#create-default-config-file-a4)
-
-## Default mermaidconfig.json
-
-```json
-{
-  "SolutionPath": "./Solution.sln",
-  "OutputDirectory": "./Diagrams",
-  "Diagrams": [
-    {
-      "DiagramType": "PhysicalProject",
-      "FileName": "PhysicalDiagram",
-      "FileType": ".mmd",
-      "TopLevelPublicTypes": false,
-      "ClassDiagramLinks": false,
-      "BaseUrl": "https://example.com/"
-    }
-  ]
-}
-```
 
 ## Scenarios
 

@@ -22,100 +22,110 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/DocumentationDogma.md",
+      "source_relative_path": "docs/default-mermaidconfig.md",
       "output": {
         ".html": {
-          "relative_path": "docs/DocumentationDogma.html"
+          "relative_path": "docs/default-mermaidconfig.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/ExitCodes.md",
+      "source_relative_path": "docs/documentation-dogma.md",
       "output": {
         ".html": {
-          "relative_path": "docs/ExitCodes.html"
+          "relative_path": "docs/documentation-dogma.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/Generate/Main.md",
+      "source_relative_path": "docs/exit-codes.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/Generate/Main.html"
+          "relative_path": "docs/exit-codes.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GenerateClassDiagrams/Main.md",
+      "source_relative_path": "docs/features/Generate/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GenerateClassDiagrams/Main.html"
+          "relative_path": "docs/features/Generate/Main.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GenerateLogicalProjectDiagram/Main.md",
+      "source_relative_path": "docs/features/GenerateClassDiagrams/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GenerateLogicalProjectDiagram/Main.html"
+          "relative_path": "docs/features/GenerateClassDiagrams/Main.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GeneratePhysicalProjectDiagram.md",
+      "source_relative_path": "docs/features/GenerateLogicalProjectDiagram/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GeneratePhysicalProjectDiagram.html"
+          "relative_path": "docs/features/GenerateLogicalProjectDiagram/Main.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.md",
+      "source_relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.html"
+          "relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.md",
+      "source_relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.html"
+          "relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/Main.md",
+      "source_relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/Main.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/GeneratePhysicalProjectMarkdownFile/Main.html"
+          "relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/Main.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/Features/Init.md",
+      "source_relative_path": "docs/features/generate-physical-project-diagram.md",
       "output": {
         ".html": {
-          "relative_path": "docs/Features/Init.html"
+          "relative_path": "docs/features/generate-physical-project-diagram.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/features/init.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/features/init.html"
         }
       },
       "version": ""

@@ -2,21 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Save Physical Project Diagram | SharpMermaid </title>
+      <title>Exit Codes | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Save Physical Project Diagram | SharpMermaid ">
+      <meta name="title" content="Exit Codes | SharpMermaid ">
       
       
-      <link rel="icon" href="../../../favicon.ico">
-      <link rel="stylesheet" href="../../../public/docfx.min.css">
-      <link rel="stylesheet" href="../../../public/main.css">
-      <meta name="docfx:navrel" content="../../../toc.html">
-      <meta name="docfx:tocrel" content="../../toc.html">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
       
-      <meta name="docfx:rel" content="../../../">
+      <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/SaveDiagram.md/Main.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/exit-codes.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -30,7 +30,7 @@
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
 
-      <script type="module" src="./../../../public/docfx.min.js"></script>
+      <script type="module" src="./../public/docfx.min.js"></script>
 
       <script>
         const theme = localStorage.getItem('theme') || 'auto'
@@ -43,8 +43,8 @@
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="../../../index.html">
-            <img id="logo" class="svg" src="../../../logo.svg" alt="SharpMermaid">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="SharpMermaid">
             SharpMermaid
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,38 +85,41 @@
         </div>
 
         <article data-uid="">
-<h1 id="save-physical-project-diagram">Save Physical Project Diagram</h1>
+<h1 id="exit-codes">Exit Codes</h1>
 
-<h2 id="description">Description</h2>
-<p>As a developer,<br>
-I need to save the diagram I generated,<br>
-So I can easily reference my project's structure and dependencies later.</p>
-<h2 id="saving-rules">Saving Rules</h2>
-<ol>
-<li>The diagram <strong>must</strong> be saved as a <code>.md</code> file containing a Mermaid.js code block.</li>
-<li>The file <strong>must</strong> always be overwritten to reflect the latest solution state.</li>
-<li>The default path <strong>must</strong> be the directory where the command is executed.
-<ul>
-<li><strong>3.a</strong> If the developer specifies a custom path in the console, the diagram <strong>must</strong> be saved accordingly.</li>
-</ul>
-</li>
-<li>The default filename <strong>must</strong> be <code>PhysicalProjectDiagram.md</code>.
-<ul>
-<li><strong>4.a</strong> If the developer specifies a custom filename in the console, the diagram <strong>must</strong> be saved accordingly.</li>
-</ul>
-</li>
-<li>The console <strong>must</strong> display a confirmation message showing the saved file location.</li>
-</ol>
-<h2 id="edge-case-handling">Edge Case Handling</h2>
-<p><strong>Non-Existent Path</strong> -&gt; Display <code>&quot;Error: The specified path does not exist.&quot;</code><br>
-<strong>Invalid Characters in Filename</strong> -&gt; Display <code>&quot;Error: Invalid filename detected.&quot;</code><br>
-<strong>Insufficient Write Permissions</strong> -&gt; Display <code>&quot;Error: Unable to save diagram. Check permissions.&quot;</code></p>
+<h2 id="legend">Legend</h2>
+<p><code>{file}</code> = name of the target file (ex: <code>mermaidconfig.json</code>)</p>
+<p><code>{path}</code> = absolute or relative path to the directory (ex:  <code>/home/user/project</code>)</p>
+<p><code>{errorMessage}</code> = system-generated error (ex:  <code>disk full</code>, <code>file is locked</code>)</p>
+<hr>
+<h2 id="0--success">0 — Success</h2>
+<p>Exit Code: 0<br>
+Description: Command completed successfully<br>
+Message: [varies by command]</p>
+<hr>
+<h2 id="1---file-already-exists">1 —  File Already Exists</h2>
+<p>Exit Code: 1<br>
+Description: Attempted to create a file that already exists<br>
+Message:<br>
+Error: A '{file}' file already exists at '{path}/{file}'</p>
+<hr>
+<h2 id="2---permission-denied">2 —  Permission Denied</h2>
+<p>Exit Code: 2<br>
+Description: Insufficient permissions to write file at target location<br>
+Message:<br>
+Error: Cannot write to '{path}/{file}' — permission denied</p>
+<hr>
+<h2 id="3---general-io-error">3 —  General I/O Error</h2>
+<p>Exit Code: 3<br>
+Description: Unhandled I/O failure (ex: disk full, file is locked)<br>
+Message:<br>
+Error: Failed to write file at '{path}/{file}': {errorMessage}</p>
 <hr>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/Features/SaveDiagram.md/Main.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/exit-codes.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

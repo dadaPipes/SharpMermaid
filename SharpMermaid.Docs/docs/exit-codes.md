@@ -39,16 +39,8 @@ Error: Cannot write to '{path}/{file}' — permission denied
 ## 3 —  General I/O Error
 
 Exit Code: 3  
-Description: Unhandled I/O failure (e.g., disk full, file is locked)  
+Description: Unhandled I/O failure (ex: disk full, file is locked)  
 Message:  
 Error: Failed to write file at '{path}/{file}': {errorMessage}
 
 ---
-
-## Usage Convention
-
-These codes and messages should be referenced in:
-
-- All .feature files for CLI commands
-- CLI stderr output in production
-- Unit/integration test assertions
