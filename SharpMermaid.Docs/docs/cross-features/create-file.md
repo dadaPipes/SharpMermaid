@@ -15,6 +15,10 @@ So that I can ensure file operations are handled efficiently without unintended 
 
 - ***<xref:cross-features.process-exit>***
 
+## Preconditions
+
+- The file system is available with write access
+
 ## Rules
 
 ### Create new file
