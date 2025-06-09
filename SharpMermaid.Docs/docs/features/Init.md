@@ -11,6 +11,10 @@ So that  I have a ready-to-edit configuration file for diagram generation
 - ***<xref:cross-features.process-exit>***
 - ***<xref:mermaidconfig.default>***
 
+## Preconditions
+
+- The file system is available with write access to {`cwd`}
+
 ## CLI Usage
 
 ```shell
