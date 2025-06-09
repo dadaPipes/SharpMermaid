@@ -5,15 +5,23 @@ items:
     href: ../index.md
   - name: Getting Started
     href: getting-started.md
-  - name: Default MermaidConfig json
-    href: default-mermaidconfig.md
-  - name: Exit Codes
-    href: exit-codes.md
+  - name: mermaidconfig
+    items:
+    - name: Default
+      href: mermaidconfig/default.md
+    - name: Root
+      href: mermaidconfig/root.md
+    - name: Physical Project Diagram
+      href: mermaidconfig/physical-project.md
   - name: features
     items:
     - name: init
       href: features/Init.md
     - name: Generate Physical Project Diagram
       href: features/generate-physical-project-diagram.md
-  - name: Documentation Dogma
-    href: documentation-dogma.md
+  - name: Cross Features
+    items:
+    - name: Create File
+      href: cross-features/create-file.md
+    - name: Process Exit
+      href: cross-features/process-exit.md

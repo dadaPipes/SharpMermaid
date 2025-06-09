@@ -88,104 +88,59 @@
 <h1 id="init">Init</h1>
 
 <h2 id="description">Description</h2>
-<p><strong>As a</strong> developer,<br>
-<strong>I want</strong> to Create a default <code>mermaidconfig.json</code> in the current directory<br>
-<strong>So that</strong>  I have a ready-to-edit configuration file for diagram generation</p>
+<p>As a developer,<br>
+I want to Create a default <code>mermaidconfig.json</code> in the current directory<br>
+So that  I have a ready-to-edit configuration file for diagram generation</p>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li><em><strong><a class="xref" href="../cross-features/process-exit.html">process exit</a></strong></em></li>
+<li><em><strong><a class="xref" href="../mermaidconfig/default.html">default mermaidconfig.json</a></strong></em></li>
+</ul>
 <h2 id="cli-usage">CLI Usage</h2>
 <pre><code class="lang-shell">dotnet sharpmermaid init
 </code></pre>
-[!include[DefaultMermaidconfig](../snippets/config-structure.md)]<h2 id="rules">Rules</h2>
-<h3 id="create-default-config-file">Create Default Config File</h3>
-<ul>
-<li><p>If <code>mermaidconfig.json</code> does not exist in the {cwd}:<br>
-The system must create a default <code>mermaidconfig.json</code> in {cwd}<br>
-<a href="#create-default-config-file-u1">(see: scenario U1)</a><br>
-and the system <strong>must</strong> display:<br>
-&quot;Created new file 'mermaidconfig.json' at '{cwd}'&quot;<br>
+<h2 id="rules">Rules</h2>
+<h3 id="mermaidconfigjson-does-not-exist">mermaidconfig.json does not exist</h3>
+<p>If <code>mermaidconfig.json</code> does not exist in {<code>cwd</code>}, the system <strong>must</strong> create a default <code>mermaidconfig.json</code> in {<code>cwd</code>}<br>
+<a href="#mermaidconfigjson-does-not-exist-system-test"><em><strong>see: scenario</strong></em></a><br>
+and the system <strong>must</strong> display: <strong>Created new file 'mermaidconfig.json' at '{<code>cwd</code>}'</strong><br>
 and the process <strong>must</strong> exit with code 0<br>
-<a href="#create-default-config-file-a1">(see: scenario A1)</a></p>
-</li>
-<li><p>If <code>mermaidconfig.json</code> exists in {cwd}:<br>
-System <strong>must</strong> abort<br>
-<a href="#create-default-config-file-u2">(see: scenario U2)</a><br>
-and the system <strong>must</strong> display:<br>
-&quot;Error: A 'mermaidconfig.json' file already exists at '{cwd}/mermaidconfig.json'&quot;<br>
-and the process <strong>must</strong> exit with code 1<br>
-<a href="#create-default-config-file-a2">(see: scenario A2)</a></p>
-</li>
-</ul>
-<h3 id="file-write-failures">File Write Failures</h3>
-<ul>
-<li><p>If the system does not have permission to write <code>mermaidconfig.json</code> in <code>{cwd}</code>:<br>
-The system <strong>must</strong> display:<br>
-&quot;Error: Cannot write to '{cwd}/mermaidconfig.json' — permission denied.&quot;<br>
-and must exit with code 2<br>
-<a href="#create-default-config-file-a3">(see: scenario A3)</a></p>
-</li>
-<li><p>If a general I/O error occurs (file is locked, disk error):<br>
-The system <strong>must</strong> display:<br>
-&quot;Error: Failed to write file at '{cwd}/mermaidconfig.json': {message}&quot;<br>
-and must exit with code 3<br>
-<a href="#create-default-config-file-a4">(see: scenario A4)</a></p>
-</li>
-</ul>
+<a class="xref" href="../cross-features/process-exit.html#0---success"><em><strong>see: process exit rule</strong></em></a></p>
+<h3 id="mermaidconfigjson-exists">mermaidconfig.json exists</h3>
+<p>If <code>mermaidconfig.json</code> exists in {<code>cwd</code>}, the system <strong>must</strong> exit with code 73<br>
+<a class="xref" href="../cross-features/process-exit.html#73---file-already-exists"><em><strong>see: process exit rule</strong></em></a></p>
 <h2 id="scenarios">Scenarios</h2>
 <hr>
-<h3 id="create-default-config-file-a1">Create Default Config File A1</h3>
-<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
-<strong>And</strong> no <code>mermaidconfig.json</code> exists at <code>{cwd}</code></p>
-<p><strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">sharpmermaid init
-</code></pre>
-<p><strong>Then</strong> the console display:</p>
-<pre><code class="lang-shell">Created new file 'mermaidconfig.json' at '{cwd}'
-</code></pre>
-<p><strong>And</strong> the process exit with code 0</p>
-<hr>
-<h3 id="create-default-config-file-u1">Create Default Config File U1</h3>
+<h3 id="mermaidconfigjson-does-not-exist-system-test">mermaidconfig.json does not exist (System Test)</h3>
 <p><strong>Given</strong> the working directory is <code>{cwd}</code><br>
 <strong>And</strong> no <code>mermaidconfig.json</code> exists in <code>{cwd}</code></p>
 <p><strong>When</strong> the system attempts to create a default configuration</p>
 <p><strong>Then</strong> a file named <code>mermaidconfig.json</code> exist in <code>{cwd}</code><br>
-<strong>And</strong> the content must match the structure in <a href="#default-mermaidconfigjson">default config structure</a></p>
-<hr>
-<h3 id="create-default-config-file-a2">Create Default Config File A2</h3>
-<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
-<strong>And</strong> a <code>mermaidconfig.json</code> exists at <code>{cwd}</code></p>
-<p><strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">sharpmermaid init
+And its content must match the following default configuration:</p>
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
+  &quot;FileType&quot;: &quot;.mmd&quot;,
+  &quot;Diagrams&quot;: [
+   {
+     &quot;PhysicalProject&quot;: {
+        &quot;OutputDirectory&quot;: &quot;./Override/Diagrams&quot;,
+        &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
+        &quot;FileType&quot;: &quot;.mmd&quot;,
+        &quot;TopLevelPublicTypes&quot;: true,
+        &quot;ClassDiagramLinks&quot;: true,
+        &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
+     }
+   }
+  ]
+}
 </code></pre>
-<p><strong>Then</strong> the console display:</p>
-<pre><code class="lang-shell">Error: A 'mermaidconfig.json' file already exists at '{cwd}/mermaidconfig.json'
-</code></pre>
-<p><strong>And</strong> the process must exit with code 1</p>
 <hr>
-<h3 id="create-default-config-file-u2">Create Default Config File U2</h3>
+<h3 id="mermaidconfigjson-exist-system-test">mermaidconfig.json exist (System Test)</h3>
 <p><strong>Given</strong> the working directory is <code>{cwd}</code><br>
 <strong>And</strong> a <code>mermaidconfig.json</code> exists in <code>{cwd}</code></p>
 <p><strong>When</strong> the system attempts to create a default configuration</p>
 <p><strong>Then</strong> the execution stop</p>
-<hr>
-<h3 id="create-default-config-file-a3">Create Default Config File A3</h3>
-<p><strong>Given</strong> the current directory <code>{cwd}</code> is not writable (restricted permissions)</p>
-<p><strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">sharpmermaid init
-</code></pre>
-<p><strong>Then</strong> the console displays:</p>
-<pre><code class="lang-shell">Error: Cannot write to '{cwd}/mermaidconfig.json' — permission denied.
-</code></pre>
-<p><strong>And</strong> the process exit with code 2</p>
-<hr>
-<h3 id="create-default-config-file-a4">Create Default Config File A4</h3>
-<p><strong>Given</strong> a general I/O failure occurs (file is locked or disk is full) when writing to <code>{cwd}</code>
-When the developer runs:</p>
-<p><strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">sharpmermaid init
-</code></pre>
-<p><strong>Then</strong> the console displays:</p>
-<pre><code class="lang-shell">Error: Failed to write file at '{cwd}/mermaidconfig.json': {error message}
-</code></pre>
-<p><strong>And</strong> the process must exit with code 3</p>
 <hr>
 
 </article>

@@ -88,16 +88,25 @@
 <h1 id="generate-physical-project-diagram">Generate Physical Project Diagram</h1>
 
 <h2 id="description">Description</h2>
-<p><strong>As</strong> a developer,<br>
-<strong>I want</strong> to generate a Physical Project diagram from the <code>Diagrams</code> collection in <code>mermaidconfig.json</code><br>
-<strong>So that</strong> I get a visual representation of my project structure on disk.</p>
+<p>As a developer,<br>
+I want to generate a Physical Project diagram from the <code>Diagrams</code> collection in <code>mermaidconfig.json</code><br>
+So that I get a visual representation of my project structure on disk.</p>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li><em><strong><a class="xref" href="../cross-features/process-exit.html">process exit</a></strong></em></li>
+<li><em><strong><a class="xref" href="../mermaidconfig/root.html">mermaidconfig root</a></strong></em></li>
+<li><em><strong><a class="xref" href="../mermaidconfig/physical-project.html">mermaidconfig PhysicalProjectDiagram</a></strong></em></li>
+</ul>
+<h2 id="preconditions">Preconditions</h2>
+<ul>
+<li>The file system is available with write access to <code>OutputDirectory</code></li>
+<li>A valid <code>mermaidconfig.json</code> exists in the current working directory</li>
+</ul>
 <h2 id="cli-usage">CLI Usage</h2>
 <pre><code class="lang-shell">dotnet sharpmermaid generate
 </code></pre>
-[!include[config-structure](../snippets/config-structure.md)]<h2 id="rules">Rules</h2>
-<h3 id="file-format">File Format</h3>
-<ul>
-<li><strong>The created .mmd file</strong>:
+<h2 id="rules">Rules</h2>
+<h3 id="the-created-mmd-file">The created .mmd file</h3>
 <ul>
 <li><strong>Must</strong> start with a title that matches the solution name</li>
 <li><strong>Must</strong> include a graph declaration</li>
@@ -106,11 +115,8 @@
 <li><strong>May</strong> include top-level public types</li>
 <li><strong>May</strong> include project references between projects</li>
 </ul>
-</li>
-</ul>
 <p><a href="#valid-mmd-file"><em><strong>see: scenario</strong></em></a></p>
-<ul>
-<li><strong>The created .md file</strong>:
+<h3 id="the-created-md-file">The created .md file</h3>
 <ul>
 <li><strong>Must</strong> start with mermaid code block fence</li>
 <li><strong>Must</strong> end with code block fence footer</li>
@@ -121,94 +127,8 @@
 <li><strong>May</strong> include top-level public types</li>
 <li><strong>May</strong> include project references between projects</li>
 </ul>
-</li>
-</ul>
 <p><a href="#valid-md-file"><em><strong>see: scenario</strong></em></a></p>
-<h3 id="configuration">Configuration</h3>
-<ul>
-<li><p>If the provided solution file does not exist,<br>
-the system <strong>must</strong> stop execution and the console <strong>must</strong> display:<br>
-&quot;Error: Solution file not found at '{path}'.<br>
-Please provide a valid path&quot;<br>
-<a href="#invalid-solution-path"><em><strong>see: scenario</strong></em></a></p>
-</li>
-<li><p>If no file, with a specified <code>FileName</code> and <code>FileType</code> exists at <code>OutputDirectory</code>,<br>
-the system <strong>must</strong> create a new file with the specified <code>FileName</code> and <code>FileType</code> at <code>OutputDirectory</code><br>
-and the console <strong>must</strong> display:<br>
-&quot;Created new file '{FileName}{FileType}' at '{OutputDirectory}'&quot;<br>
-<a href="#creating-new-file"><em><strong>see: scenario</strong></em></a></p>
-</li>
-<li><p>If a file with the same <code>FileName</code> and <code>FileType</code> already exists at <code>OutputDirectory</code>,<br>
-the system <strong>must</strong> overwrite it and the console <strong>must</strong> display:<br>
-&quot;Overwriting existing file at '{OutputDirectory}/{FileName}{FileType}&quot;<br>
-<a href="#overwriting-existing-file"><em><strong>see: scenario</strong></em></a></p>
-</li>
-<li><p><strong>Must</strong> resolve <code>SolutionPath</code> and <code>OutputDirectory</code> by prioritizing <code>Diagrams</code> specific overrides</p>
-<ul>
-<li>Use <code>Diagrams</code> specific values if present</li>
-<li>Fall back to root-level values if not present</li>
-</ul>
-<p><a href="#json-config-fallback"><em><strong>see: scenario</strong></em></a></p>
-</li>
-<li><p>If <code>ClassDiagramLinks</code> is enabled, <code>BaseUrl</code> is required<br>
-<a href="#classdiagramlinks-enabled"><em><strong>see: scenario</strong></em></a></p>
-</li>
-</ul>
-<h3 id="succes">Succes</h3>
-<ul>
-<li>When a file is created the console <strong>must</strong> display:<br>
-Created new file '{FileName}{FileType}' at '{cwd}{OutputDirectory}'
-<a href="#valid-mmd-file"><em><strong>see: scenario</strong></em></a></li>
-</ul>
-<h3 id="warnings">Warnings</h3>
-<ul>
-<li><p>If no projects are found in the solution, the console <strong>must</strong> display:<br>
-&quot;{solution path}:<br>
-Warning: No projects found at '{SolutionPath}'&quot;<br>
-<a href="#no-projects-found-in-solution"><em><strong>see: scenario:</strong></em></a></p>
-</li>
-<li><p>If no source files are found in a project, the console must display:<br>
-&quot;{solution path}:<br>
-Warning: No .cs files found in '{project name}' at '{SolutionPath}'&quot;<br>
-<a href="#no-source-files-found-in-project"><em><strong>see: scenario:</strong></em></a></p>
-</li>
-</ul>
-<h3 id="errors">Errors</h3>
-<ul>
-<li><p>If <code>mermaidconfig.json</code> is not found in the current working directory, the console <strong>must</strong> display:
-&quot;Error: Configuration file 'mermaidconfig.json' not found in the current directory&quot;<br>
-<a href="#config-file-missing"><em><strong>see: scenario:</strong></em></a></p>
-</li>
-<li><p>If <code>mermaidconfig.json</code> is invalid, the console <strong>must</strong> display:
-&quot;Error: Configuration file 'mermaidconfig.json' contains invalid JSON. Please fix the file and try again.&quot;<br>
-<a href="#invalid-json-in-config"><em><strong>see: scenario:</strong></em></a></p>
-</li>
-<li><p>If multiple diagrams have the same <code>FileName</code> and <code>OutputDirectory</code>, execution must stop and the console must display:<br>
-&quot;Error: Multiple diagrams cannot have the same FileName '{FileName}' and OutputDirectory '{OutputDirectory}'. Please resolve the conflict.&quot;<br>
-<a href="#diagram-conflicts"><em><strong>see: scenario:</strong></em></a></p>
-</li>
-</ul>
 <h2 id="scenarios">Scenarios</h2>
-<hr>
-<h3 id="creating-new-file">Creating New File</h3>
-<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
-<strong>And</strong> a solution file named <code>TestSolution.sln</code> is located at <code>{cwd}/TestSolution.sln</code><br>
-<strong>And</strong> the developer specifies the output directory <code>./Diagrams</code><br>
-<strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">sharpmermaid generate-diagram --solution ./TestSolution.sln --output ./Diagrams
-</code></pre>
-<p><strong>Then</strong> the system must create a new <code>.md</code> file named <code>mermaid.md</code> at <code>{cwd}/Diagrams</code><br>
-<strong>And</strong> the console must display:
-&quot;Created new file '{fileName}' at '{solutionPath}/Diagrams'&quot;</p>
-<hr>
-<h3 id="overwriting-existing-file">Overwriting Existing File</h3>
-<p>Given the specified output path {path} exists and is writable
-And a file named {fileName}.md already exists at {path}
-When the system executes the command
-Then the system must overwrite the existing {fileName}.md file with the new content
-And the system must not create a backup of the old file
-And the system must display:
-&quot;Overwriting existing file at '{path}/{fileName}.md'&quot;</p>
 <hr>
 <h3 id="valid-mmd-file">Valid .mmd file</h3>
 <p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
@@ -294,67 +214,6 @@ graph
 <hr>
 <h3 id="valid-md-file">Valid .md file</h3>
 <p>Given</p>
-<hr>
-<h3 id="invalid-solution-path">Invalid Solution Path</h3>
-<p>Given</p>
-<hr>
-<h3 id="json-config-fallback">Json Config Fallback</h3>
-<p>Given</p>
-<hr>
-<h3 id="classdiagramlinks-enabled">ClassDiagramLinks enabled</h3>
-<p>given</p>
-<hr>
-<h3 id="no-projects-found-in-solution">No projects found in solution</h3>
-<p>Given, When, Then</p>
-<hr>
-<h3 id="no-source-files-found-in-project">No source files found in project</h3>
-<p>Given, When, Then</p>
-<hr>
-<h3 id="diagram-conflicts">Diagram Conflicts</h3>
-<p>Given</p>
-<hr>
-<h3 id="config-file-missing">Config File Missing</h3>
-<p>Given no <code>mermaidconfig.json</code> file exists in <code>{cwd}</code></p>
-<p><strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">dotnet sharpmermaid generate
-</code></pre>
-<p><strong>Then</strong> the system must stop and display:
-&quot;Error: No 'mermaidconfig.json' file found in '{cwd}'&quot;</p>
-<hr>
-<h3 id="invalid-json-in-config">Invalid JSON in Config</h3>
-<p><strong>Given</strong> an invalid JSON in mermaidconfig.json in <code>{cwd}</code></p>
-<p><strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">dotnet sharpmermaid generate
-</code></pre>
-<p><strong>Then</strong> the system must stop and display:
-&quot;Error: Invalid JSON in 'mermaidconfig.json'&quot;</p>
-<hr>
-<h3 id="generate-diagram-with-overrides">Generate Diagram with Overrides</h3>
-<p><strong>Given</strong> the developer’s current working directory is {cwd}
-<strong>And</strong> a mermaidconfig.json file exists in {cwd} containing:
-<strong>And</strong> a solution &quot;TestSolution&quot; containing:</p>
-<ul>
-<li>ProjectA at ProjectA/ProjectA.csproj</li>
-</ul>
-<p><strong>And</strong> a sharpmermaidconfig.json file exist in the solution with:</p>
-<pre><code class="lang-json">{
-  &quot;SolutionPath&quot;: &quot;./Solution.sln&quot;,
-  &quot;OutputPath&quot;: &quot;./Diagrams&quot;,
-  &quot;DiagramType&quot;: &quot;PhysicalProject&quot;,
-  &quot;PhysicalProject&quot;: {
-    &quot;OutputPath&quot;: &quot;./Diagrams/Physical&quot;,
-    &quot;FileName&quot;: &quot;PhysicalDiagram&quot;
-  }
-}
-</code></pre>
-<p><strong>When</strong> the developer runs: <code>dotnet sharpmermaid generate</code></p>
-<p><strong>Then</strong> the system must generate a physical project diagram at {cwd}/Diagrams/Mermaid.mmd<br>
-<strong>And</strong> the console must display:<br>
-&quot;Generated diagram: {cwd}/diagrams/mermaid.mmd&quot;</p>
-<hr>
-<h3 id="generate-diagram-without-overrides">Generate Diagram Without Overrides</h3>
-<hr>
-<h3 id="output-in-markdown-file">Output in Markdown File</h3>
 <hr>
 
 </article>

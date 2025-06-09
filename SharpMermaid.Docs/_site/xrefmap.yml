@@ -1,3 +1,18 @@
 ### YamlMime:XRefMap
 sorted: true
-references: []
+references:
+- uid: cross-features.create-file
+  name: scenario
+  href: docs/cross-features/create-file.html
+- uid: cross-features.process-exit
+  name: process exit
+  href: docs/cross-features/process-exit.html
+- uid: mermaidconfig.default
+  name: default mermaidconfig.json
+  href: docs/mermaidconfig/default.html
+- uid: mermaidconfig.physicalProjectDiagram
+  name: mermaidconfig PhysicalProjectDiagram
+  href: docs/mermaidconfig/physical-project.html
+- uid: mermaidconfig.root
+  name: mermaidconfig root
+  href: docs/mermaidconfig/root.html

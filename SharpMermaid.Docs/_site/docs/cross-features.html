@@ -7,16 +7,16 @@
       <meta name="title" content="Cross Features | SharpMermaid ">
       
       
-      <link rel="icon" href="../../favicon.ico">
-      <link rel="stylesheet" href="../../public/docfx.min.css">
-      <link rel="stylesheet" href="../../public/main.css">
-      <meta name="docfx:navrel" content="../../toc.html">
-      <meta name="docfx:tocrel" content="../toc.html">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
       
-      <meta name="docfx:rel" content="../../">
+      <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/CrossFeatures/Warnings.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/cross-features.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -30,7 +30,7 @@
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
 
-      <script type="module" src="./../../public/docfx.min.js"></script>
+      <script type="module" src="./../public/docfx.min.js"></script>
 
       <script>
         const theme = localStorage.getItem('theme') || 'auto'
@@ -43,8 +43,8 @@
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="../../index.html">
-            <img id="logo" class="svg" src="../../logo.svg" alt="SharpMermaid">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="SharpMermaid">
             SharpMermaid
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,28 +88,6 @@
 <h1 id="cross-features">Cross Features</h1>
 
 <h2 id="rules">Rules</h2>
-<h3 id="file-write">File Write</h3>
-<ul>
-<li><p><strong>Success</strong>:<br>
-For each file succesfully created, the console <strong>must</strong> display:<br>
-Created new file '{FileName}{FileType}' at '{cwd}{OutputDirectory}'
-<a href="#"><em><strong>see: scenario</strong></em></a></p>
-</li>
-<li><p><strong>Permission denied</strong>:<br>
-If the system does not have permission to write <code>mermaidconfig.json</code> in <code>{cwd}</code>:<br>
-The system <strong>must</strong> display:<br>
-&quot;Error: Cannot write to '{cwd}/mermaidconfig.json' — permission denied.&quot;<br>
-and must exit with code 2<br>
-<a href="#create-default-config-file-a3">(see: scenario A3)</a></p>
-</li>
-<li><p><strong>General I/O error</strong>:<br>
-If a general I/O error occurs (file is locked, disk error):<br>
-The system <strong>must</strong> display:<br>
-&quot;Error: Failed to write file at '{cwd}/mermaidconfig.json': {message}&quot;<br>
-and must exit with code 3<br>
-<a href="#create-default-config-file-a4">(see: scenario A4)</a></p>
-</li>
-</ul>
 <h3 id="config-file">Config File</h3>
 <ul>
 <li><p><strong>Missing <code>mermaidconfig.json</code> file</strong>:
@@ -167,6 +145,7 @@ and<br>
 <p>from the solution directory</p>
 <p><strong>Then</strong> the console output includes the warning: &quot;<strong>No projects found in the solution EmptySolution</strong>&quot;</p>
 <hr>
+<h3 id="create-file-a1">Create File A1</h3>
 <h3 id="warn-on-bi-directional-project-references">Warn on bi-directional project references</h3>
 <p><strong>Given</strong> a solution <code>TestSolution</code> containing:</p>
 <ul>
@@ -207,7 +186,7 @@ and<br>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/CrossFeatures/Warnings.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/cross-features.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

@@ -2,21 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Config Reference | SharpMermaid </title>
+      <title> | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Config Reference | SharpMermaid ">
+      <meta name="title" content=" | SharpMermaid ">
       
       
-      <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../public/docfx.min.css">
-      <link rel="stylesheet" href="../public/main.css">
-      <meta name="docfx:navrel" content="../toc.html">
-      <meta name="docfx:tocrel" content="toc.html">
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
       
-      <meta name="docfx:rel" content="../">
+      <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/default-mermaidconfig.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/shared/config-root-properties.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -30,7 +30,7 @@
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
 
-      <script type="module" src="./../public/docfx.min.js"></script>
+      <script type="module" src="./../../public/docfx.min.js"></script>
 
       <script>
         const theme = localStorage.getItem('theme') || 'auto'
@@ -43,8 +43,8 @@
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="SharpMermaid">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="SharpMermaid">
             SharpMermaid
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,13 +85,7 @@
         </div>
 
         <article data-uid="">
-<h1 id="config-reference">Config Reference</h1>
 
-<h2 id="config-notes">Config notes</h2>
-<div class="IMPORTANT">
-<h5>Important</h5>
-<p>All relative paths specified in config file are relative to the location of mermaidconfig.json</p>
-</div>
 <h2 id="root-properties">Root properties</h2>
 <pre><code class="lang-json">{
   &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
@@ -157,96 +151,11 @@ where the key is the diagram type and the value is its specific configuration.</
   ] 
 }
 </code></pre>
-<h2 id="physical-project-diagram">Physical Project Diagram</h2>
-<p>Generates a physical project layout diagram.</p>
-<h3 id="outputdirectory"><code>OutputDirectory</code></h3>
-<p>Overrides root output path for this diagram.</p>
-<p><strong>Type</strong>: string<br>
-<strong>Required</strong>: no<br>
-<strong>Default</strong>: Inherits from root <code>OutputDirectory</code></p>
-<p><strong>Validation</strong>:</p>
-<ul>
-<li>If provided, must be a valid directory path: <code>&quot;Error: OutputDirectory is not a valid directory path&quot;</code></li>
-</ul>
-<h3 id="filename"><code>FileName</code></h3>
-<p>File name for the generated diagram</p>
-<p><strong>Type</strong>: string<br>
-<strong>Required</strong>: yes<br>
-<strong>Default</strong>: -<br>
-<strong>Validation</strong>:</p>
-<ul>
-<li>Must not be empty: <code>&quot;Error: FileName is required&quot;</code></li>
-<li>Cannot contain invalid filename characters (\ / : * ? &quot; &lt; &gt; |): &quot;Error: FileName contains invalid characters&quot;</li>
-<li>Must not use file extension (use <code>&quot;FileName&quot;</code>, not <code>&quot;FileName.mmd&quot;</code>): &quot;Error: FileName must not have a file extension&quot;</li>
-</ul>
-<h3 id="toplevelpublictypes"><code>TopLevelPublicTypes</code></h3>
-<p>Include top-level public types in each project.</p>
-<p><strong>Type</strong>: boolean<br>
-<strong>Required</strong>: no<br>
-<strong>Default</strong>: <code>false</code>
-<strong>Validation</strong>:</p>
-<ul>
-<li>Must be true or false (JSON boolean): <code>&quot;Error: TopLevelPublicTypes must be a boolean&quot;</code></li>
-</ul>
-<h3 id="classdiagramlinks"><code>ClassDiagramLinks</code></h3>
-<p>Turn each project node in to a clickable link, that navigates to its class diagram.</p>
-<p><strong>Type</strong>: boolean<br>
-<strong>Required</strong>: no<br>
-<strong>Default</strong>: <code>false</code>
-<strong>Validation</strong>:</p>
-<ul>
-<li>Must be true or false (JSON boolean): <code>&quot;Error: TopLevelPublicTypes must be a boolean&quot;</code></li>
-</ul>
-<h3 id="baseurl"><code>BaseUrl</code></h3>
-<p>Base URL used to build class diagram links.</p>
-<p><strong>Type</strong>: string<br>
-<strong>Required</strong>: if <code>ClassDiagramLinks</code> is <code>true</code><br>
-<strong>Default</strong>: -
-<strong>Validation</strong></p>
-<ul>
-<li>Required if <code>Root/ClassDiagramLinks</code> is <code>true</code>: <code>&quot;Error: BaseUrl is required when ClassDiagramLinks is enabled&quot;</code></li>
-<li>Must be a valid absolute URL (starts with <code>http://</code> or <code>https://</code>): <code>&quot;Error: BaseUrl must be a valid absolute URL&quot;</code></li>
-</ul>
-<p><strong><code>Physical Project Diagram</code> Example</strong>:</p>
-<pre><code class="lang-json">{
-  &quot;Diagrams&quot;: [
-    {
-      &quot;PhysicalProject&quot;: {
-        &quot;OutputDirectory&quot;: &quot;./Override/Diagrams&quot;,
-        &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
-        &quot;FileType&quot;: &quot;.mmd&quot;,
-        &quot;TopLevelPublicTypes&quot;: true,
-        &quot;ClassDiagramLinks&quot;: true,
-        &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
-      }
-    }
-  ] 
-}
-</code></pre>
-<h2 id="full-example-config-structure">Full Example Config Structure</h2>
-<pre><code class="lang-json">{
-  &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
-  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
-  &quot;FileType&quot;: &quot;.mmd&quot;,
-  &quot;Diagrams&quot;: [
-   {
-     &quot;PhysicalProject&quot;: {
-        &quot;OutputDirectory&quot;: &quot;./Override/Diagrams&quot;,
-        &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
-        &quot;FileType&quot;: &quot;.mmd&quot;,
-        &quot;TopLevelPublicTypes&quot;: true,
-        &quot;ClassDiagramLinks&quot;: true,
-        &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
-     }
-   }
-  ]
-}
-</code></pre>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/default-mermaidconfig.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/shared/config-root-properties.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

@@ -12,50 +12,30 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/CrossFeatures/Warnings.md",
+      "source_relative_path": "docs/cross-features.md",
       "output": {
         ".html": {
-          "relative_path": "docs/CrossFeatures/Warnings.html"
+          "relative_path": "docs/cross-features.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/default-mermaidconfig.md",
+      "source_relative_path": "docs/cross-features/create-file.md",
       "output": {
         ".html": {
-          "relative_path": "docs/default-mermaidconfig.html"
+          "relative_path": "docs/cross-features/create-file.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/documentation-dogma.md",
+      "source_relative_path": "docs/cross-features/process-exit.md",
       "output": {
         ".html": {
-          "relative_path": "docs/documentation-dogma.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/exit-codes.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/exit-codes.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/features/Generate/Main.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/features/Generate/Main.html"
+          "relative_path": "docs/cross-features/process-exit.html"
         }
       },
       "version": ""
@@ -76,36 +56,6 @@
       "output": {
         ".html": {
           "relative_path": "docs/features/GenerateLogicalProjectDiagram/Main.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/AcceptanceTests.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/CommandLineArguments.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/Main.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/features/GeneratePhysicalProjectMarkdownFile/Main.html"
         }
       },
       "version": ""
@@ -136,6 +86,36 @@
       "output": {
         ".html": {
           "relative_path": "docs/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/mermaidconfig/default.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/mermaidconfig/default.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/mermaidconfig/physical-project.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/mermaidconfig/physical-project.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/mermaidconfig/root.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/mermaidconfig/root.html"
         }
       },
       "version": ""
