@@ -1,0 +1,6 @@
+services:
+  sharpmermaid.cli:
+    image: ${DOCKER_REGISTRY-}sharpmermaidcli
+    build:
+      context: .
+      dockerfile: SharpMermaid.CLI/Dockerfile

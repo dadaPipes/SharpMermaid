@@ -1,13 +1,15 @@
 ---
 uid: mermaidconfig.root
-title: mermaidconfig root
+title: validate mermaidconfig root
 ---
 
-# Root
+# Validate mermaidconfig root
 
 ## Description
 
-Root layout diagram.
+As a Developer
+I want to validate the root of the mermaidconfig.json
+So that I can ensure basic configuration structure and types are correct before proceeding with diagram generation
 
 ## Example
 

@@ -6,7 +6,7 @@ using System;
 using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Text;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace SharpMermaid.RulesTests;
 public class GeneratePhysicalProjectDiagramTests(ITestOutputHelper output)

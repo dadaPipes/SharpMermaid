@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SharpMermaid.CLI": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

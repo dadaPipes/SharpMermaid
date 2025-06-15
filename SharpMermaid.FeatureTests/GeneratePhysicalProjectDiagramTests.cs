@@ -1,6 +1,5 @@
 ﻿using SharpMermaid.TestHelpers;
 using System.Diagnostics;
-using Xunit.Abstractions;
 
 namespace SharpMermaid.FeatureTests;
 public class GeneratePhysicalProjectDiagramTests(ITestOutputHelper output)

@@ -1,6 +1,5 @@
-﻿using SharpMermaid.Features.GenerateLogicalProjectDiagram;
-using SharpMermaid.TestHelpers;
-using Xunit.Abstractions;
+﻿using SharpMermaid.TestHelpers;
+using Xunit;
 
 namespace SharpMermaid.FeatureTests;
 public class GenerateLogicalProjectDiagramTests(ITestOutputHelper output)

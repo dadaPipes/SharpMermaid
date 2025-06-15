@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Init | SharpMermaid </title>
+      <title>default mermaidconfig.json | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Init | SharpMermaid ">
+      <meta name="title" content="default mermaidconfig.json | SharpMermaid ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/init.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/sharpmermaidconfig/default.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,49 +84,32 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="">
-<h1 id="init">Init</h1>
+        <article data-uid="mermaidconfig.default">
 
-<h2 id="description">Description</h2>
-<p>As a developer,<br>
-I want to Create a default sharpmermaidconfig.json in the working directory<br>
-So that  I have a ready-to-edit configuration file for diagram generation</p>
-<h2 id="cli-usage">CLI Usage</h2>
-<pre><code class="lang-shell">dotnet sharpmermaid init
+
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
+  &quot;FileType&quot;: &quot;.mmd&quot;,
+  &quot;Diagrams&quot;: [
+   {
+     &quot;PhysicalProject&quot;: {
+        &quot;OutputDirectory&quot;: &quot;./Override/Diagrams&quot;,
+        &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
+        &quot;FileType&quot;: &quot;.mmd&quot;,
+        &quot;TopLevelPublicTypes&quot;: true,
+        &quot;ClassDiagramLinks&quot;: true,
+        &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
+     }
+   }
+  ]
+}
 </code></pre>
-<h2 id="preconditions">Preconditions</h2>
-<ul>
-<li>The file system is available with write access</li>
-</ul>
-<h2 id="scenarios">Scenarios</h2>
-<hr>
-<h3 id="display-success-message-after-sharpmermaidconfigjson-creation">Display success message after sharpmermaidconfig.json creation</h3>
-<p>Given the Developers working directory is {cwd}<br>
-And no sharpmermaidconfig.json exists in {cwd}</p>
-<p>When the Developer runs: dotnet sharpmermaid init</p>
-<p>Then the console must display:<br>
-&quot;Created new file 'sharpmermaidconfig.json' at '{cwd}'&quot;<br>
-And exit with code <a class="xref" href="process-exit.html#0---success">0</a></p>
-<hr>
-<h3 id="create-default-sharpmermaidconfigjson">Create default sharpmermaidconfig.json</h3>
-<p>Given the Developers working directory is {cwd}<br>
-And no sharpmermaidconfig.json exists in {cwd}</p>
-<p>When the Developer runs: dotnet sharpmermaid init</p>
-<p>Then a file named sharpmermaidconfig.json must exist in {cwd}<br>
-And its content must match the <a class="xref" href="../sharpmermaidconfig/default.html"><em><strong>default mermaidconfig.json</strong></em></a>:</p>
-[!include[mermaidconfig.json](../../docs/mermaidconfig/default.md)]<hr>
-<h3 id="display-error-message-if-sharpmermaidconfigjson-already-exists">Display error message if sharpmermaidconfig.json already exists</h3>
-<p>Given the Developers working directory is {cwd}<br>
-And a file named sharpmermaidconfig.json already exists in {cwd}</p>
-<p>When the Developer runs: dotnet sharpmermaid init</p>
-<p>Then the system must display:<br>
-&quot;Error: A 'sharpmermaidconfig.json' file already exists at '{cwd}/sharpmermaidconfig.json'&quot;<br>
-And exit with code <a class="xref" href="process-exit.html#73---file-already-exists">73</a></p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/features/init.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/sharpmermaidconfig/default.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

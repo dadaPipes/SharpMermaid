@@ -1,18 +1,21 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: cross-features.create-file
-  name: scenario
-  href: docs/cross-features/create-file.html
-- uid: cross-features.process-exit
+- uid: features.generate-physical-project-diagram
+  name: generate physical project diagram
+  href: docs/features/generate-physical-project-diagram.html
+- uid: features.process-exit
   name: process exit
-  href: docs/cross-features/process-exit.html
+  href: docs/features/process-exit.html
+- uid: features.validate-mermaidconfig
+  name: validate mermaidconfig.json
+  href: docs/features/validate-sharpmermaidconfig.html
 - uid: mermaidconfig.default
   name: default mermaidconfig.json
-  href: docs/mermaidconfig/default.html
-- uid: mermaidconfig.physicalProjectDiagram
-  name: mermaidconfig PhysicalProjectDiagram
-  href: docs/mermaidconfig/physical-project.html
+  href: docs/sharpmermaidconfig/default.html
 - uid: mermaidconfig.root
-  name: mermaidconfig root
-  href: docs/mermaidconfig/root.html
+  name: validate mermaidconfig root
+  href: docs/sharpmermaidconfig/root.html
+- uid: sharpmermaidconfig.physicalProjectDiagram
+  name: sharpmermaidconfig PhysicalProjectDiagram
+  href: docs/sharpmermaidconfig/physical-project.html

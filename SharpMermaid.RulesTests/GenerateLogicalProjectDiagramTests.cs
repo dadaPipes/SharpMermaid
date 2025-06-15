@@ -2,7 +2,7 @@
 using SharpMermaid.Models;
 using SharpMermaid.TestHelpers;
 using System.Text;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace SharpMermaid.RulesTests;
 public class GenerateLogicalProjectDiagramTests(ITestOutputHelper output)

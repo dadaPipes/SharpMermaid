@@ -1,6 +1,6 @@
 ﻿using SharpMermaid.TestHelpers;
 using System.Text;
-using Xunit.Abstractions;
+using Xunit;
 using SharpMermaid.Models;
 using SharpMermaid.Features.GenerateClassDiagrams;
 

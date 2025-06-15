@@ -1,61 +1,62 @@
 ﻿using Spectre.Console;
 using Spectre.Console.Cli;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
+using System.ComponentModel;
+using System.IO.Abstractions;
 
 namespace SharpMermaid.CLI.Commands;
 
-public class InitCommand : Command<InitCommand.Settings>
+public class InitCommand(IAnsiConsole console) : Command<InitCommand.Settings>
 {
-    private readonly IAnsiConsole _console;
+    readonly IAnsiConsole _console = console;
 
-    public InitCommand(IAnsiConsole console)
-    {
-        _console = console;
-    }
     public class Settings : CommandSettings
     {
+        [CommandOption("-d|--directory <DIRECTORY>")]
+        [Description("Optional working directory. If not specified, the current working directory is used.")]
+        public string? WorkingDirectory { get; set; }
     }
 
-    public override int Execute([NotNull] CommandContext context, [NotNull] Settings settings)
+    public override int Execute(CommandContext context, Settings settings)
     {
-        var cwd = Directory.GetCurrentDirectory();
-        var configPath = Path.Combine(cwd, "mermaidconfig.json");
-
-        if (File.Exists(configPath))
-        {
-            AnsiConsole.MarkupLine($"[red]Error:[/] A [bold]'mermaidconfig.json'[/] file already exists at '[underline]{configPath}[/]'");
-            return 1; // Non-zero exit code signals failure
-        }
-
-        var defaultConfig = new
-        {
-            SolutionPath = "./YourSolution.sln",
-            OutputDirectory = "./Diagrams",
-            Diagrams = new[]
-            {
-                new
-                {
-                    DiagramType = "PhysicalProject",
-                    FileName = "PhysicalDiagram",
-                    FileType = ".mmd",
-                    TopLevelPublicTypes = false,
-                    ClassDiagramLinks = false,
-                    BaseUrl = "https://example.com/"
-                }
-            }
-        };
-
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true
-        };
-
-        var json = JsonSerializer.Serialize(defaultConfig, options);
-        File.WriteAllTextAsync(configPath, json);
-
-        _console.MarkupLine($"[green]Created new file[/] 'mermaidconfig.json' at '[underline]{cwd}[/]'");
-
+        _console.WriteLine("Hello from init");
         return 0;
+        /*
+        // Use the provided directory if given, otherwise fall back to the current working directory.
+        var directory = string.IsNullOrWhiteSpace(settings.WorkingDirectory)
+            ? _fileSystem.Directory.GetCurrentDirectory()
+            : settings.WorkingDirectory;
+
+        var configPath = Path.Combine(directory, "sharpmermaidconfig.json");
+
+        if (_fileSystem.File.Exists(configPath))
+        {
+            _console.MarkupLine($"Error: A 'sharpmermaidconfig.json' file already exists at '{directory}'");
+            return 73;
+        }
+        
+        _fileSystem.File.WriteAllText(configPath, defaultConfig);
+        _console.WriteLine($"Created new file 'sharpmermaidconfig.json' at '{directory}'");
+        return 0;
+    }
+    
+    private const string defaultConfig = """
+        {
+          "SolutionPath": "./TestSolution.sln",
+          "OutputDirectory": "./Diagrams",
+          "FileType": ".mmd",
+          "Diagrams": [
+           {
+             "PhysicalProject": {
+                "OutputDirectory": "./Override/Diagrams",
+                "FileName": "PhysicalDiagram",
+                "FileType": ".mmd",
+                "TopLevelPublicTypes": true,
+                "ClassDiagramLinks": true,
+                "BaseUrl": "https://example.com/"
+             }
+           }
+          ]
+        }
+        """;*/
     }
 }

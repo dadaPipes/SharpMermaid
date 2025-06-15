@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>sharpmermaidconfig PhysicalProjectDiagram | SharpMermaid </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="sharpmermaidconfig PhysicalProjectDiagram | SharpMermaid ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/sharpmermaidconfig/physical-project.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="SharpMermaid">
+            SharpMermaid
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="sharpmermaidconfig.physicalProjectDiagram">
+<h1 id="physicalprojectdiagram">PhysicalProjectDiagram</h1>
+
+<h2 id="description">Description</h2>
+<p>Generates a physical project layout diagram.</p>
+<h2 id="example">Example</h2>
+<pre><code class="lang-json">{
+  &quot;Diagrams&quot;: [
+    {
+      &quot;PhysicalProjectDiagram&quot;: {
+        &quot;OutputDirectory&quot;: &quot;./Override/Diagrams&quot;,
+        &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
+        &quot;FileType&quot;: &quot;.mmd&quot;,
+        &quot;TopLevelPublicTypes&quot;: true,
+        &quot;ClassDiagramLinks&quot;: true,
+        &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
+      }
+    }
+  ] 
+}
+</code></pre>
+<h2 id="properties">Properties</h2>
+<h3 id="outputdirectory"><code>OutputDirectory</code></h3>
+<p>Overrides root output path for this diagram.</p>
+<p><strong>Type</strong>: string<br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: Inherits from root <code>OutputDirectory</code></p>
+<p><strong>Validation</strong>:</p>
+<ul>
+<li><a href="#outputdirectory-is-not-a-valid-path">If provided, must be a valid directory path</a></li>
+</ul>
+<h3 id="filename"><code>FileName</code></h3>
+<p>File name for the generated diagram</p>
+<p><strong>Type</strong>: string<br>
+<strong>Required</strong>: yes<br>
+<strong>Default</strong>: -<br>
+<strong>Validation</strong>:</p>
+<ul>
+<li><a href="#filename-is-empty">Must not be empty</a></li>
+<li><a href="#filename-contains-invalid-characters">Cannot contain invalid filename characters</a></li>
+<li><a href="#filename-has-a-file-extension">Must not use file extension</a></li>
+</ul>
+<h3 id="toplevelpublictypes"><code>TopLevelPublicTypes</code></h3>
+<p>Include top-level public types in each project.</p>
+<p><strong>Type</strong>: boolean<br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code>
+<strong>Validation</strong>:</p>
+<ul>
+<li><a href="#toplevelpublictypes-is-not-a-boolean">Must be true or false (JSON boolean)</a></li>
+</ul>
+<h3 id="classdiagramlinks"><code>ClassDiagramLinks</code></h3>
+<p>Turn each project node in to a clickable link, that navigates to its class diagram.</p>
+<p><strong>Type</strong>: boolean<br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code>
+<strong>Validation</strong>:</p>
+<ul>
+<li><a href="#classdiagramlinks-is-not-a-boolean">Must be true or false (JSON boolean)</a></li>
+</ul>
+<h3 id="baseurl"><code>BaseUrl</code></h3>
+<p>Base URL used to build class diagram links.</p>
+<p><strong>Type</strong>: string<br>
+<strong>Required</strong>: if <code>ClassDiagramLinks</code> is <code>true</code><br>
+<strong>Default</strong>: -
+<strong>Validation</strong></p>
+<ul>
+<li><a href="#baseurl-is-required-when-classdiagramlinks-is-enabled">Required if <code>Root/ClassDiagramLinks</code> is <code>true</code></a></li>
+<li><a href="#baseurl-is-not-a-valid-url">Must be a valid absolute URL (starts with <code>http://</code> or <code>https://</code>)</a></li>
+</ul>
+<h2 id="scenarios">Scenarios</h2>
+<hr>
+<h3 id="outputdirectory-is-not-a-valid-path">OutputDirectory is not a valid path</h3>
+<p><strong>Given</strong> the user provides an invalid OutputDirectory (e.g., contains illegal characters)<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': OutputDirectory is not a valid directory path</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+<h3 id="filename-is-empty">FileName is empty</h3>
+<p><strong>Given</strong> the user provides an empty FileName<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': FileName is required</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+<h3 id="filename-contains-invalid-characters">FileName contains invalid characters</h3>
+<p><strong>Given</strong> the user provides FileName &quot;my?file&quot;<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': FileName contains invalid characters</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+<h3 id="filename-has-a-file-extension">FileName has a file extension</h3>
+<p><strong>Given</strong> the user provides FileName &quot;diagram.mmd&quot;<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': FileName must not have a file extension</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+<h3 id="toplevelpublictypes-is-not-a-boolean">TopLevelPublicTypes is not a boolean</h3>
+<p><strong>Given</strong> the user provides a non-boolean value for TopLevelPublicTypes<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': TopLevelPublicTypes must be a boolean</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+<h3 id="classdiagramlinks-is-not-a-boolean">ClassDiagramLinks is not a boolean</h3>
+<p><strong>Given</strong> the user provides a non-boolean value for ClassDiagramLinks<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': ClassDiagramLinks must be a boolean</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+<h3 id="baseurl-is-required-when-classdiagramlinks-is-enabled">BaseUrl is required when ClassDiagramLinks is enabled</h3>
+<p><strong>Given</strong> the user enables ClassDiagramLinks but omits BaseUrl<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': BaseUrl is required when ClassDiagramLinks is enabled</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+<h3 id="baseurl-is-not-a-valid-url">BaseUrl is not a valid URL</h3>
+<p><strong>Given</strong> the user provides an invalid URL for BaseUrl<br>
+<strong>When</strong> the system validates the configuration<br>
+<strong>Then</strong> the console must display:<br>
+&quot;<strong>Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': BaseUrl must be a valid absolute URL</strong>&quot;<br>
+<strong>And</strong> the process must exit with code 4</p>
+<hr>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/SharpMermaid/blob/main/SharpMermaid.Docs/docs/sharpmermaidconfig/physical-project.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

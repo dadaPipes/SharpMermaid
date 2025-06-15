@@ -3,17 +3,8 @@
 ## Description
 
 As a developer,  
-I want to Create a default `mermaidconfig.json` in the current directory  
+I want to Create a default sharpmermaidconfig.json in the working directory  
 So that  I have a ready-to-edit configuration file for diagram generation
-
-## Dependencies
-
-- ***<xref:cross-features.process-exit>***
-- ***<xref:mermaidconfig.default>***
-
-## Preconditions
-
-- The file system is available with write access to {`cwd`}
 
 ## CLI Usage
 
@@ -21,45 +12,47 @@ So that  I have a ready-to-edit configuration file for diagram generation
 dotnet sharpmermaid init
 ```
 
-## Rules
+## Preconditions
 
-### mermaidconfig.json does not exist
-
-If `mermaidconfig.json` does not exist in {`cwd`}, the system **must** create a default `mermaidconfig.json` in {`cwd`}  
-[***see: scenario***](#mermaidconfigjson-does-not-exist-system-test)  
-and the system **must** display: **Created new file 'mermaidconfig.json' at '{`cwd`}'**  
-and the process **must** exit with code 0  
-[***see: process exit rule***](xref:cross-features.process-exit#0---success)
-
-### mermaidconfig.json exists
-
-If `mermaidconfig.json` exists in {`cwd`}, the system **must** exit with code 73  
-[***see: process exit rule***](xref:cross-features.process-exit#73---file-already-exists)
+- The file system is available with write access
 
 ## Scenarios
 
 ---
 
-### mermaidconfig.json does not exist (System Test)
+### Display success message after sharpmermaidconfig.json creation
 
-**Given** the working directory is `{cwd}`  
-**And** no `mermaidconfig.json` exists in `{cwd}`  
+Given the Developers working directory is {cwd}  
+And no sharpmermaidconfig.json exists in {cwd}  
 
-**When** the system attempts to create a default configuration  
+When the Developer runs: dotnet sharpmermaid init
 
-**Then** a file named `mermaidconfig.json` exist in `{cwd}`  
-And its content must match the following default configuration:
+Then the console must display:  
+"Created new file 'sharpmermaidconfig.json' at '{cwd}'"  
+And exit with code [0](<xref:features.process-exit#0---success>)
+
+---
+
+### Create default sharpmermaidconfig.json
+
+Given the Developers working directory is {cwd}  
+And no sharpmermaidconfig.json exists in {cwd}  
+
+When the Developer runs: dotnet sharpmermaid init  
+
+Then a file named sharpmermaidconfig.json must exist in {cwd}  
+And its content must match the [***default mermaidconfig.json***](xref:mermaidconfig.default):
 [!include[mermaidconfig.json](../../docs/mermaidconfig/default.md)]
 
 ---
 
-### mermaidconfig.json exist (System Test)
+### Display error message if sharpmermaidconfig.json already exists
 
-**Given** the working directory is `{cwd}`  
-**And** a `mermaidconfig.json` exists in `{cwd}`
+Given the Developers working directory is {cwd}  
+And a file named sharpmermaidconfig.json already exists in {cwd}  
 
-**When** the system attempts to create a default configuration
+When the Developer runs: dotnet sharpmermaid init  
 
-**Then** the execution stop
-
----
+Then the system must display:  
+"Error: A 'sharpmermaidconfig.json' file already exists at '{cwd}/sharpmermaidconfig.json'"  
+And exit with code [73](<xref:features.process-exit#73---file-already-exists>)

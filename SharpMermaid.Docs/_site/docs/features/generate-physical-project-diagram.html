@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Generate Physical Project Diagram | SharpMermaid </title>
+      <title>generate physical project diagram | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Generate Physical Project Diagram | SharpMermaid ">
+      <meta name="title" content="generate physical project diagram | SharpMermaid ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -84,69 +84,23 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="">
+        <article data-uid="features.generate-physical-project-diagram">
 <h1 id="generate-physical-project-diagram">Generate Physical Project Diagram</h1>
 
 <h2 id="description">Description</h2>
 <p>As a developer,<br>
-I want to generate a Physical Project diagram from the <code>Diagrams</code> collection in <code>mermaidconfig.json</code><br>
+I want to generate a Physical Project diagram from the <code>Diagrams</code> collection in mermaidconfig.json<br>
 So that I get a visual representation of my project structure on disk.</p>
-<h2 id="dependencies">Dependencies</h2>
-<ul>
-<li><em><strong><a class="xref" href="../cross-features/process-exit.html">process exit</a></strong></em></li>
-<li><em><strong><a class="xref" href="../mermaidconfig/root.html">mermaidconfig root</a></strong></em></li>
-<li><em><strong><a class="xref" href="../mermaidconfig/physical-project.html">mermaidconfig PhysicalProjectDiagram</a></strong></em></li>
-</ul>
-<h2 id="preconditions">Preconditions</h2>
-<ul>
-<li>The file system is available with write access to <code>OutputDirectory</code></li>
-<li>A valid <code>mermaidconfig.json</code> exists in the current working directory</li>
-</ul>
 <h2 id="cli-usage">CLI Usage</h2>
 <pre><code class="lang-shell">dotnet sharpmermaid generate
 </code></pre>
-<h2 id="rules">Rules</h2>
-<h3 id="the-created-mmd-file">The created .mmd file</h3>
+<h2 id="dependencies">Dependencies</h2>
+<p><a class="xref" href="validate-sharpmermaidconfig.html">validate mermaidconfig.json</a></p>
+<h2 id="preconditions">Preconditions</h2>
 <ul>
-<li><strong>Must</strong> start with a title that matches the solution name</li>
-<li><strong>Must</strong> include a graph declaration</li>
-<li><strong>Must</strong> include project nodes matching the project names</li>
-<li><strong>May</strong> include clickable URLs to class diagrams</li>
-<li><strong>May</strong> include top-level public types</li>
-<li><strong>May</strong> include project references between projects</li>
+<li>The file system is available with write access</li>
+<li>A valid mermaidconfig.json exists in the current working directory:</li>
 </ul>
-<p><a href="#valid-mmd-file"><em><strong>see: scenario</strong></em></a></p>
-<h3 id="the-created-md-file">The created .md file</h3>
-<ul>
-<li><strong>Must</strong> start with mermaid code block fence</li>
-<li><strong>Must</strong> end with code block fence footer</li>
-<li><strong>Must</strong> have its first non-fence line start with graph</li>
-<li><strong>Must</strong> include a title that matches the solution name</li>
-<li><strong>Must</strong> include project nodes matching the project names</li>
-<li><strong>May</strong> include clickable URLs to class diagrams</li>
-<li><strong>May</strong> include top-level public types</li>
-<li><strong>May</strong> include project references between projects</li>
-</ul>
-<p><a href="#valid-md-file"><em><strong>see: scenario</strong></em></a></p>
-<h2 id="scenarios">Scenarios</h2>
-<hr>
-<h3 id="valid-mmd-file">Valid .mmd file</h3>
-<p><strong>Given</strong> the developer’s current working directory is <code>{cwd}</code><br>
-<strong>And</strong> a solution file <code>TestSolution.sln</code> exists at <code>{cwd}/TestSolution.sln</code><br>
-<strong>And</strong> <code>./TestSolution</code> contains:</p>
-<p><code>ProjectA</code> at <code>./ProjectA/ProjectA.csproj</code></p>
-<ul>
-<li>A file <code>ExampleA.cs</code> in <code>ProjectA</code> with <code>public class ExampleA {}</code></li>
-<li>A file <code>IExampleA.cs</code> in <code>ProjectA</code> with <code>public interface IExampleA {}</code></li>
-</ul>
-<p><code>ProjectB</code> at <code>./Folder1/ProjectB/ProjectB.csproj</code></p>
-<ul>
-<li>A file <code>ExamplePrivate.cs</code> in <code>ProjectB</code> with <code>private class ExampleDefaultInternal {}</code></li>
-<li>A file <code>ExampleDefaultInternal.cs</code> in <code>ProjectB</code> with <code>class ExampleDefaultInternal {}</code></li>
-<li>A file <code>ExampleInternal.cs</code> in <code>ProjectB</code> with <code>class ExampleInternal {}</code></li>
-</ul>
-<p><strong>And</strong> <code>ProjectA</code> has a reference to <code>ProjectB</code></p>
-<p><strong>And</strong> a <code>sharpmermaidconfig.json</code> file exist in the solution with:</p>
 <pre><code class="lang-json">{
   &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
   &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
@@ -162,38 +116,60 @@ So that I get a visual representation of my project structure on disk.</p>
   ]
 }
 </code></pre>
-<p><strong>When</strong> the developer runs:</p>
-<pre><code class="lang-shell">dotnet sharpmermaid generate
-</code></pre>
-<p><strong>Then</strong> the generated file <strong>must</strong> be created at <code>{cwd}/Diagrams/PhysicalDiagram.mmd</code>
-<strong>And</strong> the console must display:<br>
-Created new file 'mermaid.md' at '{cwd}/Diagrams/PhysicalDiagram.mmd'<br>
-<strong>And</strong> the file <strong>must</strong> imclude:</p>
 <ul>
-<li>A title: TestSolution</li>
-<li>A graph declaration</li>
-<li>Project nodes: ProjectA and ProjectB</li>
-<li>Clickable URLs:
+<li>A solution file <code>TestSolution.sln</code> exists at the root directory with the following structure:
 <ul>
-<li><a href="https://example.com/ProjectA/ProjectA.csproj">https://example.com/ProjectA/ProjectA.csproj</a></li>
-<li><a href="https://example.com/Folder1/ProjectB/ProjectB.csproj">https://example.com/Folder1/ProjectB/ProjectB.csproj</a></li>
+<li><p><code>./ProjectA/ProjectA.csproj</code></p>
+<ul>
+<li><code>PublicA.cs {public class PublicA}</code></li>
+<li><code>IPublicA.cs {public interface IPublicA}</code></li>
+<li><code>PrivateA.cs {private PrivateA}</code></li>
 </ul>
 </li>
-<li>Top-level public type in ProjectA:
+<li><p><code>./Folder1/ProjectB/ProjectB.csproj</code></p>
 <ul>
-<li><code>public class ExampleA</code></li>
-<li><code>public interface IExampleA</code></li>
+<li><code>PrivateB.cs {private PrivateB}</code></li>
+<li><code>DefaultInternalB.cs {internal DefaultInternalB}</code></li>
+<li><code>ExplicitInternalB.cs {internal ExplicitInternalB}</code></li>
 </ul>
 </li>
-<li>An arrow from ProjectA to ProjectB</li>
+<li><p><code>ProjectA</code> references <code>ProjectB</code></p>
+</li>
 </ul>
+</li>
+</ul>
+<h3 id="valid-mmd-file">Valid .mmd file</h3>
+<p>In the following order:</p>
+<ul>
+<li><strong>Must</strong> include a title that matches the solution name</li>
+<li><strong>Must</strong> include a graph declaration</li>
+<li><strong>Must</strong> include project nodes matching the project names</li>
+<li><strong>May</strong> include clickable URLs to class diagrams</li>
+<li><strong>May</strong> include top-level public types</li>
+<li><strong>May</strong> include project references between projects</li>
+</ul>
+<p><a href="#validate-mmd-file"><em><strong>see: scenario</strong></em></a></p>
+<h3 id="valid-md-file">Valid .md file</h3>
+<p>Same as .mmd file, but:</p>
+<ul>
+<li><strong>Must</strong> start with mermaid code block fence</li>
+<li><strong>Must</strong> end with code block fence footer</li>
+</ul>
+<p><a href="#validate-md-file"><em><strong>see: scenario</strong></em></a></p>
+<h2 id="scenarios">Scenarios</h2>
+<hr>
+<h3 id="validate-mmd-file">Validate .mmd file</h3>
+<p>Given the developer’s current working directory is {cwd}</p>
+<p>When the developer runs: &quot;dotnet sharpmermaid generate&quot;</p>
+<p>Then the generated file must be created at {cwd}/Diagrams/PhysicalDiagram.mmd<br>
+And the file content must match:</p>
 <pre><code>---
 title: TestSolution
 ---
 graph
     ProjectA[&quot;**ProjectA**
-        Example&quot;
-        IExample]
+        PublicA&quot;
+        IPublicA]
     ProjectB
     ProjectA --&gt; ProjectB
     click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
@@ -204,16 +180,53 @@ title: TestSolution
 ---
 graph
     ProjectA[&quot;**ProjectA**
-        Example&quot;
-        IExample]
+        PublicA&quot;
+        IPublicA]
     ProjectB
     ProjectA --&gt; ProjectB
     click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
     click ProjectB &quot;https://example.com/Folder1/ProjectB/ProjectB.csproj&quot;
 </code></pre>
 <hr>
-<h3 id="valid-md-file">Valid .md file</h3>
-<p>Given</p>
+<h3 id="validate-md-file">Validate .md file</h3>
+<p>Given the developer’s current working directory is {cwd}<br>
+And <code>FileType</code> is .md</p>
+<p>When the developer runs: dotnet sharpmermaid generate</p>
+<p>Then the generated file must be created at {cwd}/Diagrams/PhysicalDiagram.md<br>
+And the file content must match:</p>
+<pre><code>```mermaid
+---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        PublicA&quot;
+        IPublicA]
+    ProjectB
+    ProjectA --&gt; ProjectB
+    click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
+    click ProjectB &quot;https://example.com/Folder1/ProjectB/ProjectB.csproj&quot;
+```
+</code></pre>
+<pre><code class="lang-mermaid">---
+title: TestSolution
+---
+graph
+    ProjectA[&quot;**ProjectA**
+        PublicA&quot;
+        IPublicA]
+    ProjectB
+    ProjectA --&gt; ProjectB
+    click ProjectA &quot;https://example.com/ProjectA/ProjectA.csproj&quot;
+    click ProjectB &quot;https://example.com/Folder1/ProjectB/ProjectB.csproj&quot;
+</code></pre>
+<hr>
+<h3 id="display-succes-message-after-creating-file">Display succes message after creating file</h3>
+<p>Given the developer’s current working directory is {cwd}</p>
+<p>When the developer runs: dotnet sharpmermaid generate</p>
+<p>Then the system the system must display:<br>
+&quot;Created new file 'PhysicalDiagram.mmd' at '{cwd}/Diagrams/PhysicalDiagram.mmd'&quot;<br>
+And the process must exit with code <a href="xref:cross-features.process-exit#0---success">0</a></p>
 <hr>
 
 </article>

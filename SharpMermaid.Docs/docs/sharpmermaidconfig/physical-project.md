@@ -1,6 +1,6 @@
 ---
-uid: mermaidconfig.physicalProjectDiagram
-title: mermaidconfig PhysicalProjectDiagram
+uid: sharpmermaidconfig.physicalProjectDiagram
+title: sharpmermaidconfig PhysicalProjectDiagram
 ---
 
 # PhysicalProjectDiagram
@@ -98,7 +98,7 @@ Base URL used to build class diagram links.
 **Given** the user provides an invalid OutputDirectory (e.g., contains illegal characters)  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': OutputDirectory is not a valid directory path**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': OutputDirectory is not a valid directory path**"  
 **And** the process must exit with code 4
 
 ---
@@ -108,7 +108,7 @@ Base URL used to build class diagram links.
 **Given** the user provides an empty FileName  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': FileName is required**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': FileName is required**"  
 **And** the process must exit with code 4
 
 ---
@@ -118,7 +118,7 @@ Base URL used to build class diagram links.
 **Given** the user provides FileName "my?file"  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': FileName contains invalid characters**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': FileName contains invalid characters**"  
 **And** the process must exit with code 4
 
 ---
@@ -128,7 +128,7 @@ Base URL used to build class diagram links.
 **Given** the user provides FileName "diagram.mmd"  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': FileName must not have a file extension**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': FileName must not have a file extension**"  
 **And** the process must exit with code 4
 
 ---
@@ -138,7 +138,7 @@ Base URL used to build class diagram links.
 **Given** the user provides a non-boolean value for TopLevelPublicTypes  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': TopLevelPublicTypes must be a boolean**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': TopLevelPublicTypes must be a boolean**"  
 **And** the process must exit with code 4
 
 ---
@@ -148,7 +148,7 @@ Base URL used to build class diagram links.
 **Given** the user provides a non-boolean value for ClassDiagramLinks  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': ClassDiagramLinks must be a boolean**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': ClassDiagramLinks must be a boolean**"  
 **And** the process must exit with code 4
 
 ---
@@ -158,7 +158,7 @@ Base URL used to build class diagram links.
 **Given** the user enables ClassDiagramLinks but omits BaseUrl  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': BaseUrl is required when ClassDiagramLinks is enabled**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': BaseUrl is required when ClassDiagramLinks is enabled**"  
 **And** the process must exit with code 4
 
 ---
@@ -168,7 +168,7 @@ Base URL used to build class diagram links.
 **Given** the user provides an invalid URL for BaseUrl  
 **When** the system validates the configuration  
 **Then** the console must display:  
-"**Error: Invalid JSON in file '{`path to mermaidConfig.json`}': BaseUrl must be a valid absolute URL**"  
+"**Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': BaseUrl must be a valid absolute URL**"  
 **And** the process must exit with code 4
 
 ---

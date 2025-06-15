@@ -5,23 +5,21 @@ items:
     href: ../index.md
   - name: Getting Started
     href: getting-started.md
-  - name: mermaidconfig
+  - name: sharpmermaidconfig
     items:
     - name: Default
-      href: mermaidconfig/default.md
+      href: sharpmermaidconfig/default.md
     - name: Root
-      href: mermaidconfig/root.md
+      href: sharpmermaidconfig/root.md
     - name: Physical Project Diagram
-      href: mermaidconfig/physical-project.md
+      href: sharpmermaidconfig/physical-project.md
   - name: features
     items:
+    - name: Validate Mermaid Config
+      href: features/validate-sharpmermaidconfig.md
     - name: init
       href: features/Init.md
     - name: Generate Physical Project Diagram
       href: features/generate-physical-project-diagram.md
-  - name: Cross Features
-    items:
-    - name: Create File
-      href: cross-features/create-file.md
     - name: Process Exit
-      href: cross-features/process-exit.md
+      href: features/process-exit.md

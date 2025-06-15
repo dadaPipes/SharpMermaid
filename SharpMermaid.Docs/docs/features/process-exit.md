@@ -1,5 +1,5 @@
 ---
-uid: cross-features.process-exit
+uid: features.process-exit
 title: process exit
 ---
 
