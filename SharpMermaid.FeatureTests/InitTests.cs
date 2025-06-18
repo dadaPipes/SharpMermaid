@@ -1,15 +1,25 @@
 ﻿using DotNet.Testcontainers.Builders;
+using SharpMermaid.FeatureTests.Helpers;
+using System.Text;
 
 namespace SharpMermaid.FeatureTests;
 
+/// <summary>
+/// Feature tests for the `dotnet sharpmermaid init` command.
+/// Each test spins up a CLI container using Testcontainers to verify expected behavior
+/// in realistic isolated environments.
+/// </summary>
 public class InitTests(ITestOutputHelper outputHelper)
 {
     readonly ITestOutputHelper _outputHelper = outputHelper;
 
     [Fact(DisplayName = "Scenario: Display success message after sharpmermaidconfig.json creation")]
+    [Trait("Feature", "Init")]
     public async Task Should_Display_Success_Message_And_Exit_0_When_Config_Created()
     {
-        // Arrange
+        // Given the developer is in a writable working directory  
+        // And no sharpmermaidconfig.json exists in that directory
+        // When they run: dotnet sharpmermaid init
         var container = new ContainerBuilder()
             .WithImage("sharpmermaidcli")
             .WithCommand("init")
@@ -21,91 +31,116 @@ public class InitTests(ITestOutputHelper outputHelper)
 
         await container.StartAsync(TestContext.Current.CancellationToken);
 
-        try
-        {
-            // Act
-            var (Stdout, _) = await container.GetLogsAsync(ct: TestContext.Current.CancellationToken);
-            var exitCode = await container.GetExitCodeAsync(TestContext.Current.CancellationToken);
 
-            _outputHelper.WriteLine($"Stdout: {Stdout}");
-            _outputHelper.WriteLine($"Exit-code: {exitCode}");
+        // Then the console must display: "Created new file 'sharpmermaidconfig.json' at the working directory"
+        var (actualOutput, _) = await container.GetLogsAsync(ct: TestContext.Current.CancellationToken);
+        const string expectedOutput = "Created new file 'sharpmermaidconfig.json' at '/app'";
 
-            // Assert
-            Assert.Equal(0, exitCode);
-            Assert.Contains("Hello from init", Stdout);
-        }
-        finally
-        {
-            // Ensure the container is stopped, even if an assertion or exception occurs.
-            await container.StopAsync(TestContext.Current.CancellationToken);
-        }
+        _outputHelper.WriteLine($"Expected console output: {expectedOutput}");
+        _outputHelper.WriteLine($"Actual console output: {actualOutput}");
+
+        Assert.Contains(expectedOutput, actualOutput);
+
+        // And exit with code 0
+        var exitCode = await container.GetExitCodeAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(0, exitCode);
     }
 
-    /*
     [Fact(DisplayName = "Scenario: Create default sharpmermaidconfig.json")]
-    public void Should_Create_default_sharpmermaidconfig()
+    [Trait("Feature", "Init")]
+    public async Task Should_Create_default_sharpmermaidconfig()
     {
-        // Given the Developers working directory is {cwd}
-        using var cwd = new TempDirectory();
-        Directory.SetCurrentDirectory(cwd.Path);
+        // Given the developer is in a writable working directory  
+        // And no sharpmermaidconfig.json exists in that directory
+        // When they run: dotnet sharpmermaid init
+        var container = new ContainerBuilder()
+            .WithImage("sharpmermaidcli")
+            .WithCommand("init")
+            .WithWaitStrategy(
+                Wait
+                .ForUnixContainer()
+                .AddCustomWaitStrategy(new WaitUntilProcessExits()))
+            .Build();
 
-        // And no sharpmermaidconfig.json exists in {cwd}
-        var configPath = Path.Combine(cwd.Path, "sharpmermaidconfig.json");
-        Assert.False(File.Exists(configPath));
+        await container.StartAsync(TestContext.Current.CancellationToken);
 
-        // When the Developer runs: dotnet sharpmermaid init
-        var app = new CommandAppTester();
-        app.SetDefaultCommand<InitCommand>();
+        // Then a file named sharpmermaidconfig.json must exist in the working directory
+        var fileBytes = await container.ReadFileAsync("/app/sharpmermaidconfig.json", TestContext.Current.CancellationToken);
+        Assert.NotNull(fileBytes);
+        Assert.NotEmpty(fileBytes);
 
-        app.Run();
+        // And its content must match the default sharpmermaidconfig.json:
+        var fileContent = Encoding.UTF8.GetString(fileBytes);
 
-        // Then a file named sharpmermaidconfig.json must exist in {cwd}
-        Assert.True(File.Exists(configPath));
+        const string expectedJson = """
+            {
+                "SolutionPath": "./TestSolution.sln",
+                "OutputDirectory": "./Diagrams",
+                "FileType": ".mmd",
+                "Diagrams": [
+                {
+                    "PhysicalProject": {
+                    "OutputDirectory": "./Override/Diagrams",
+                    "FileName": "PhysicalDiagram",
+                    "FileType": ".mmd",
+                    "TopLevelPublicTypes": true,
+                    "ClassDiagramLinks": true,
+                    "BaseUrl": "https://example.com/"
+                    }
+                }
+                ]
+            }
+            """;
 
-        // And its content must match the default sharpmermaidconfig.json:    
-        var expected = sharpmermaidconfig;
-        var actual = File.ReadAllText(configPath);
-        
-        _output.WriteLine("Expected:\n" + expected);
-        _output.WriteLine("Actual:\n" + actual);
+        _outputHelper.WriteLine($"Expected sharpmermaid.json: {Normalize(expectedJson)}");
+        _outputHelper.WriteLine($"Actual sharpmermaid.json: {Normalize(fileContent)}");
 
-        static string NormalizeLineEndings(string text) => text.Replace("\r\n", "\n").Trim();
+        Assert.Equal(Normalize(expectedJson), Normalize(fileContent));
 
-        Assert.Equal(
-        NormalizeLineEndings(expected),
-        NormalizeLineEndings(actual)
-        );
+        static string Normalize(string s) => s.Replace("\r\n", "\n").Trim();
     }
-    */
-    /*
+
+    /// <summary>
+    /// The Resources/sharpmermaidconfig.json file is included in the test project and copied to the output directory during build,
+    /// as configured in the SharpMermaid.FeatureTests.csproj file.
+    /// This allows the test to reference the file by relative path when using
+    /// <see cref="ContainerBuilder.WithResourceMapping(FileInfo, string)"/> to map it into the container.
+    /// </summary>
     [Fact(DisplayName = "Scenario: Display error message if sharpmermaidconfig.json already exists")]
-    public void Should_Display_Error_And_Exit_76_When_Config_Already_Exists()
+    [Trait("Feature", "Init")]
+    public async Task Should_Display_Error_And_Exit_76_When_Config_Already_Exists()
     {
-        // Given the Developers working directory is {cwd}
-        using var cwd = new TempDirectory();
-        Directory.SetCurrentDirectory(cwd.Path);
+        // Given the developer is in a writable working directory  
+        // And a sharpmermaidconfig.json already exists in that directory
+        // When they run: dotnet sharpmermaid init
 
-        // And a file named sharpmermaidconfig.json already exists in { cwd}
-        var configPath = Path.Combine(cwd.Path, "sharpmermaidconfig.json");
-        File.WriteAllText(configPath, "existing content");
+        var container = new ContainerBuilder()
+            .WithImage("sharpmermaidcli")
+            .WithCommand("init")
+            .WithResourceMapping(new FileInfo("Resources/sharpmermaidconfig.json"), "app/")
+            .WithWaitStrategy(
+                Wait
+                .ForUnixContainer()
+                .AddCustomWaitStrategy(new WaitUntilProcessExits()))
+            .Build();
 
-        // When the Developer runs: dotnet sharpmermaid init
-        var app = new CommandAppTester();
-        app.SetDefaultCommand<InitCommand>();
-
-        var result = app.Run();
+        await container.StartAsync(TestContext.Current.CancellationToken);
 
         // Then the system must display: "Error: A 'sharpmermaidconfig.json' file already exists at '{cwd}/sharpmermaidconfig.json'"
-        var expected = $"Error: A 'sharpmermaidconfig.json' file already exists at '{cwd.Path}'";
-        var actual = result.Output;
+        var (rawOutput, _) = await container.GetLogsAsync(ct: TestContext.Current.CancellationToken);
+        var actual = TestOutputNormalizer.NormalizeContainerOutput(rawOutput);
 
-        _output.WriteLine("Expected:\n" + expected);
-        _output.WriteLine("Actual:\n" + actual);
+        const string expectedOutput = "Error: A 'sharpmermaidconfig.json' file already exists at '/app/sharpmermaidconfig.json'";
 
-        Assert.Equal(expected, actual);
+        _outputHelper.WriteLine($"Expected console output: {expectedOutput}");
+        _outputHelper.WriteLine($"Actual console output: {actual}");
+
+        Assert.Contains(expectedOutput, actual);
 
         // And exit with code 73
-        Assert.Equal(73, result.ExitCode);
+        var exitCode = await container.GetExitCodeAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(73, exitCode);
     }
-    */
 }

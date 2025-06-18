@@ -19,7 +19,7 @@ dotnet sharpmermaid generate
 
 ## Dependencies
 
-<xref:features.validate-mermaidconfig>
+<xref:features.validate-sharpmermaidconfig>
 
 ## Preconditions
 

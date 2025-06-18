@@ -1,14 +1,14 @@
 ---
-uid: mermaidconfig.root
-title: validate mermaidconfig root
+uid: sharpmermaidconfig.root
+title: validate sharpmermaidconfig root
 ---
 
-# Validate mermaidconfig root
+# Validate sharpmermaidconfig root
 
 ## Description
 
-As a Developer
-I want to validate the root of the mermaidconfig.json
+As a Developer  
+I want to validate the root of the sharpmermaidconfig.json  
 So that I can ensure basic configuration structure and types are correct before proceeding with diagram generation
 
 ## Example
@@ -98,7 +98,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides an empty SolutionPath  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': SolutionPath is required"**
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': SolutionPath is required"**
 **And** the process must exit with code 4
 
 ---
@@ -108,7 +108,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides SolutionPath "project.txt"  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': SolutionPath must point to a .sln file"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': SolutionPath must point to a .sln file"**  
 **And** the process must exit with code 4
 
 ---
@@ -118,7 +118,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides an empty OutputDirectory  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': OutputDirectory is required"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': OutputDirectory is required"**  
 **And** the process must exit with code 4
 
 ---
@@ -128,7 +128,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides OutputDirectory with an invalid path (ex: containing illegal characters)  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': OutputDirectory is not a valid directory path"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': OutputDirectory is not a valid directory path"**  
 **And** the process must exit with code 4
 
 ---
@@ -138,7 +138,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user omits the FileType property  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': FileType is required"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': FileType is required"**  
 **And** the process must exit with code 4
 
 ---
@@ -148,7 +148,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides FileType "mmd"  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': FileType must begin with a dot"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': FileType must begin with a dot"**  
 **And** the process must exit with code 4
 
 ---
@@ -158,7 +158,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides FileType ".pdf"  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': FileType must be either '.mmd' or '.md'"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': FileType must be either '.mmd' or '.md'"**  
 **And** the process must exit with code 4
 
 ---
@@ -168,7 +168,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides an empty array for Diagrams  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': Diagrams must contain at least one item"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': Diagrams must contain at least one item"**  
 **And** the process must exit with code 4
 
 ---
@@ -178,7 +178,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** a diagram entry in Diagrams contains multiple keys  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': Each diagram entry must define exactly one diagram type"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': Each diagram entry must define exactly one diagram type"**  
 **And** the process must exit with code 4
 
 ---
@@ -188,7 +188,7 @@ where the key is the diagram type and the value is its specific configuration.
 **Given** the user provides an unsupported diagram type "LogicalLayerDiagram"  
 **When** the system validates the configuration  
 **Then** the console must display:  
-**"Error: Invalid JSON in file '{`path to mermaidConfig.json`}': Unsupported diagram type 'LogicalLayerDiagram'"**  
+**"Error: Invalid JSON in file '{`path to sharpmermaidConfig.json`}': Unsupported diagram type 'LogicalLayerDiagram'"**  
 **And** the process must exit with code 4
 
 ---

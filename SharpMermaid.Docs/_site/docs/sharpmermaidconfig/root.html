@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>validate mermaidconfig root | SharpMermaid </title>
+      <title>validate sharpmermaidconfig root | SharpMermaid </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="validate mermaidconfig root | SharpMermaid ">
+      <meta name="title" content="validate sharpmermaidconfig root | SharpMermaid ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="mermaidconfig.root">
-<h1 id="validate-mermaidconfig-root">Validate mermaidconfig root</h1>
+        <article data-uid="sharpmermaidconfig.root">
+<h1 id="validate-sharpmermaidconfig-root">Validate sharpmermaidconfig root</h1>
 
 <h2 id="description">Description</h2>
-<p>As a Developer
-I want to validate the root of the mermaidconfig.json
+<p>As a Developer<br>
+I want to validate the root of the sharpmermaidconfig.json<br>
 So that I can ensure basic configuration structure and types are correct before proceeding with diagram generation</p>
 <h2 id="example">Example</h2>
 <pre><code class="lang-json">{
@@ -160,70 +160,70 @@ where the key is the diagram type and the value is its specific configuration.</
 <p><strong>Given</strong> the user provides an empty SolutionPath<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': SolutionPath is required&quot;</strong>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': SolutionPath is required&quot;</strong>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="solutionpath-does-not-end-with-sln-acceptance-test">SolutionPath does not end with .sln (Acceptance test)</h3>
 <p><strong>Given</strong> the user provides SolutionPath &quot;project.txt&quot;<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': SolutionPath must point to a .sln file&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': SolutionPath must point to a .sln file&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="outputdirectory-is-empty-acceptance-test">OutputDirectory is empty (Acceptance test)</h3>
 <p><strong>Given</strong> the user provides an empty OutputDirectory<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': OutputDirectory is required&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': OutputDirectory is required&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="outputdirectory-is-not-a-valid-path-acceptance-test">OutputDirectory is not a valid path (Acceptance test)</h3>
 <p><strong>Given</strong> the user provides OutputDirectory with an invalid path (ex: containing illegal characters)<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': OutputDirectory is not a valid directory path&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': OutputDirectory is not a valid directory path&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="filetype-is-missing-acceptance-test">FileType is missing (Acceptance test)</h3>
 <p><strong>Given</strong> the user omits the FileType property<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': FileType is required&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': FileType is required&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="filetype-does-not-start-with-a-dot-acceptance-test">FileType does not start with a dot (Acceptance test)</h3>
 <p><strong>Given</strong> the user provides FileType &quot;mmd&quot;<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': FileType must begin with a dot&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': FileType must begin with a dot&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="filetype-is-not-mmd-or-md-acceptance-test">FileType is not .mmd or .md (Acceptance test)</h3>
 <p><strong>Given</strong> the user provides FileType &quot;.pdf&quot;<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': FileType must be either '.mmd' or '.md'&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': FileType must be either '.mmd' or '.md'&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="diagrams-is-empty-acceptance-test">Diagrams is empty (Acceptance test)</h3>
 <p><strong>Given</strong> the user provides an empty array for Diagrams<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': Diagrams must contain at least one item&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': Diagrams must contain at least one item&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="diagram-entry-contains-more-than-one-property-acceptance-test">Diagram entry contains more than one property (Acceptance test)</h3>
 <p><strong>Given</strong> a diagram entry in Diagrams contains multiple keys<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': Each diagram entry must define exactly one diagram type&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': Each diagram entry must define exactly one diagram type&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 <h3 id="diagram-type-is-unsupported-acceptance-test">Diagram type is unsupported (Acceptance test)</h3>
 <p><strong>Given</strong> the user provides an unsupported diagram type &quot;LogicalLayerDiagram&quot;<br>
 <strong>When</strong> the system validates the configuration<br>
 <strong>Then</strong> the console must display:<br>
-<strong>&quot;Error: Invalid JSON in file '{<code>path to mermaidConfig.json</code>}': Unsupported diagram type 'LogicalLayerDiagram'&quot;</strong><br>
+<strong>&quot;Error: Invalid JSON in file '{<code>path to sharpmermaidConfig.json</code>}': Unsupported diagram type 'LogicalLayerDiagram'&quot;</strong><br>
 <strong>And</strong> the process must exit with code 4</p>
 <hr>
 

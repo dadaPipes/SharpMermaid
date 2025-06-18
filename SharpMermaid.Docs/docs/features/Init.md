@@ -22,10 +22,10 @@ dotnet sharpmermaid init
 
 ### Display success message after sharpmermaidconfig.json creation
 
-Given the Developers working directory is {cwd}  
-And no sharpmermaidconfig.json exists in {cwd}  
+Given the developer is in a writable working directory  
+And no sharpmermaidconfig.json exists in that directory
 
-When the Developer runs: dotnet sharpmermaid init
+When they run: dotnet sharpmermaid init
 
 Then the console must display:  
 "Created new file 'sharpmermaidconfig.json' at '{cwd}'"  
@@ -42,7 +42,7 @@ When the Developer runs: dotnet sharpmermaid init
 
 Then a file named sharpmermaidconfig.json must exist in {cwd}  
 And its content must match the [***default mermaidconfig.json***](xref:mermaidconfig.default):
-[!include[mermaidconfig.json](../../docs/mermaidconfig/default.md)]
+[!include[mermaidconfig.json](../../docs/sharpmermaidconfig/default.md)]
 
 ---
 

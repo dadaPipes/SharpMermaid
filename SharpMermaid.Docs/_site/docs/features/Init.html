@@ -113,8 +113,26 @@ And exit with code <a class="xref" href="process-exit.html#0---success">0</a></p
 And no sharpmermaidconfig.json exists in {cwd}</p>
 <p>When the Developer runs: dotnet sharpmermaid init</p>
 <p>Then a file named sharpmermaidconfig.json must exist in {cwd}<br>
-And its content must match the <a class="xref" href="../sharpmermaidconfig/default.html"><em><strong>default mermaidconfig.json</strong></em></a>:</p>
-[!include[mermaidconfig.json](../../docs/mermaidconfig/default.md)]<hr>
+And its content must match the <a href="xref:mermaidconfig.default"><em><strong>default mermaidconfig.json</strong></em></a>:</p>
+<pre><code class="lang-json">{
+  &quot;SolutionPath&quot;: &quot;./TestSolution.sln&quot;,
+  &quot;OutputDirectory&quot;: &quot;./Diagrams&quot;,
+  &quot;FileType&quot;: &quot;.mmd&quot;,
+  &quot;Diagrams&quot;: [
+   {
+     &quot;PhysicalProject&quot;: {
+        &quot;OutputDirectory&quot;: &quot;./Override/Diagrams&quot;,
+        &quot;FileName&quot;: &quot;PhysicalDiagram&quot;,
+        &quot;FileType&quot;: &quot;.mmd&quot;,
+        &quot;TopLevelPublicTypes&quot;: true,
+        &quot;ClassDiagramLinks&quot;: true,
+        &quot;BaseUrl&quot;: &quot;https://example.com/&quot;
+     }
+   }
+  ]
+}
+</code></pre>
+<hr>
 <h3 id="display-error-message-if-sharpmermaidconfigjson-already-exists">Display error message if sharpmermaidconfig.json already exists</h3>
 <p>Given the Developers working directory is {cwd}<br>
 And a file named sharpmermaidconfig.json already exists in {cwd}</p>

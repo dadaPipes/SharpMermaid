@@ -1,6 +1,6 @@
 ---
-uid: mermaidconfig.default
-title: default mermaidconfig.json
+uid: sharpmermaidconfig.default
+title: default sharpmermaidconfig.json
 ---
 
 ```json

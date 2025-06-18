@@ -10,12 +10,12 @@ references:
 - uid: features.validate-mermaidconfig
   name: validate mermaidconfig.json
   href: docs/features/validate-sharpmermaidconfig.html
-- uid: mermaidconfig.default
-  name: default mermaidconfig.json
+- uid: sharpmermaidconfig.default
+  name: default sharpmermaidconfig.json
   href: docs/sharpmermaidconfig/default.html
-- uid: mermaidconfig.root
-  name: validate mermaidconfig root
-  href: docs/sharpmermaidconfig/root.html
 - uid: sharpmermaidconfig.physicalProjectDiagram
   name: sharpmermaidconfig PhysicalProjectDiagram
   href: docs/sharpmermaidconfig/physical-project.html
+- uid: sharpmermaidconfig.root
+  name: validate sharpmermaidconfig root
+  href: docs/sharpmermaidconfig/root.html

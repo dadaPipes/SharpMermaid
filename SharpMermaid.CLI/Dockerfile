@@ -2,8 +2,16 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/runtime:9.0 AS base
-USER $APP_UID
+
+# Create a non-root user and group
+RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+
+# Set workdir and change ownership of it
 WORKDIR /app
+RUN chown -R appuser:appgroup /app
+
+# Switch to the non-root user
+USER appuser
 
 
 # This stage is used to build the service project
